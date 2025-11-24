@@ -11,6 +11,7 @@
 - **index.qmd**: You can write your contents in this file for each folder (sub-pages). (index.md can be also used)
 - **_quarto.yml**: You can adjust the website design within **Quarto**
     - I used the **Quarto** template (Not jekyll)
+- **.github/workflows/deploy-quarto.yml**: Use this file for **Actions**
 
 
 ### How to build: Use GitHub Actions

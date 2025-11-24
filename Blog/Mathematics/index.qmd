@@ -1,0 +1,10 @@
+---
+title: "Mathematics"
+listing:
+    contents: ./
+    type: default
+---
+
+# Mathematics Category
+
+This is the list of mathematics-related posts.

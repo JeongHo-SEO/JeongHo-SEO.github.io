@@ -1,4 +1,4 @@
-name: Deploy Quarto Site
+name: Quarto Publish
 
 on:
   push:

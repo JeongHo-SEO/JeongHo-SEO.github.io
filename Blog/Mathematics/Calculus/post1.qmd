@@ -1,3 +1,10 @@
+title: "$\int \frac{1}{a+\cos\theta}dx,\ \int \frac{1}{a+\sin\theta}dx$"
+author: "Pho"
+
+date: 2025-11-24                       # Written Date
+last-modified: now                     # Last modified Date
+last-modified-text: "Last Updated: "   # (Optional) Text in front of the last-modified-date
+
 $$
 \int \frac{1}{a+\cos\theta}dx,\ \int \frac{1}{a+\sin\theta}dx
 $$
@@ -21,3 +28,4 @@ $$
 $$
 \int \frac{1}{a+\sin\theta}d\theta = \int \frac{1}{a+\cos\theta'}d\theta'\\ = \frac{2}{a+1}\left[\tan\frac{\theta'}{2}- \sqrt{\frac{a-1}{a+1}}\arctan\frac{\tan\frac{\theta'}{2}}{\sqrt{\frac{a-1}{a+1}}} \right]+C \\ = \frac{2}{a+1}\left[\tan\frac{2\theta-\pi}{4}- \sqrt{\frac{a-1}{a+1}}\arctan\frac{\tan\frac{2\theta-\pi}{4}}{\sqrt{\frac{a-1}{a+1}}} \right]+C
 $$
+

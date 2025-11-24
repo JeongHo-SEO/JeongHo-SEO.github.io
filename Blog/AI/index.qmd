@@ -1,0 +1,10 @@
+---
+title: "AI"
+listing:
+    contents: ./
+    type: default
+---
+
+# AI Category
+
+This is the list of AI-related posts.

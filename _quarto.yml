@@ -3,6 +3,7 @@
 
 project:
     type: website                            # Modify Here (default, website, blog, manuscript, book, confluence)
+    output-dir: _site
 
 render:
     # index (contents)

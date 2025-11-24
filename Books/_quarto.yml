@@ -1,0 +1,27 @@
+# Quarto Website Design
+# READ Here: https://quarto.org/docs/projects/quarto-projects.html
+
+project:
+    type: website
+
+website:
+    title: "Published Books"
+    
+    # Navigation Bar
+    navbar:
+        left:
+            # Above buttons in the Left
+        right:
+            # Above buttons in the Right
+            - icon: github
+            href: https://github.com/JeongHo-SEO/
+
+listing:
+    contents: ./                     # Every contents in this folder
+    type: grid
+
+
+format:
+    html:
+        theme: journal
+        toc: true

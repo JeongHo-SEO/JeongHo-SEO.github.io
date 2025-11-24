@@ -12,6 +12,8 @@
 - **_quarto.yml**: You can adjust the website design within **Quarto** in this file for each folder (sub-pages).
     - I used the **Quarto** template (Not jekyll)
     - You can choose the Theme in [Bootswatch](https://bootswatch.com/)
+    - Read my _quarto.yml in the root directory for understanding.
+
 - **.github/workflows/deploy-quarto.yml**: Use this file for **Actions**
 
 

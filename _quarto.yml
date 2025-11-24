@@ -6,16 +6,6 @@ project:
     output-dir: _site
 
 render:
-    # index (contents)
-    - "*.qmd"                                # index.qmd
-    - "*.md"                                 # index.md
-
-    # Rendering folders
-    - "Curriculum-Vitae/*"
-    - "Papers/*"
-    - "Books/*"
-    - "Blog/*"
-
     # Not Rendered files and folders
     - "!README.md"                            # README.md
     - "!*/README.md"                          # subfolders' README.md

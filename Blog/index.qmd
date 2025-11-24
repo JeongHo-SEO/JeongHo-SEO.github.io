@@ -4,7 +4,6 @@ Currently, I use this NaverBlog. Later, I will divide into two parts: Academic t
 
 
 # Blog Categories
-
+- [Statistics](Statistics/)
 - [AI](AI/)
 - [Mathematics](Mathematics/)
-- [Statistics](Statistics/)

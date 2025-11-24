@@ -30,7 +30,7 @@ blog:
 
 website:
     title: "Pho's Notes"
-    site-url: Blog/                   # CSS/JS 경로 오류 해결
+    site-url: /Blog/                   # CSS/JS 경로 오류 해결
     
     # Navigation Bar
     navbar:

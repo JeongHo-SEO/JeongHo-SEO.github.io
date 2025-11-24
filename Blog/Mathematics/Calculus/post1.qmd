@@ -2,31 +2,47 @@
 title: "삼각함수의 유리함수 적분"
 date: "2025-11-24"
 last-modified: true
-description: "1/(상수+삼각함수) 적분"
+description: "1/(a+sinx), 1/(a+cosx) 적분"
 ---
+
+### Question.
+- $\int \frac{1}{a+\cos\theta}d\theta$
+- $\int \frac{1}{a+\sin\theta}d\theta$
+
+### IDEA: 반각치환 (바이어-슈트라스 치환)
+
+- We can take $\x=\tan\frac{\theta}{2}$ so that $dx=\frac{1}{2}\sec^2\frac{\theta}{2}d\theta$. Then we get
+    - $\cos\frac{\theta}{2}=\frac{x}{\sqrt{x^2+1}}$
+    - $\sin\frac{\theta}{2}=\frac{1}{\sqrt{x^2+1}}$
+
+- Applying 반각공식, we can change $\theta$ into $\frac{\theta}{2}$, then Use 반각치환.
+- If $\sin\theta$, Use 평행이동 $\theta = \theta-\frac{\pi}{2}$
+
+As a result, without loss of generality, we need to solve the $\int \frac{1}{a+\cos\theta}d\theta$.:
 $$
-\int \frac{1}{a+\cos\x}dx,\ \int \frac{1}{a+\sin\x}dx
+\int \frac{1}{a+\cos\theta}d\theta
+= \int\frac{1}{(a-1)+2\cos^2\frac{\theta}{2}}d\theta
+
+\\ = \int\frac{1}{(a-1)+2\frac{x^2}{x^2+1}}\times2\frac{x^2}{x^2+1}dx
+= 2\int\frac{x^2}{(a-1)(x^2+1)+2x^2}dx=2\int\frac{x^2}{(a+1)x^2+(a-1)}dx
+= \frac{2}{a+1}\int\frac{x^2}{x^2+\frac{a-1}{a+1}}dx
+
+\\ = \frac{2}{a+1}\int\left[1-\frac{a-1}{a+1}\frac{1}{x^2+\frac{a-1}{a+1}}\right]dx
+
+\\ =\frac{2}{a+1}\left[x- \sqrt{\frac{a-1}{a+1}}\arctan\frac{x}{\sqrt{\frac{a-1}{a+1}}} \right]+C
+= \frac{2}{a+1}\left[\tan\frac{\theta}{2}- \sqrt{\frac{a-1}{a+1}}\arctan\frac{\tan\frac{\theta}{2}}{\sqrt{\frac{a-1}{a+1}}} \right]+C
 $$
 
-**Proof.**
-
-반각치환 (바이어-슈트라스 치환)을 사용한다.
-
+Moreover, we can solve the $\int \frac{1}{a+\sin\theta}d\theta$ from above result.:
 $$
-Let\ x=\tan\frac{\theta}{2}\rightarrow dx=\frac{1}{2}\sec^2\frac{\theta}{2}d\theta \\ then\ \cos\frac{\theta}{2}=\frac{x}{\sqrt{x^2+1}}, \ \sin\frac{\theta}{2}=\frac{1}{\sqrt{x^2+1}}
-$$
+\int \frac{1}{a+\sin\theta}d\theta
+= \int \frac{1}{a+\cos\theta'}d\theta'
 
-$\cos$을 반각공식을 통해 $\theta\rightarrow\frac{\theta}{2}$ 로 바꾼 뒤, 반각치환을 사용한다.
-$\sin$의 경우 $\cos$에서 평행이동을 통해 구할 수 있다. $\theta'=\theta-\frac{\pi}{2}$
+\\ = \frac{2}{a+1}\left[\tan\frac{\theta'}{2}- \sqrt{\frac{a-1}{a+1}}\arctan\frac{\tan\frac{\theta'}{2}}{\sqrt{\frac{a-1}{a+1}}} \right]+C
 
-$$
-\int \frac{1}{a+\cos\theta}d\theta=\int\frac{1}{(a-1)+2\cos^2\frac{\theta}{2}}d\theta=\int\frac{1}{(a-1)+2\frac{x^2}{x^2+1}}\times2\frac{x^2}{x^2+1}dx \\ =2\int\frac{x^2}{(a-1)(x^2+1)+2x^2}dx=2\int\frac{x^2}{(a+1)x^2+(a-1)}dx\\ =\frac{2}{a+1}\int\frac{x^2}{x^2+\frac{a-1}{a+1}}dx=\frac{2}{a+1}\int
-\left[1-\frac{a-1}{a+1}\frac{1}{x^2+\frac{a-1}{a+1}}\right]dx\\ =\frac{2}{a+1}\left[x- \sqrt{\frac{a-1}{a+1}}\arctan\frac{x}{\sqrt{\frac{a-1}{a+1}}} \right]+C\\ =\frac{2}{a+1}\left[\tan\frac{\theta}{2}- \sqrt{\frac{a-1}{a+1}}\arctan\frac{\tan\frac{\theta}{2}}{\sqrt{\frac{a-1}{a+1}}} \right]+C
+\\ = \frac{2}{a+1}\left[\tan\frac{2\theta-\pi}{4}- \sqrt{\frac{a-1}{a+1}}\arctan\frac{\tan\frac{2\theta-\pi}{4}}{\sqrt{\frac{a-1}{a+1}}} \right]+C
 $$
 
-$$
-\int \frac{1}{a+\sin\theta}d\theta = \int \frac{1}{a+\cos\theta'}d\theta'\\ = \frac{2}{a+1}\left[\tan\frac{\theta'}{2}- \sqrt{\frac{a-1}{a+1}}\arctan\frac{\tan\frac{\theta'}{2}}{\sqrt{\frac{a-1}{a+1}}} \right]+C \\ = \frac{2}{a+1}\left[\tan\frac{2\theta-\pi}{4}- \sqrt{\frac{a-1}{a+1}}\arctan\frac{\tan\frac{2\theta-\pi}{4}}{\sqrt{\frac{a-1}{a+1}}} \right]+C
-$$
 
 
 

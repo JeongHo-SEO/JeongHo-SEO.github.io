@@ -1,0 +1,10 @@
+---
+title: "Statistics"
+listing:
+    contents: ./
+    type: default
+---
+
+# Statistics Category
+
+This is the list of Statistics-related posts.

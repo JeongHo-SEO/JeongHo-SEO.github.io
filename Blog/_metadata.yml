@@ -1,36 +1,22 @@
-# Quarto Website Design
+# quarto.yml OverRide
 # READ Here: https://quarto.org/docs/projects/quarto-projects.html
-
-project:
-    type: blog
-    output-dir: .                      # 결과물을 Blog 폴더에 생성
-
-render:
-    # index (contents)
-    - "*.qmd"
-    - "*.md"
-
-    # Not Rendered files and folders
-    - "!README.md"
-    - "!*/README.md"
-    - "!Private/*"
 
 blog:
     title: "Pho's Notes"
-    post-date-format: MMMM DD, YYYY
+    post-date-format: "MMMM DD, YYYY"
 
-    # Categories
+    # Category folders (subsections)
     sections:
-        - title: Statistics
-          path: Statistics/
-        - title: AI
-          path: AI/
-        - title: Mathematics
-          path: Mathematics/
+        - title: "Statistics"
+          path: "Statistics/"
+        - title: "AI"
+          path: "AI/"
+        - title: "Mathematics"
+          path: "Mathematics/"
 
 website:
     title: "Pho's Notes"
-    site-url: /Blog/                   # CSS/JS 경로 오류 해결
+    site-url: "/Blog/"
     
     # Navigation Bar
     navbar:

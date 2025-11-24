@@ -7,7 +7,7 @@
 
 ---
 title: "제목"
-date: "2025-11-24"        # Modify
+date: "2025-11-24"        # Current Date
 last-modified: true
 description: "간단한 설명"
 ---

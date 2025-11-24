@@ -4,24 +4,3 @@
 title-block-banner: true
 date-format: "MMMM DD, YYYY"
 freeze: true
-
-website:
-    sidebar:
-        id: "blog-navigation"
-        title: "Pho's Notes"
-        style: "docked"
-        background: "light"
-        contents:
-            - text: "All"
-              href: index.qmd
-            - text: "Statistics"
-              href: Statistics/index.qmd
-            - text: "AI"
-              href: AI/index.qmd
-            - text: "Mathematics"
-              href: Mathematics/index.qmd
-
-format:
-    html:
-        theme: journal
-        toc: true

@@ -6,7 +6,6 @@
 3. Books              # Personally Published 
 4. Blog               # Academic Topics
 5. Private            # NO Rendering, Do not include in the website
-
 ---
 
 ### How to Design

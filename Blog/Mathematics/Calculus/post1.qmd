@@ -1,0 +1,23 @@
+$$
+\int \frac{1}{a+\cos\theta}dx,\ \int \frac{1}{a+\sin\theta}dx
+$$
+
+**Proof.**
+
+반각치환 (바이어-슈트라스 치환)을 사용한다.
+
+$$
+Let\ x=\tan\frac{\theta}{2}\rightarrow dx=\frac{1}{2}\sec^2\frac{\theta}{2}d\theta \\ then\ \cos\frac{\theta}{2}=\frac{x}{\sqrt{x^2+1}}, \ \sin\frac{\theta}{2}=\frac{1}{\sqrt{x^2+1}}
+$$
+
+$\cos$을 반각공식을 통해 $\theta\rightarrow\frac{\theta}{2}$ 로 바꾼 뒤, 반각치환을 사용한다.
+$\sin$의 경우 $\cos$에서 평행이동을 통해 구할 수 있다. $\theta'=\theta-\frac{\pi}{2}$
+
+$$
+\int \frac{1}{a+\cos\theta}d\theta=\int\frac{1}{(a-1)+2\cos^2\frac{\theta}{2}}d\theta=\int\frac{1}{(a-1)+2\frac{x^2}{x^2+1}}\times2\frac{x^2}{x^2+1}dx \\ =2\int\frac{x^2}{(a-1)(x^2+1)+2x^2}dx=2\int\frac{x^2}{(a+1)x^2+(a-1)}dx\\ =\frac{2}{a+1}\int\frac{x^2}{x^2+\frac{a-1}{a+1}}dx=\frac{2}{a+1}\int
+\left[1-\frac{a-1}{a+1}\frac{1}{x^2+\frac{a-1}{a+1}}\right]dx\\ =\frac{2}{a+1}\left[x- \sqrt{\frac{a-1}{a+1}}\arctan\frac{x}{\sqrt{\frac{a-1}{a+1}}} \right]+C\\ =\frac{2}{a+1}\left[\tan\frac{\theta}{2}- \sqrt{\frac{a-1}{a+1}}\arctan\frac{\tan\frac{\theta}{2}}{\sqrt{\frac{a-1}{a+1}}} \right]+C
+$$
+
+$$
+\int \frac{1}{a+\sin\theta}d\theta = \int \frac{1}{a+\cos\theta'}d\theta'\\ = \frac{2}{a+1}\left[\tan\frac{\theta'}{2}- \sqrt{\frac{a-1}{a+1}}\arctan\frac{\tan\frac{\theta'}{2}}{\sqrt{\frac{a-1}{a+1}}} \right]+C \\ = \frac{2}{a+1}\left[\tan\frac{2\theta-\pi}{4}- \sqrt{\frac{a-1}{a+1}}\arctan\frac{\tan\frac{2\theta-\pi}{4}}{\sqrt{\frac{a-1}{a+1}}} \right]+C
+$$

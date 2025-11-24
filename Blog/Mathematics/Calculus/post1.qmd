@@ -12,14 +12,16 @@ description: "1/(a+sinx), 1/(a+cosx) 적분"
 ### IDEA
 > 반각치환 (바이어-슈트라스 치환) 을 사용하자.
 
-- We can take $\x=\tan\frac{\theta}{2}$ so that $dx=\frac{1}{2}\sec^2\frac{\theta}{2}d\theta$. Then we get
+- We can take $x=\tan\frac{\theta}{2} \rightarrow dx=\frac{1}{2}\sec^2\frac{\theta}{2}d\theta$. Then we get
     - $\cos\frac{\theta}{2}=\frac{x}{\sqrt{x^2+1}}$
     - $\sin\frac{\theta}{2}=\frac{1}{\sqrt{x^2+1}}$
 
 - 반각공식을 사용하면, $\cos$에 대하여 $\theta$를 $\frac{\theta}{2}$로 변환할 수 있으므로, 이후 반각치환을 사용한다.
 - $\sin$의 경우, 평행이동을 사용한다. $\theta = \theta-\frac{\pi}{2}$
 
+
 As a result, without loss of generality, we need to solve the $\int \frac{1}{a+\cos\theta}d\theta$.:
+
 $$
 \int \frac{1}{a+\cos\theta}d\theta
 = \int\frac{1}{(a-1)+2\cos^2\frac{\theta}{2}}d\theta
@@ -35,6 +37,7 @@ $$
 $$
 
 Moreover, we can solve the $\int \frac{1}{a+\sin\theta}d\theta$ from above result.:
+
 $$
 \int \frac{1}{a+\sin\theta}d\theta
 = \int \frac{1}{a+\cos\theta'}d\theta'
@@ -43,6 +46,7 @@ $$
 
 \\ = \frac{2}{a+1}\left[\tan\frac{2\theta-\pi}{4}- \sqrt{\frac{a-1}{a+1}}\arctan\frac{\tan\frac{2\theta-\pi}{4}}{\sqrt{\frac{a-1}{a+1}}} \right]+C
 $$
+
 
 
 

@@ -6,12 +6,10 @@
 <!--
 
 ---
-title: "Post Title
-author: "Pho"
-
-date: 2025-11-24                       # Written Date
-last-modified: now                     # Last modified Date
-last-modified-text: "Last Updated: "   # (Optional) Text in front of the last-modified-date
+title: "제목"
+date: "2025-11-24"        # Modify
+last-modified: true
+description: "간단한 설명"
 ---
 
 // Post Contents

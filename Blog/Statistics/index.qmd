@@ -11,7 +11,3 @@ listing:
 page-layout: full
 title-block-banner: true
 ---
-
-# Statistics Category
-
-This is the list of Statistics-related posts.

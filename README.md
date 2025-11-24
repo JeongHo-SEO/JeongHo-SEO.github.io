@@ -16,7 +16,7 @@
     - Read my _quarto.yml in the root directory for understanding.
 - If you want to **change the design in your sub-website**, you have to create a **_metadata.yml** file in the sub-folder.(OverRide the _quarto.yml)
     - theme, format, navbar...
-    - ***Caution***: You Do Not Create deep sub-folders. Only one sub-folder is admitted.
+    - ***Caution***: You Do Not Create several *_metadata.yml* in your deep sub-folders. Only one sub-folder is admitted.
         ```
          ├─ _quarto.yml
          ├─ index.qmd

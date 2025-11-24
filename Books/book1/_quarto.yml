@@ -1,0 +1,10 @@
+project:
+    type: book
+
+book:
+    title: "book1"
+    # chapters: [intro.qmd, part1.qmd, ...]
+  
+format:
+    html:
+    theme: journal

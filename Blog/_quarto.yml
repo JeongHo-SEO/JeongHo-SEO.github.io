@@ -3,6 +3,7 @@
 
 project:
     type: blog
+    output-dir: .                      # 결과물을 Blog 폴더에 생성
 
 render:
     # index (contents)
@@ -29,6 +30,7 @@ blog:
 
 website:
     title: "Pho's Notes"
+    site-url: Blog/                   # CSS/JS 경로 오류 해결
     
     # Navigation Bar
     navbar:

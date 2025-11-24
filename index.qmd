@@ -8,18 +8,11 @@ format: html
 
 This site contains:
 
-### My CV
-- [My CV](cv/)
+### Curriculum-Vitae
+- [CV](Curriculum-Vitae/)
 - 
-### 📘 Books
-- [Statistics Books](books/)
-- [Machine Learning Books](books/)
-(Click the *Books* tab above)
+### Books
+- [Books](Books/)
 
-### 📝 Blog
-- [Blog Home](blogs/)
-
-### 📄 CV
-- [My CV](cv/)
-
-Feel free to explore the materials.
+### Blog
+- [Blog](Blog/)

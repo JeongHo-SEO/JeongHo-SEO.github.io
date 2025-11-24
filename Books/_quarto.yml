@@ -14,7 +14,7 @@ website:
         right:
             # Above buttons in the Right
             - icon: github
-            href: https://github.com/JeongHo-SEO/
+              href: https://github.com/JeongHo-SEO/
 
 listing:
     contents: ./                     # Every contents in this folder

@@ -1,0 +1,79 @@
+[
+  {
+    "objectID": "Blog/index.html",
+    "href": "Blog/index.html",
+    "title": "Blog Categories",
+    "section": "",
+    "text": "My Blog for several academic topics.\nCurrently, I use this NaverBlog. Later, I will divide into two parts: Academic topics [in github blog] and Daily topics [in Naver blog].\n\nBlog Categories\n\nAI\nMathematics\nStatistics"
+  },
+  {
+    "objectID": "Books/book1/index.html",
+    "href": "Books/book1/index.html",
+    "title": "book1",
+    "section": "",
+    "text": "This is the beginning of your Bayesian statistics book.\nYou can add: - chapters\n- equations\n- plots\n- code blocks"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "JeongHo SEO",
+    "section": "",
+    "text": "Welcome to My Personal Website. I will modify later this sites.\n\nMy Curriculum-Vitae:\n\nCV\n\n\n\nPapers which I published:\n\nPapers\n\n\n\nBooks which I wrote before:\n\nBooks\n\n\n\nMy Blog for academic contents:\n\nBlog"
+  },
+  {
+    "objectID": "Books/index.html",
+    "href": "Books/index.html",
+    "title": "JeongHo SEO",
+    "section": "",
+    "text": "This Website display my personally written books.\n\nList and Short Description\n\nbook1\n\nDescription 1\n\nbook2\n\nDescription 2"
+  },
+  {
+    "objectID": "Curriculum-Vitae/index.html",
+    "href": "Curriculum-Vitae/index.html",
+    "title": "Curriculum Vitae",
+    "section": "",
+    "text": "Download CV (PDF):\nDownload PDF\n\n\n\nStatistics\nMachine Learning\nCausal Recommendation\n\n\n\n\n\nARC-Rec\nPropCare Reproduction\n\n\n\n\n\nDGIST Computational Statistics & CS\nGrenoble INP — M1 AM\n\n… Need to edited"
+  },
+  {
+    "objectID": "Curriculum-Vitae/index.html#research-interests",
+    "href": "Curriculum-Vitae/index.html#research-interests",
+    "title": "Curriculum Vitae",
+    "section": "",
+    "text": "Statistics\nMachine Learning\nCausal Recommendation"
+  },
+  {
+    "objectID": "Curriculum-Vitae/index.html#projects",
+    "href": "Curriculum-Vitae/index.html#projects",
+    "title": "Curriculum Vitae",
+    "section": "",
+    "text": "ARC-Rec\nPropCare Reproduction"
+  },
+  {
+    "objectID": "Curriculum-Vitae/index.html#education",
+    "href": "Curriculum-Vitae/index.html#education",
+    "title": "Curriculum Vitae",
+    "section": "",
+    "text": "DGIST Computational Statistics & CS\nGrenoble INP — M1 AM\n\n… Need to edited"
+  },
+  {
+    "objectID": "Curriculum-Vitae/Brief-Info/index.html",
+    "href": "Curriculum-Vitae/Brief-Info/index.html",
+    "title": "JeongHo SEO",
+    "section": "",
+    "text": "Educated & Worked\n\n2020.02-2026.01: B.Sc. in Computational Statistics and Computer Science, DGIST\n2025.01: Research Internship at the Intelligent Bio-Opto Mechatronics Lab (IBOM Lab), supervised by Prof. Cheol Song\n2025.07: Research Internship at the Data Science Lab (DS Lab), supervised by Prof. Sang-Chul Lee\n\n\n\nLanguage\n\nTOEIC: 835\nTOEFL: 82 or 88\n\n\n\nCertificates\n\nAdvanced Data Analytics Semi-Professional (ADsP)"
+  },
+  {
+    "objectID": "Blog/AI/Recommendation System/post1.html",
+    "href": "Blog/AI/Recommendation System/post1.html",
+    "title": "My First ML Blog Post",
+    "section": "",
+    "text": "First Machine Learning Post\nWrite anything here.\n\nequations: \\(E[x] = \\mu\\)\ncode: print(“hello ML”)"
+  },
+  {
+    "objectID": "Papers/index.html",
+    "href": "Papers/index.html",
+    "title": "JeongHo SEO",
+    "section": "",
+    "text": "Papers which I published:"
+  }
+]

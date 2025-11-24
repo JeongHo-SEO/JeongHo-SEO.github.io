@@ -1,7 +1,6 @@
 ---
 title: "삼각함수의 유리식 적분"
 date: "2025-11-24"
-last-modified: true
 description: "1/(a+sinx), 1/(a+cosx) 적분"
 ---
 
@@ -46,6 +45,7 @@ $$
 &= \frac{2}{a+1}\left[\tan\frac{2\theta-\pi}{4}- \sqrt{\frac{a-1}{a+1}}\arctan\frac{\tan\frac{2\theta-\pi}{4}}{\sqrt{\frac{a-1}{a+1}}} \right]+C
 \end{aligned}
 $$
+
 
 
 

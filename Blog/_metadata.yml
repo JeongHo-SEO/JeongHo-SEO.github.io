@@ -1,43 +1,33 @@
 # quarto.yml OverRide
 # READ Here: https://quarto.org/docs/projects/quarto-projects.html
 
-blog:
-    title: "Pho's Notes"
-    post-date-format: "MMMM DD, YYYY"
-
-    # Category folders (subsections)
-    sections:
-        - title: "Statistics"
-          path: "Statistics/"
-        - title: "AI"
-          path: "AI/"
-        - title: "Mathematics"
-          path: "Mathematics/"
+title-block-banner: true
+date-format: "MMMM DD, YYYY"
+author: "Pho"
+freeze: true
 
 website:
+  sidebar:
+    id: "blog-nav"
     title: "Pho's Notes"
-    site-url: "/Blog/"
-    
-    # Navigation Bar
-    navbar:
-        left:
-            - href: index.qmd
-              text: Home
-            - href: Statistics/
-              text: Stat
-            - href: AI/
-              text: AI      
-            - href: Mathematics/
-              text: Math
-
-        right:
-            # Above buttons in the Right
-            - icon: github
-              href: https://github.com/JeongHo-SEO/
-            - href: https://blog.naver.com/podong_turtle
-              text: Daily
+    style: "docked"
+    background: "light"
+    contents:
+      - text: "All"
+        href: index.qmd
+      - text: "Stat"
+        href: Statistics/index.qmd
+      - text: "AI"
+        href: AI/index.qmd
+      - text: "Math"
+        href: Mathematics/index.qmd
+        
+      - section:
+        contents:
+          - icon: github
+            href: "https://github.com/JeongHo-SEO/"
 
 format:
-    html:
-        theme: journal
-        toc: true
+  html:
+    theme: journal
+    toc: true

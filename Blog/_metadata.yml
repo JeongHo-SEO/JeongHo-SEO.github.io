@@ -13,13 +13,13 @@ website:
         background: "light"
         contents:
             - text: "All"
-            href: index.qmd
-            - text: "Stat"
-            href: Statistics/index.qmd
+              href: index.qmd
+            - text: "Statistics"
+              href: Statistics/index.qmd
             - text: "AI"
-            href: AI/index.qmd
-            - text: "Math"
-            href: Mathematics/index.qmd
+              href: AI/index.qmd
+            - text: "Mathematics"
+              href: Mathematics/index.qmd
 
 format:
     html:

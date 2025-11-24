@@ -15,10 +15,6 @@
 
 
 ### How to build: Use GitHub Actions
-<!-- 
-- Change the default settings (main) to gh-pages for **Quarto**
-    - Settings > Pages > Source: Deploy from a branch > **Branch: gh-pages** [Not main]
---> 
 - Change the Source to Action
     - Settings > Pages > Source: Github Actions
 - Create the .yml file for Action Build.

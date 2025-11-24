@@ -1,4 +1,4 @@
-### Personal Website
+# Personal Website
 
 ### How to build
 - _quarto.yml: make the website design

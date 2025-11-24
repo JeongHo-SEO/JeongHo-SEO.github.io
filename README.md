@@ -25,5 +25,10 @@
 - gh-pages: Quarto automatically renders the website with this branch
 
 
+### Notes
+- If the website renders the "README.md" file or cannot render anything,
+    1. Change the settings > Pages > Deploy from a branch: None
+    2. Change the settings > Pages > Deploy from a branch: gh-pages
+    3. Change the settings > Pages > Actions (again trial)
 ---
 **<p align="right">Lastly Edited: November 24, 2025</p>**

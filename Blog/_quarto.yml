@@ -36,6 +36,10 @@ website:
 
         right:
             # Above buttons in the Right
+            - icon: github
+            href: https://github.com/JeongHo-SEO/
+            - href: https://blog.naver.com/podong_turtle
+            text: Daily
 
 format:
     html:

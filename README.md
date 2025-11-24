@@ -5,4 +5,7 @@
     - I used the quarto template (Not jekyll)
 - index.qmd: contents in the website (index.md can be also used)
 
-- .github/workflows/quarto-publish.yml: for Action Build
+### Use GitHub Actions
+1. Settings > Pages > Source: Deploy from a branch > Branch: gh-pages [Not main]
+2. Settings > Pages > Source: Github Actions
+3. Create the .yml file for Action Build in here: .github/workflows/quarto-publish.yml

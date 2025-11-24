@@ -4,3 +4,4 @@
 title-block-banner: true
 date-format: "MMMM DD, YYYY"
 last-modified: true
+freeze: true

@@ -1,12 +1,11 @@
 # Personal Website Repository
 
 ### Pages
-1. Curriculum-Vitae   # CV
-2. Papers             # Collaborated Papers
-3. Books              # Personally Published 
-4. Blog               # Academic Topics
-5. Private            # NO Rendering, Do not include in the website
----
+    1. Curriculum-Vitae   # CV
+    2. Papers             # Collaborated Papers
+    3. Books              # Personally Published 
+    4. Blog               # Academic Topics
+    5. Private            # NO Rendering, Do not include in the website
 
 ### How to Design
 - **index.qmd**: You can write your contents in this file for each folder (sub-pages). (index.md can be also used)

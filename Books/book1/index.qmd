@@ -1,0 +1,12 @@
+---
+title: "book1"
+format: html
+---
+
+This is the beginning of your Bayesian statistics book.
+
+You can add:
+- chapters  
+- equations  
+- plots  
+- code blocks  

@@ -1,0 +1,26 @@
+---
+title: "Curriculum Vitae"
+format: html
+---
+
+# JeongHo SEO — CV
+
+Download CV (PDF):
+
+[Download PDF](JeongHo-SEO.CV.pdf)
+
+## Research Interests
+- Statistics
+- Machine Learning
+- Causal Recommendation
+
+## Projects
+- [ARC-Rec](https://github.com/JeongHo-SEO/ARC-Rec)
+- [PropCare Reproduction](https://github.com/.../...)
+
+## Education
+- DGIST Computational Statistics & CS
+- Grenoble INP — M1 AM
+
+
+... Need to edited

@@ -1,3 +1,10 @@
 My Blog for several academic topics.
 
 Currently, I use this NaverBlog. Later, I will divide into two parts: Academic topics [in github blog] and Daily topics [in Naver blog].
+
+
+# Blog Categories
+
+- [AI](AI/)
+- [Mathematics](Mathematics/)
+- [Statistics](Statistics/)

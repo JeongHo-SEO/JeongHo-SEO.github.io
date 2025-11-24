@@ -1,0 +1,13 @@
+---
+title: "My First ML Blog Post"
+format: html
+---
+
+# First Machine Learning Post
+
+Write anything here.
+
+- equations: $E[x] = \mu$
+- code:
+```{python}
+print("hello ML")

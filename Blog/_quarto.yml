@@ -34,20 +34,20 @@ website:
     navbar:
         left:
             - href: index.qmd
-            text: Home
+              text: Home
             - href: Statistics/
-            text: Stat
+              text: Stat
             - href: AI/
-            text: AI      
+              text: AI      
             - href: Mathematics/
-            text: Math
+              text: Math
 
         right:
             # Above buttons in the Right
             - icon: github
-            href: https://github.com/JeongHo-SEO/
+              href: https://github.com/JeongHo-SEO/
             - href: https://blog.naver.com/podong_turtle
-            text: Daily
+              text: Daily
 
 format:
     html:

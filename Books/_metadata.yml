@@ -1,30 +1,6 @@
 # quarto.yml OverRide
 # READ Here: https://quarto.org/docs/projects/quarto-projects.html
 
-project:
-    output-dir: .                        # 결과물을 Books 폴더 안에 생성 (하위 배포를 위해 필요)
-
-website:
-    title: "Published Books"
-    site-url: /Books/                     # CSS/JS 경로 오류 해결 (Assets 링크 보정)
-    
-    # Navigation Bar
-    navbar:
-        left:
-            # Above buttons in the Left
-            - href: /index.qmd 
-              text: Home
-        right:
-            # Above buttons in the Right
-            - icon: github
-              href: https://github.com/JeongHo-SEO/
-
 listing:
     contents: ./                     # Every contents in this folder
     type: grid
-
-
-format:
-    html:
-        theme: journal
-        toc: true

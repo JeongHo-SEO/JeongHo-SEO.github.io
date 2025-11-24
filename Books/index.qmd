@@ -1,6 +1,9 @@
-This Website display my personally written books.
+---
+title: Published Books
+author: JeongHo-SEO
+---
 
-### List and Short Description
+# List and Short Description
 - [book1](book1/)
     - Description 1
 

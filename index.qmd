@@ -4,15 +4,16 @@ format: html
 ---
 <!-- Contents which will be displayed -->
 
-# Welcome to My Personal Website
+Welcome to My Personal Website. I will modify later this sites.
 
-This site contains:
-
-### Curriculum-Vitae
+### My Curriculum-Vitae:
 - [CV](Curriculum-Vitae/)
-- 
-### Books
+
+### Papers which I published:
+- [Papers](Papers/)
+
+### Books which I wrote before:
 - [Books](Books/)
 
-### Blog
+### My Blog for academic contents:
 - [Blog](Blog/)

@@ -7,7 +7,7 @@ project:
 
 website:
     title: "Published Books"
-    site-url: Books/                     # 👈 CSS/JS 경로 오류 해결 (Assets 링크 보정)
+    site-url: /Books/                     # 👈 CSS/JS 경로 오류 해결 (Assets 링크 보정)
     
     # Navigation Bar
     navbar:

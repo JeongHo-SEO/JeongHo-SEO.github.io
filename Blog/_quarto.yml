@@ -1,0 +1,43 @@
+# Quarto Website Design
+# READ Here: https://quarto.org/docs/projects/quarto-projects.html
+
+project:
+    type: blog
+
+render:
+    # index (contents)
+    - "*.qmd"
+    - "*.md"
+
+    # Rendering folders
+    - "Statistics/*"
+    - "AI/*"
+    - "Mathematics/*"
+
+    # Not Rendered files and folders
+    - "!README.md"
+    - "!*/README.md"
+    - "!Private/*"
+
+website:
+    title: "Pho's Notes"
+    
+    # Navigation Bar
+    navbar:
+        left:
+            - href: index.qmd
+            text: Home
+            - href: Statistics/
+            text: Stat
+            - href: AI/
+            text: AI      
+            - href: Mathematics/
+            text: Math
+
+        right:
+            # Above buttons in the Right
+
+format:
+    html:
+        theme: journal
+        toc: true

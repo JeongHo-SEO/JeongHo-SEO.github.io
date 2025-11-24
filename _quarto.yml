@@ -1,32 +1,50 @@
 # Quarto Website Design
+# READ Here: https://quarto.org/docs/projects/quarto-projects.html
 
 project:
-  type: website
+    type: website                            # Modify Here (default, website, blog, manuscript, book, confluence)
 
 render:
-  - "*.qmd"
-  - "Curriculum-Vitae/*"
-  - "Papers/*"
-  - "Books/*"
-  - "Blog/*"
-  - "!Private/*"          # Private folder: NO Rendering, Do not include in the website
+    # index (contents)
+    - "*.qmd"                                # index.qmd
+    - "*.md"                                 # index.md
+
+    # Rendering folders
+    - "Curriculum-Vitae/*"
+    - "Papers/*"
+    - "Books/*"
+    - "Blog/*"
+
+    # Not Rendered files and folders
+    - "!README.md"                            # README.md
+    - "!*/README.md"                          # subfolders' README.md
+    - "!Private/*"                            # Private folder: NO Rendering, Do not include in the website
 
 website:
-  title: "JeongHo SEO"
-  navbar:
-    left:
-      - href: index.qmd   # Link to the file
-        text: Home        # Text to display
-      - href: Curriculum-Vitae/
-        text: CV
-      - href: Papers/
-        text: Papers      
-      - href: Books/
-        text: Books
-      - href: Blog/
-        text: Blog
+    title: "JeongHo SEO"
+    
+    # Navigation Bar
+    navbar:
+        left:
+            # Above buttons in the Left
+            - href: index.qmd                 # Link to the file
+            text: Home                        # Text to display
+            - href: Curriculum-Vitae/
+            text: CV
+            - href: Papers/
+            text: Papers      
+            - href: Books/
+            text: Books
+            - href: Blog/
+            text: Blog
+
+        right:
+            # Above buttons in the Right
+            - icon: github
+            href: https://github.com/JeongHo-SEO/
+
 
 format:
-  html:
-    theme: cosmo
-    toc: true
+    html:
+        theme: cosmo                          # Modify Here  
+        toc: true                             # Table of Contents

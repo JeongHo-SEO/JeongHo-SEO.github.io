@@ -25,7 +25,7 @@
          │    ├─ index.qmd
          │    ├─ B folder
          │    │    ├─ index.qmd
-         │    │    ├─ _metadata.yml     # Do NOT Create this file
+         │    │    ├─ _metadata.yml     # Do NOT Create this file. [However, I did... for dividing into categories in my blog.]
         ```
 
 ### How to build: Use GitHub Actions

@@ -8,15 +8,25 @@
     5. Private            # NO Rendering, Do not include in the website
 
 ### How to Design - Have to Be Created
+- **.github/workflows/deploy-quarto.yml**: Use this file for **Actions**
 - **index.qmd**: You can write your contents in this file for each folder (sub-pages). (index.md can be also used)
 - **_quarto.yml**: You can adjust the website design within **Quarto** in this file for root.
-    - If you want to **change the design in your sub-website**, you have to create a **_metadata.yml** file in the sub-folder. (OverRide the _quarto.yml): theme, format, navbar...
     - I used the **Quarto** template (Not jekyll)
     - You can choose the Theme in [Bootswatch](https://bootswatch.com/)
     - Read my _quarto.yml in the root directory for understanding.
-
-- **.github/workflows/deploy-quarto.yml**: Use this file for **Actions**
-
+- If you want to **change the design in your sub-website**, you have to create a **_metadata.yml** file in the sub-folder.(OverRide the _quarto.yml)
+    - theme, format, navbar...
+    - ***Caution***: You Do Not Create deep sub-folders. Only one sub-folder is admitted.
+        ```
+         ├─ _quarto.yml
+         ├─ index.qmd
+         ├─ A folder
+         │    ├─ _metadata.yml
+         │    ├─ index.qmd
+         │    ├─ B folder
+         │    │    ├─ index.qmd
+         │    │    ├─ _metadata.yml     # Do NOT Create this file
+        ```
 
 ### How to build: Use GitHub Actions
 - Choose the Source to Action.

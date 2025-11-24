@@ -9,7 +9,8 @@
 
 ### How to Design - Have to Be Created
 - **index.qmd**: You can write your contents in this file for each folder (sub-pages). (index.md can be also used)
-- **_quarto.yml**: You can adjust the website design within **Quarto** in this file for each folder (sub-pages).
+- **_quarto.yml**: You can adjust the website design within **Quarto** in this file for root.
+    - If you want to **change the design in your sub-website**, you have to create a **_metadata.yml** file in the sub-folder. (OverRide the _quarto.yml): theme, format, navbar...
     - I used the **Quarto** template (Not jekyll)
     - You can choose the Theme in [Bootswatch](https://bootswatch.com/)
     - Read my _quarto.yml in the root directory for understanding.

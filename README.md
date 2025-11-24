@@ -8,7 +8,7 @@
     5. Private            # NO Rendering, Do not include in the website
 
 ### How to Design - Have to Be Created
-- **.github/workflows/deploy-quarto.yml**: Use this file for **Actions**
+- **.github/workflows/Quarto-Publish.yml**: Use this file for **Actions**
 - **index.qmd**: You can write your contents in this file for each folder (sub-pages). (index.md can be also used)
 - **_quarto.yml**: You can adjust the website design within **Quarto** in this file for root.
     - I used the **Quarto** template (Not jekyll)

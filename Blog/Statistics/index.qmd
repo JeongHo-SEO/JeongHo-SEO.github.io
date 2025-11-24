@@ -1,8 +1,15 @@
 ---
 title: "Statistics"
 listing:
-    contents: ./
-    type: default
+  contents: ./       # '이 폴더 안에 있는 파일들'을 의미
+  sort: "date desc"  # 날짜 내림차순
+  type: default      # 요청하신 '글1, 글2 쭈르륵' 나오는 리스트 스타일
+  categories: true   # 우측에 카테고리 필터 표시
+  sort-ui: true      # 정렬 버튼
+  filter-ui: true    # 검색창
+  fields: [date, title, description, categories] # 목록에 표시할 내용
+page-layout: full
+title-block-banner: true
 ---
 
 # Statistics Category

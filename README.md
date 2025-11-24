@@ -1,13 +1,13 @@
 # Personal Website Repository
 
-### Pages
+### Pages (for personal)
     1. Curriculum-Vitae   # CV
     2. Papers             # Collaborated Papers
     3. Books              # Personally Published 
     4. Blog               # Academic Topics
     5. Private            # NO Rendering, Do not include in the website
 
-### How to Design
+### How to Design - Have to Be Created
 - **index.qmd**: You can write your contents in this file for each folder (sub-pages). (index.md can be also used)
 - **_quarto.yml**: You can adjust the website design within **Quarto**
     - I used the **Quarto** template (Not jekyll)
@@ -15,10 +15,10 @@
 
 
 ### How to build: Use GitHub Actions
-- Change the Source to Action
+- Choose the Source to Action.
     - Settings > Pages > Source: Github Actions
-- Create the .yml file for Action Build.
-    - .github/workflows/quarto-publish.yml
+- Copy and Paste the "_quarto.yml" and "deploy-quarto.yml" files.
+- Create the folders which you want, then write the contents in the "index.qmd".
 
 
 ### Branches

@@ -34,7 +34,6 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          # Quarto는 _site/ 에 렌더링함
           path: _site
 
   deploy:

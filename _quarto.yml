@@ -33,6 +33,21 @@ website:
             - icon: github
               href: https://github.com/JeongHo-SEO/
 
+    # Blog/sidebar settings
+    sidebar:
+        id: "blog-navigation"
+        title: "Pho's Notes"
+        style: "docked"
+        background: "light"
+        contents:
+            - text: "All"
+              href: Blog/index.qmd
+            - text: "Statistics"
+              href: Blog/Statistics/index.qmd
+            - text: "AI"
+              href: Blog/AI/index.qmd
+            - text: "Mathematics"
+              href: Blog/Mathematics/index.qmd
 
 format:
     html:

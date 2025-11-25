@@ -16,7 +16,8 @@ x-y plain에서 반지름이 $r$이고 중심이 원점인 원을 그리자.
 이후 동경과 x-axis의 양의 방향이 이루는 각을 $\theta$라 하면, 다음과 같은 식이 성립한다.
 
 $$
-x=r\cos\theta \\y=r\sin\theta
+x=r\cos\theta \\
+y=r\sin\theta
 $$
 
 이는 삼각함수의 정의에 의해 자명하다.  
@@ -26,9 +27,8 @@ $$
 
 **복소평면은 $Re-Im$  plain을 의미**한다. 즉 x축은 실수부의 값에 대응되고, y축은 허수부의 값에 대응되는 평면이다.
 
-흔히 복소수를 $z=a+bi\ \left(a,b\in\R\right)$로 표현하는데, 복소평면에서 $(a,b)$가 바로 $z=a+bi$를 의미하게 된다.  
-결국 임의의 복소수의 값이 두 실수 $a,b$에 의해 결정된다는 점을 이용해서, 좌표평면에 복소수를 대응시킨 점이 신기하지 않는가?  
-~~나만 신기했다면 어쩔 수 없다 ㅎㅎ.~~
+흔히 복소수를 $z=a+bi\ \left(a,b\in\mathbb{R}\right)$로 표현하는데, 복소평면에서 $(a,b)$가 바로 $z=a+bi$를 의미하게 된다.  
+결국 임의의 복소수의 값이 두 실수 $a,b$에 의해 결정된다는 점을 이용해서, 좌표평면에 복소수를 대응시킨 점이 신기하지 않는가? ~~나만 신기했다면 어쩔 수 없다 ㅎㅎ.~~
 
 ---
 
@@ -36,10 +36,13 @@ $$
 그러면 자명하게, 아래와 같은 식이 성립한다.
 
 $$
-z=a+bi \\ r=\sqrt{a^2+b^2}\\a=r\cos\theta \\b=r\sin\theta
+z=a+bi \\
+r=\sqrt{a^2+b^2} \\
+a=r\cos\theta \\
+b=r\sin\theta
 $$
 
-이 때 우리가 **오일러 공식**을 알고 넘어가야 하는데, 증명은 검색을 해보도록 하고…
+이 때 우리가 **오일러 공식**을 알고 넘어가야 하는데, 증명은 검색을 해보도록 하고…  
 (테일러 급수와 오일러 공식을 둘 다 검색해야 한다. 테일러 급수로 오일러 공식을 증명하기 때문)
 
 **Euler Formula: $e^{\left(i\theta\right)}=\cos\theta+i\sin\theta$**  
@@ -49,7 +52,12 @@ $$
 이제, 위의 두 결과를 정리하면 다음과 같다.
 
 $$
-z=a+bi=r\cos\theta+\left(r\sin\theta\right)i=r\left[\cos\theta+i\sin\theta\right]=re^{i\theta}
+\begin{aligned}
+z
+&= a+bi \\
+&= r\cos\theta+\left(r\sin\theta\right)i = r\left[\cos\theta+i\sin\theta\right] \\
+& =re^{i\theta}
+\end{aligned}
 $$
 
 이제 우리는 임의의 복소수 $z=a+bi$를, exponential 지수함수를 이용해서 표현할 수 있다. 끝.

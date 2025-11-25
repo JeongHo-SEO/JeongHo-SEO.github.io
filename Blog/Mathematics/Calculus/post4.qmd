@@ -20,23 +20,20 @@ $$
 ### Solution 1. 평균값 정리 (Mean Value Theorem) 활용  
 
 1. 함수 $f: \mathbb{R} \rightarrow \mathbb{R}$가 미분 가능하므로 평균값 정리에 의해, 
-$$
-\frac{f(x) - f(1)}{x - 1} = f'(c)
-$$
-를 만족하는 상수 $c \in (1,x)$가 존재한다.
+    $$
+    \frac{f(x) - f(1)}{x - 1} = f'(c)
+    $$
+    를 만족하는 상수 $c \in (1,x)$가 존재한다.
 
 2. 따라서 함수 $f(x)$는 $\forall x \ne 1$에 대해, $f'(x) = \frac{f(x) - f(1)}{x - 1} = f'(c) = A$라는 상수값을 가진다. 즉, 
-
-$$
-f(x) = Ax+B,\quad x\ne 1
-$$
+    $$
+    f(x) = Ax+B,\quad x\ne 1
+    $$
 
     - 이 때 $x=1$에서 함수 $f(x)$가 미분가능하므로, 연속성에 의해 $f(1) = \lim_{x \to 1} f(x) = A+B$이다. 즉, 다시 정리하여,
-
-$$
-f(x) = Ax+B,\quad \forall x\in \mathbb{R}
-$$
-
+    $$
+    f(x) = Ax+B,\quad \forall x\in \mathbb{R}
+    $$
 ---
 
 ### Solution 2. 이계 미분가능성 유도.
@@ -60,10 +57,11 @@ $$
     $$
 
 3. 따라서 이계도함수 $f"(x)$가 1이 아닌 임의의 실수 $x$에 대하여 항등적으로 0이므로,  
-$\forall x \ne 1$에 대해 $f'(x) = A$라는 상수값을 가지며, **Solution 1에서와 같이** 함수 $f(x)$를 아래와 같이 구할 수 있다.
+    $\forall x \ne 1$에 대해 $f'(x) = A$라는 상수값을 가지며, **Solution 1에서와 같이** 함수 $f(x)$를 아래와 같이 구할 수 있다.
     $$
     f(x) = Ax+B,\quad \forall x\in \mathbb{R}
     $$
+
 ---
 
 ### Solution 3. Power Series (멱급수) form 사용.

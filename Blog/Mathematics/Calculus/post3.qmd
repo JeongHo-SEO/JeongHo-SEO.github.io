@@ -86,7 +86,7 @@ $$
 
 > $\log(i)$
 
-마찬가지의 방식으로, $ \log(i) = \log\left[\exp{i\left(\frac{\pi}{2}+2n\pi\right)}\right] = i\left(\frac{\pi}{2}+2n\pi\right)$ 이다.  
+마찬가지의 방식으로, $\log(i) = \log\left[\exp{i\left(\frac{\pi}{2} + 2n\pi\right)}\right] = i\left(\frac{\pi}{2}+2n\pi\right)$ 이다.  
 사실 이게 더 간단하다.
 
 **principal value**를 구해보면, 간단히 $\frac{\pi}{2}i$임을 알 수 있다.  

@@ -14,6 +14,7 @@ $$
 더욱 일반화하기 위하여, 다항함수 라는 조건이 아닌,  
 **함수 f(x)가 domain에서 1번 미분가능하다**는 조건으로 문제를 풀이한다.  
 (1, x)가 아니라 (a, b)로 주어지더라도, 동일한 방식으로 문제를 풀이할 수 있다.
+
 ---
 
 ### Solution 1. 평균값 정리 (Mean Value Theorem) 활용  
@@ -30,7 +31,7 @@ $$
 f(x) = Ax+B,\quad x\ne 1
 $$
 
-- 이 때 $x=1$에서 함수 $f(x)$가 미분가능하므로, 연속성에 의해 $f(1) = \lim_{x \to 1} f(x) = A+B$이다. 즉, 다시 정리하여,
+    - 이 때 $x=1$에서 함수 $f(x)$가 미분가능하므로, 연속성에 의해 $f(1) = \lim_{x \to 1} f(x) = A+B$이다. 즉, 다시 정리하여,
 
 $$
 f(x) = Ax+B,\quad \forall x\in \mathbb{R}
@@ -41,72 +42,64 @@ $$
 ### Solution 2. 이계 미분가능성 유도.
 
 1. 관계식
+    $$
+    \frac{f(x) - f(1)}{x - 1} = f'(x), \quad x \ne 1
+    $$
+    에서 함수 $f(x)$의 미분가능성에 의해 Left가 미분가능하므로,  
+    Right 또한 주어진 범위 $x \ne 1$에서 미분가능함을 알 수 있다.
 
-$$
-\frac{f(x) - f(1)}{x - 1} = f'(x), \quad x \ne 1
-$$
-
-에서 함수 $f(x)$의 미분가능성에 의해 Left가 미분가능하므로,  
-Right 또한 주어진 범위 $x \ne 1$에서 미분가능함을 알 수 있다.
-
-즉, **함수 $f(x)$의 이계도함수 $f"(x)$가 $x \ne 1$에서 존재함을 알 수 있다.**
+    즉, **함수 $f(x)$의 이계도함수 $f"(x)$가 $x \ne 1$에서 존재함을 알 수 있다.**
 
 2. 따라서 양 변에 $(x-1)$을 곱하여 미분하면, 아래가 성립한다.
-
-$$
-\begin{aligned}
-f(x) - f(1) &= (x - 1)f'(x), \quad x \ne 1 \\
-\Rightarrow f'(x) &= f'(x) +(x - 1)f"(x), \quad x \ne 1 \\
-\Leftrightarrow f"(x) & 0, \quad x \ne 1
-\end{aligned}
-$$
+    $$
+    \begin{aligned}
+    f(x) - f(1) &= (x - 1)f'(x), \quad x \ne 1 \\
+    \Rightarrow f'(x) &= f'(x) +(x - 1)f''(x), \quad x \ne 1 \\
+    \Leftrightarrow f''(x) &= 0, \quad x \ne 1
+    \end{aligned}
+    $$
 
 3. 따라서 이계도함수 $f"(x)$가 1이 아닌 임의의 실수 $x$에 대하여 항등적으로 0이므로,  
 $\forall x \ne 1$에 대해 $f'(x) = A$라는 상수값을 가지며, **Solution 1에서와 같이** 함수 $f(x)$를 아래와 같이 구할 수 있다.
-
-$$
-f(x) = Ax+B,\quad \forall x\in \mathbb{R}
-$$
-
+    $$
+    f(x) = Ax+B,\quad \forall x\in \mathbb{R}
+    $$
 ---
 
 ### Solution 3. Power Series (멱급수) form 사용.
 
 1. 임의의 다항함수를 $x-1$에 대한 term으로 정렬하면, 아래와 같다.
-
-$$
-f(x) = \sum_{n=0}^{\infty} a_n (x - 1)^n
-$$
+    $$
+    f(x) = \sum_{n=0}^{\infty} a_n (x - 1)^n
+    $$
 
 2. 이 때 $f(1) = a_0$이므로, 주어진 관계식을 아래와 같이 정리할 수 있다.
     - Left의 경우,
-    $$
-    \begin{aligned}
-    f(x) - f(1) &= \sum_{n=1}^{\infty} a_n (x - 1)^n \\
-    &= \sum_{n=0}^{\infty} a_{n+1} (x - 1)^{n+1} \\
-    \Rightarrow \frac{f(x) - f(1)}{x - 1} &= \sum_{n=0}^{\infty} a_{n+1} (x - 1)^{n} 
-    \end{aligned}
-    $$
+        $$
+        \begin{aligned}
+        f(x) - f(1) &= \sum_{n=1}^{\infty} a_n (x - 1)^n \\
+        &= \sum_{n=0}^{\infty} a_{n+1} (x - 1)^{n+1} \\
+        \Rightarrow \frac{f(x) - f(1)}{x - 1} &= \sum_{n=0}^{\infty} a_{n+1} (x - 1)^{n} 
+        \end{aligned}
+        $$
         
     - Right의 경우, 미분의 선형성에 의해,
-    $$
-    f'(x) = \sum_{n=0}^{\infty} (n+1)a_{n+1} (x - 1)^{n} 
-    $$
+        $$
+        f'(x) = \sum_{n=0}^{\infty} (n+1)a_{n+1} (x - 1)^{n} 
+        $$
         
 3. 따라서 **멱급수 유일성** - 두 멱급수가 항등적으로 같을 때 모든 order(차수)의 Coefficients(계수)가 같다는 성질 - 에 의해, 아래의 식이 성립한다.
-
-$$
-\begin{aligned}
-a_{n+1} &= (n+1) a_{n+1}, \quad n\geq 0 \\
-\Leftrightarrow n \cdot a_{n+1} &= 0, \quad n\geq 0 
-\end{aligned}
-$$
+    $$
+    \begin{aligned}
+    a_{n+1} &= (n+1) a_{n+1}, \quad n\geq 0 \\
+    \Leftrightarrow n \cdot a_{n+1} &= 0, \quad n\geq 0 
+    \end{aligned}
+    $$
 
 4. 따라서 $a_2 = a_3 = a_4 = \cdots = 0$이므로, 주어진 다항함수 $f(x)$를 아래와 같이 정리할 수 있다.
-
-$$
-f(x) = \sum_{n=0}^{1} a_n (x - 1)^n = a_0 + a_1(x-1) = Ax+B
-$$
+    $$
+    f(x) = \sum_{n=0}^{1} a_n (x - 1)^n = a_0 + a_1(x-1) = Ax+B
+    $$
 
 ---
 

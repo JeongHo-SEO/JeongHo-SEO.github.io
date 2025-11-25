@@ -16,8 +16,10 @@ x-y plain에서 반지름이 $r$이고 중심이 원점인 원을 그리자.
 이후 동경과 x-axis의 양의 방향이 이루는 각을 $\theta$라 하면, 다음과 같은 식이 성립한다.
 
 $$
-x=r\cos\theta \\
-y=r\sin\theta
+\begin{aligned}
+a &= r\cos\theta \\
+b &= r\sin\theta
+\end{aligned}
 $$
 
 이는 삼각함수의 정의에 의해 자명하다.  

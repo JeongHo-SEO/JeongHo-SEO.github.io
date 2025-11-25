@@ -1,7 +1,7 @@
 ---
 title: "특이한 복소수의 표준형 표현"
 date: "2025-11-25"
-description: "$$\sqrt{\left(1+i\right)}, \log(i)$$"
+description: "sqrt(1+i), log(i)$$"
 ---
 
 우리는 일반적으로 복소수를, $a.b\in\R:z=a+bi \ (i=\sqrt{-1})$의 표준형으로 표현한다.  

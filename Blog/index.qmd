@@ -20,6 +20,24 @@ In this Blog, I will cover several topics with some notes in below Categories:
 - [AI](AI/)
 - [Mathematics](Mathematics/)
 
+And maybe later, I will modify the directory of blog:
+```
+Blog/
+ ├── Notes/              # 가벼운 정리 (통계, 수학, AI, 아이디어)
+ │    ├── Statistics/
+ │    ├── Mathematics/
+ │    ├── AI/
+ │    ├── .../
+ │
+ ├── Technical/          # 각 잡는 심화 글, 논문 리뷰
+ │    ├── Papers/
+ │    ├── Algorithms/
+ │    ├── Codes/
+ │    ├── ...
+```
+
+
+
 <!-- listing here -->
 :::{#listing}
 :::

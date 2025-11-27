@@ -45,5 +45,12 @@
     1. Change the settings > Pages > Deploy from a branch: None
     2. Change the settings > Pages > Deploy from a branch: gh-pages
     3. Change the settings > Pages > Actions (again trial)
+
+### How to expose our website in Google.
+1. Enroll our root-url in [Google Search Console](https://search.google.com/search-console/welcome). In this case, use the "URL 접두어".
+2. Now, we have to add our html tag. Since I used the ***_quarto.yml*** file for design my website, I had two tasks.
+    - I created **new html file** and wrote my html tag. (google-verification.html)
+    - Then, I added the **html file** in the bottom of my ***_quarto.yml*** file. (include-in-header: google-verification.html)
+3. 
 ---
-**<p align="right">Lastly Edited: November 24, 2025</p>**
+**<p align="right">Lastly Edited: November 27, 2025</p>**

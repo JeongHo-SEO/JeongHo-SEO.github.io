@@ -2,7 +2,7 @@
 # READ Here: https://quarto.org/docs/projects/quarto-projects.html
 
 project:
-    type: website                            # Modify Here (default, website, blog, manuscript, book, confluence)
+    type: website                             # Modify Here (default, website, blog, manuscript, book, confluence)
     output-dir: _site
 
 render:
@@ -18,7 +18,7 @@ website:
         left:
             # Above buttons in the Left
             - href: index.qmd                 # Link to the file
-              text: Home                        # Text to display
+              text: Home                      # Text to display
             - href: Curriculum-Vitae/
               text: CV
             - href: Papers/
@@ -53,3 +53,4 @@ format:
     html:
         theme: cosmo                          # Modify Here  
         toc: true                             # Table of Contents
+        include-in-header: google-verification.html    # for google search

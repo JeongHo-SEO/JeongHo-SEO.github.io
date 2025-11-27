@@ -51,6 +51,15 @@
 2. Now, we have to add our html tag. Since I used the ***_quarto.yml*** file for design my website, I had two tasks.
     - I created **new html file** and wrote my html tag. (google-verification.html)
     - Then, I added the **html file** in the bottom of my ***_quarto.yml*** file. (include-in-header: google-verification.html)
-3. 
+3. Add the **site-url: "your-website-link"** in the website section of ***_quarto.yml*** file. e.g.,
+    ```
+    website:
+        title: "JeongHo SEO"
+        site-url: "https://jeongho-seo.github.io"  # for google Sitemaps
+    ```
+4. From above, the Quarto automatically create two files.
+    - (1) sitemap.xml file. For example, "https://jeongho-seo.github.io/sitemap.xml".
+    - (2) robots.txt file. For example, "https://jeongho-seo.github.io/robots.txt".
+5. Lastly, in the "Google Search Console > 색인생성 > Sitemaps", you can add your own Sitemap. Just insert the "sitemap.xml" in the blank.
 ---
 **<p align="right">Lastly Edited: November 27, 2025</p>**

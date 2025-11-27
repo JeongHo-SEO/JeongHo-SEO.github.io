@@ -12,7 +12,8 @@ render:
 
 website:
     title: "JeongHo SEO"
-    
+    site-url: "https://jeongho-seo.github.io/"  # for google Sitemaps
+
     # Navigation Bar
     navbar:
         left:

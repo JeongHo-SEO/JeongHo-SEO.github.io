@@ -1,43 +1,20 @@
 ---
-title: "All Posts"
+title: "Blog"
 listing:
-    contents: 
-        - "**/*.qmd"      # Bring all .qmd files
-        - "**/*.md"       # Bring all .md files (except for README.md due to the _quarto.yml file)
-        - "!index.qmd"    # Except for Blog/index.qmd
+  - id: stats-posts
+    contents: "Statistics/**.qmd"
+    type: table
     sort: "date desc"
-    type: default
-    categories: true     # rightside category
-    sort-ui: true
-    filter-ui: true
-page-layout: full
-title-block-banner: true
+  - id: ai-posts
+    contents: "AI/**.qmd"
+    type: table
+    sort: "date desc"
 ---
 
-In this Blog, I will cover several topics with some notes in below Categories:
+## 📊 Statistics
+::: {#stats-posts}
+:::
 
-- [Statistics](Statistics/)
-- [AI](AI/)
-- [Mathematics](Mathematics/)
-
-And maybe later, I will modify the directory of blog:
-```
-Blog/
- ├── Notes/              # 가벼운 정리 (통계, 수학, AI, 아이디어)
- │    ├── Statistics/
- │    ├── Mathematics/
- │    ├── AI/
- │    ├── .../
- │
- ├── Technical/          # 각 잡는 심화 글, 논문 리뷰
- │    ├── Papers/
- │    ├── Algorithms/
- │    ├── Codes/
- │    ├── ...
-```
-
-
-
-<!-- listing here -->
-:::{#listing}
+## 🤖 AI
+::: {#ai-posts}
 :::

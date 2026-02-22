@@ -1,0 +1,97 @@
+---
+title: "특이한 복소수의 표준형 표현"
+description: "sqrt(1+i), log(i)"
+date: "2025-11-25"
+date-modified: last-modified
+---
+우리는 일반적으로 복소수를, $a,b \in \mathbb{R}:z=a+bi \ (i=\sqrt{-1})$의 표준형으로 표현한다.  
+그러나 모든 복소수가 처음부터 이러한 꼴을 가지고 있을까? 다르게 생긴 복소수는 존재하지 않을까?
+
+**고등학교에서 수 체계는 자연수 → 정수 → 유리수 → 무리수 → 실수 → 복소수로 확장**해 나간다.  
+주제와 벗어나지만 좀 더 살펴보자면,  
+1. 자연수 → 정수 [덧셈에 대한 항등원인 0의 도입, 덧셈에 대한 역원인 음의 정수의 도입]  
+2. 정수 → 유리수 [정수의 비율로서 정의, 비의 개념]  
+3. 유리수 → 무리수 [유리수가 아닌 값들의 체계]  
+4. 무리수 → 실수 [실제 존재하는 모든 수의 체계]  
+5. 실수 → 복소수 [실제로 존재하지 않는, 그러나 편의성을 위한 수의 체계]  
+
+로 확장해 설명하는 것이 고등학교까지의 교육 과정이다.
+
+
+여기서 질문, 두 실수 $a,b$의 값으로 하나의 복소수 $z$값이 결정된다는 점인데, 그럼 $\sqrt{\left(1+i\right)}, \log(i)$ 같은 값들은 복소수가 아니란 말인가?  
+복소수가 아니라면, 대체 이 수들은 무엇인가?
+
+
+정답을 말하자면, 복소수가 맞고, 우리가 아는 복소수의 표준형 $z=a+bi$꼴로 표현 가능하다!  
+그 비밀은 바로 복소평면 이다. 복소평면에 대한 지식은 [복소평면을 사용해 복소수를 지수함수로 표현하는 방법](https://jeongho-seo.github.io/Blog/Mathematics/Calculus/post2.html) 을 참고하도록 해라.
+
+---
+
+위의 결과를 그대로 가져오면, 다음과 같다.
+
+$$
+\begin{aligned}
+z &= a+bi \\
+r &= \sqrt{a^2+b^2} \\
+a &= r\cos\theta \\
+b &= r\sin\theta
+\end{aligned}
+$$
+
+따라서 아래의 식이 성립한다.
+
+$$
+\begin{aligned}
+z
+&= a+bi \\
+&= r\cos\theta + \left(r\sin\theta\right)i = r\left[\cos\theta+i\sin\theta\right] \\
+&= re^{i\theta}
+\end{aligned}
+$$
+
+여기까지 도달했다면, 조금만 더 생각을 확장하면 된다.  
+위의 두 예시로 **임의의 복소수를 표준형으로 표현하는 방법**을 설명하겠다.
+---
+
+> $\sqrt{\left(1+i\right)}$
+
+우리는 복소평면에서 $1+i = \sqrt{2}\exp{\left[i\left(\frac{\pi}{4}+2n\pi\right)\right]}$ 임을 알 수 있다. (단, $n\in\mathbb{Z}$)  
+따라서 $\sqrt{1+i}=2^{\frac{1}{4}}\exp{\left[i\left(\frac{\pi}{8}+n\pi\right)\right]}$ 임을 알 수 있다.
+
+
+여기서 문제, google에 $\sqrt{1+i}$를 검색하면 sqrt(1 + i) = 1.09868411 + 0.455089861 i  
+라는 값이 나온다. 생각해 보면 이건 하나의 값이 아닌가?  
+분명 위의 논증에서 $\sqrt{1+i}$가 정수 $n$값에 따라 수많은 값이 나옴을 알 수 있는데, 모순이 아닌가?
+
+
+의문에 대한 정답을 밝히자면 여러 값이 나오는 것이 원래 맞고, google의 결과는 **principal value**이다.  
+즉 하나의 값을 특정하기 위해, $n=0$을 대입한 값이다.
+
+
+실제로 확인해보면, $\sqrt{1+i}$의 **principal value**는
+$$
+2^{\frac{1}{4}}\exp(\frac{i\pi}{8}) = 2^{\frac{1}{4}}\left[\cos\frac{\pi}{8}+i\sin\frac{\pi}{8} \right]
+$$  
+임을 알 수 있다. 따라서 **principal value**의 관점에서, $\sqrt{1+i} = 2^{\frac{1}{4}}\cos\frac{\pi}{8}+\left(2^{\frac{1}{4}}\sin\frac{\pi}{8}\right)i$ 로 표현할 수 있다.
+
+
+마찬가지로 구글에 검색해보면,
+$$
+\begin{aligned}
+2^(1/4) \cos(\pi/8) &= 1.09868411347 \\
+2^(1/4) \sin(\pi/8) &= 0.45508986056
+\end{aligned}
+$$
+
+가 나온다. 위의 결과 ***google에 $\sqrt{1+i}$를 검색하면 sqrt(1 + i) = 1.09868411 + 0.455089861 i*** 와 동일함을 알 수 있다. ^^.
+
+> $\log(i)$
+
+마찬가지의 방식으로, $\log(i) = \log\left[\exp{i\left(\frac{\pi}{2} + 2n\pi\right)}\right] = i\left(\frac{\pi}{2}+2n\pi\right)$ 이다.  
+사실 이게 더 간단하다.
+
+**principal value**를 구해보면, 간단히 $\frac{\pi}{2}i$임을 알 수 있다.  
+구글의 결과 “ln(i) = 1.57079633 i” 와 일치한다!.
+
+
+첨언하자면 자연로그는 대학에서 보통 $\log$로 표현한다.

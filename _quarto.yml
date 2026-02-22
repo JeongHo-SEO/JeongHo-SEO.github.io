@@ -2,72 +2,62 @@
 # READ Here: https://quarto.org/docs/projects/quarto-projects.html
 
 project:
-    type: website                             # Modify Here (default, website, blog, manuscript, book, confluence)
-    output-dir: _site
+  type: website                             # Modify Here (default, website, blog, manuscript, book, confluence)
+  output-dir: _site
 
 render:
-    # Not Rendered files and folders
-    - "!**/README.md"                         # README file: Just Description, Do not include in the website
-    - "!**/Archive/**"                        # Archive folder: NO Rendering, Do not include in the website
+  # Not Rendered files and folders
+  - "!**/README.md"                         # README file: Just Description, Do not include in the website
+  - "!**/Archive/**"                        # Archive folder: NO Rendering, Do not include in the website
 
 website:
-    title: "JeongHo SEO"
-    site-url: "https://jeongho-seo.github.io"  # for google Sitemaps
+  title: "JeongHo SEO"
+  site-url: "https://jeongho-seo.github.io"  # for google Sitemaps
 
-    # Navigation Bar
-    navbar:
-        left:
-            # Above buttons in the Left
-            - text: Home                    # Text to display
-            href: index.qmd                 # Link to the file
+  # Navigation Bar
+  navbar:
+    left:
+      # Above buttons in the Left
+      - text: Home                    # Text to display
+        href: index.qmd                 # Link to the file
+      - text: Publications
+        menu:
+          - text: Journal Papers
+            href: Publications/Journal.qmd
+          - text: Conference Papers
+            href: Publications/Conference.qmd
+          - text: Working Papers
+            href: Publications/Working.qmd
+      - text: CV
+        href: Curriculum-Vitae/index.qmd
+      - text: Projects
+        href: Main-Projects/index.qmd
+      - text: Books/
+        href: Books/index.qmd
+      - text: Teaching/
+        href: Teaching/index.qmd
+      - text: Blog/
+        href: Blog/index.qmd
+    
+    right:
+      # Above buttons in the Right
+      - icon: github
+        href: https://github.com/JeongHo-SEO/
+      - icon: linkedin
+        href: https://www.linkedin.com/in/jeongho-seo/
 
-            - text: Publications
-            menu:
-                - text: Journal Papers
-                href: Publications/Journal.qmd
-                - text: Conference Papers
-                href: Publications/Conference.qmd
-                - text: Working Papers
-                href: Publications/Working.qmd
-
-            - text: CV
-            href: Curriculum-Vitae/index.qmd
-
-            - text: Projects
-            href: Main-Projects/index.qmd
-
-            - text: Books/
-            href: Books/index.qmd
-
-            - text: Teaching/
-            href: Teaching/index.qmd
-
-            - text: Blog/
-            href: Blog/index.qmd
-
-
-        right:
-            # Above buttons in the Right
-            - icon: github
-            href: https://github.com/JeongHo-SEO/
-            
-            - icon: linkdin
-            href: https://www.linkedin.com/in/jeongho-seo/
-
-    page-navigation: true
-
-format:
-    html:
-        date-modified: last-modified
-        date-format: "MMMM D, YYYY"               # December 12, 1999
-        theme:
-            light: cosmo                          # Modify Here  
-            dark: darkly                          # dark mode option
-        toc: true                                 # Table of Contents
-        code-fold: show  # code show option
-        code-copy: true
-        include-in-header: google-verification.html    # for google search
-
-website:
+  page-navigation: true
   page-footer:
     right: "Lastly Edited: {{< meta date-modified >}}"
+
+format:
+  html:
+    date-modified: last-modified
+    date-format: "MMMM D, YYYY"               # December 12, 1999
+    theme:
+      light: cosmo                            # Modify Here  
+      dark: darkly                            # dark mode option
+    toc: true                                 # Table of Contents
+    code-fold: show                           # code show option
+    code-copy: true
+    include-in-header: google-verification.html    # for google search

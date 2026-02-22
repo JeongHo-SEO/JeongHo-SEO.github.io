@@ -1,7 +1,0 @@
-# quarto.yml OverRide
-# READ Here: https://quarto.org/docs/projects/quarto-projects.html
-
-title-block-banner: true
-date-format: "MMMM DD, YYYY"
-date-modified: last-modified
-freeze: true

@@ -1,19 +1,27 @@
 ---
 title: "Curriculum Vitae"
-format: html
+author: "JeongHo SEO"
+format: 
+  html:
+    toc: true
+    theme: cosmo
 ---
 
 # JeongHo SEO
-Email: seojh1360@dgist.ac.kr
-Website: https://jeongho-seo.github.io/
-GitHub: https://github.com/JeongHo-SEO
-LinkdIn: https://www.linkedin.com/in/jeongho-seo
+**Email:** [seojh1360@dgist.ac.kr](mailto:seojh1360@dgist.ac.kr)  
+**Website:** [jeongho-seo.github.io](https://jeongho-seo.github.io/)  
+**GitHub:** [github.com/JeongHo-SEO](https://github.com/JeongHo-SEO)  
+**LinkedIn:** [linkedin.com/in/jeongho-seo](https://www.linkedin.com/in/jeongho-seo)
+
 ---
 
 ## Education
-2020.02-2027.01: B.Sc. in Computational Statistics, Daegu Gyeongbuk Institute of Science and Technology (DGIST)
-Currently
-- GPA: 3.28/4.3
+- **Daegu Gyeongbuk Institute of Science and Technology (DGIST)** | 2020.02 – 2027.01 (Expected)
+  - B.Sc. in Computational Statistics (Candidate)
+  - GPA: **3.28 / 4.3**
+- **Grenoble INP - UGA, Ensimag school** | 2025.08 – 2026.01
+  - Exchange Student, Enrolled in M1-AM (Applied Mathematics) & M2-SIAM (Science in Industrial and Applied Mathematics) Programs
+  - Focus on Probabilities and Causality courses.
 
 ## Research Interests
 - Causal Inference
@@ -28,30 +36,29 @@ Currently
 ### Working Papers
 1. 
 
-## Research Experience
-- Research Intern, [Intelligent Bio-Opto Mechatronics Lab (IBOM Lab)](https://sites.google.com/view/dgist-ibom/home), DGIST
-  Supervisor: Prof. Cheol Song  
-  Jan 2025
-  - Brief description of research topic or methods used. // 이후에 채울 것.
-
-- Research Intern, [Data Science Lab (DS Lab)](https://dgist-ai.notion.site/), DGIST
-  Supervisor: Prof. Sang-Chul Lee
-  Jul 2025
-  - Brief description of research topic or methods used. // 이후에 채울 것.
-
-- Undergraduate Researcher, [Data Science Lab (DS Lab)](https://dgist-ai.notion.site/), DGIST
-  Supervisor: Prof. Sang-Chul Lee  
-  Feb 2026 - June 2026
-  - Research topic: Causal Recomendation
+## Research Experience  <!-- 역순 -->
+- **Undergraduate Group Research Project (UGRP)** | DGIST | 2026.02 – 2026.12
+  - *Supervisor:* Prof. Jun-Gi Jang
+  - *Topic:* Predicting YouTuber Relationships and Community Structures on YouTube Collaboration Networks.
   - Method/Tools: 
   - Contribution:
 
-- Undergraduate Group Research Project (UGRP), DGIST  
-  Supervisor: Prof. Jun-Gi Jang
-  Feb 2026 – Dec 2026
-  - Research topic: Predicting YouTuber Relationships and Community Structures on YouTube Collaboration Networks
-  - Methods: 
+- **Undergraduate Researcher** | [Data Science Lab (DS Lab)](https://dgist-ai.notion.site/), DGIST | 2026.02 – 2026.06
+  - *Supervisor:* Prof. Sang-Chul Lee
+  - *Topic:* Causal Recommendation Systems
+  - Method/Tools: 
   - Contribution:
+
+- **Research Intern** | [Data Science Lab (DS Lab)](https://dgist-ai.notion.site/), DGIST | 2025.07 – 2025.08
+  - *Supervisor:* Prof. Sang-Chul Lee
+  - Method/Tools: 
+  - Contribution:
+
+- **Research Intern** | [Intelligent Bio-Opto Mechatronics Lab (IBOM Lab)](https://sites.google.com/view/dgist-ibom/home), DGIST | 2025.01
+  - *Supervisor:* Prof. Cheol Song
+  - Method/Tools: 
+  - Contribution:
+
 
 ## Projects <!-- Main Projects -->
 1. 

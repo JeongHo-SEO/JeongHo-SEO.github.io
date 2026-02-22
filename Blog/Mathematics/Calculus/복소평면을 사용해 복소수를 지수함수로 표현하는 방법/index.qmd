@@ -4,7 +4,7 @@ date: "2025-11-25"
 date-modified: last-modified
 ---
 
-![figure_1](figures/post2-figure_1.png)
+![figure 1](figures/figure 1.png)
 
 아름다운 그림이다. 잠시 감상 시간을 가져보자…
 

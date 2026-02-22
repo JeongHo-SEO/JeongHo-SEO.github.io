@@ -1,6 +1,0 @@
-# quarto.yml OverRide
-# READ Here: https://quarto.org/docs/projects/quarto-projects.html
-
-listing:
-    contents: ./                     # Every contents in this folder
-    type: grid

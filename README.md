@@ -1,11 +1,16 @@
 # Personal Website Repository
 
-### Pages (for personal)
-    1. Curriculum-Vitae   # CV
-    2. Papers             # Collaborated Papers
-    3. Books              # Personally Published 
-    4. Blog               # Academic Topics
-    5. Private            # NO Rendering, Do not include in the website
+### Pages
+    1. Publications
+        - Journal Papers
+        - Conference Papers
+        - Working Papers
+    2. Curriculum-Vitae   # CV
+    3. Projects           # Main Projects
+    4. Books              # Personally Published 
+    5. Teaching
+    6. Blog               # Book Summary, Paper Review and etc. - Academic Topics
+    7. Archive            # NO Rendering, Do not include in the website
 
 ### How to Design - Have to Be Created
 - **.github/workflows/Quarto-Publish.yml**: Use this file for **Actions**
@@ -14,19 +19,6 @@
     - I used the **Quarto** template (Not jekyll)
     - You can choose the Theme in [Bootswatch](https://bootswatch.com/)
     - Read my _quarto.yml in the root directory for understanding.
-- If you want to **change the design in your sub-website**, you have to create a **_metadata.yml** file in the sub-folder.(OverRide the _quarto.yml)
-    - theme, format, navbar...
-    - ***Caution***: You Do Not Create several *_metadata.yml* in your deep sub-folders. Only one sub-folder is admitted.
-        ```
-         ├─ _quarto.yml
-         ├─ index.qmd
-         ├─ A folder
-         │    ├─ _metadata.yml
-         │    ├─ index.qmd
-         │    ├─ B folder
-         │    │    ├─ index.qmd
-         │    │    ├─ _metadata.yml     # Do NOT Create this file. [However, I did... for dividing into categories in my blog.]
-        ```
 
 ### How to build: Use GitHub Actions
 - Choose the Source to Action.
@@ -34,11 +26,9 @@
 - Copy and Paste the "_quarto.yml" and "deploy-quarto.yml" files.
 - Create the folders which you want, then write the contents in the "index.qmd".
 
-
 ### Branches
 - main: Codes for website
 - gh-pages: Quarto automatically renders the website with this branch
-
 
 ### Notes
 - If the website renders the "README.md" file or cannot render anything,

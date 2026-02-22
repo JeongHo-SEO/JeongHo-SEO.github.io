@@ -1,0 +1,2 @@
+- Archived for future reference — potentially valuable, though not included in the main portfolio.
+- Not included in my personal website [protfolio](https://jeongho-seo.github.io/)

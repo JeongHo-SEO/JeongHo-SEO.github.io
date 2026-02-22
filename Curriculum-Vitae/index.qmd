@@ -3,24 +3,66 @@ title: "Curriculum Vitae"
 format: html
 ---
 
-# JeongHo SEO — CV
-
-Download CV (PDF):
-
-[Download PDF](JeongHo-SEO.CV.pdf)
-
-## Research Interests
-- Statistics
-- Machine Learning
-- Causal Recommendation
-
-## Projects
-- [ARC-Rec](https://github.com/JeongHo-SEO/ARC-Rec)
-- [PropCare Reproduction](https://github.com/.../...)
+# JeongHo SEO
+Email: seojh1360@dgist.ac.kr
+Website: https://jeongho-seo.github.io/
+GitHub: https://github.com/JeongHo-SEO
+LinkdIn: https://www.linkedin.com/in/jeongho-seo
+---
 
 ## Education
-- DGIST Computational Statistics & CS
-- Grenoble INP — M1 AM
+2020.02-2027.01: B.Sc. in Computational Statistics, Daegu Gyeongbuk Institute of Science and Technology (DGIST)
+Currently
+- GPA: 3.28/4.3
 
+## Research Interests
+- Causal Inference
+- Recommendation Systems
+- Finance
 
-... Need to edited
+## Publications
+### Journal Papers
+1. 
+### Conference Papers
+1. 
+### Working Papers
+1. 
+
+## Research Experience
+- Research Intern, [Intelligent Bio-Opto Mechatronics Lab (IBOM Lab)](https://sites.google.com/view/dgist-ibom/home), DGIST
+  Supervisor: Prof. Cheol Song  
+  Jan 2025
+  - Brief description of research topic or methods used. // 이후에 채울 것.
+
+- Research Intern, [Data Science Lab (DS Lab)](https://dgist-ai.notion.site/), DGIST
+  Supervisor: Prof. Sang-Chul Lee
+  Jul 2025
+  - Brief description of research topic or methods used. // 이후에 채울 것.
+
+- Undergraduate Researcher, [Data Science Lab (DS Lab)](https://dgist-ai.notion.site/), DGIST
+  Supervisor: Prof. Sang-Chul Lee  
+  Feb 2026 - June 2026
+  - Research topic: Causal Recomendation
+  - Method/Tools: 
+  - Contribution:
+
+- Undergraduate Group Research Project (UGRP), DGIST  
+  Supervisor: Prof. Jun-Gi Jang
+  Feb 2026 – Dec 2026
+  - Research topic: Predicting YouTuber Relationships and Community Structures on YouTube Collaboration Networks
+  - Methods: 
+  - Contribution:
+
+## Projects <!-- Main Projects -->
+1. 
+2. 
+Other implementations can be found in my [GitHub Repositories](https://github.com/JeongHo-SEO?tab=repositories)
+
+## Teaching Experience
+
+## Technical Skills
+
+## Awards
+
+### Certificates
+- Advanced Data Analytics Semi-Professional (ADsP)

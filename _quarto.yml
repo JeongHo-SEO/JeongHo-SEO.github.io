@@ -8,7 +8,7 @@ project:
 render:
     # Not Rendered files and folders
     - "!**/README.md"                         # README file: Just Description, Do not include in the website
-    - "!**/Private/**"                        # Private folder: NO Rendering, Do not include in the website
+    - "!**/Archive/**"                        # Archive folder: NO Rendering, Do not include in the website
 
 website:
     title: "JeongHo SEO"
@@ -18,40 +18,56 @@ website:
     navbar:
         left:
             # Above buttons in the Left
-            - href: index.qmd                 # Link to the file
-              text: Home                      # Text to display
-            - href: Curriculum-Vitae/
-              text: CV
-            - href: Papers/
-              text: Papers      
-            - href: Books/
-              text: Books
-            - href: Blog/
-              text: Blog
+            - text: Home                    # Text to display
+            href: index.qmd                 # Link to the file
+
+            - text: Publications
+            menu:
+                - text: Journal Papers
+                href: Publications/Journal.qmd
+                - text: Conference Papers
+                href: Publications/Conference.qmd
+                - text: Working Papers
+                href: Publications/Working.qmd
+
+            - text: CV
+            href: Curriculum-Vitae/index.qmd
+
+            - text: Projects
+            href: Main-Projects/index.qmd
+
+            - text: Books/
+            href: Books/index.qmd
+
+            - text: Teaching/
+            href: Teaching/index.qmd
+
+            - text: Blog/
+            href: Blog/index.qmd
+
 
         right:
             # Above buttons in the Right
             - icon: github
-              href: https://github.com/JeongHo-SEO/
+            href: https://github.com/JeongHo-SEO/
+            
+            - icon: linkdin
+            href: https://www.linkedin.com/in/jeongho-seo/
 
-    # Blog/sidebar settings
-    sidebar:
-        id: "blog-navigation"
-        title: "Pho's Notes"
-        style: "docked"
-        background: "light"
-        contents:
-            - text: "All"
-              href: Blog/index.qmd
-            - text: "Statistics"
-              href: Blog/Statistics/index.qmd
-            - text: "AI"
-              href: Blog/AI/index.qmd
-            - text: "Mathematics"
-              href: Blog/Mathematics/index.qmd
+    page-navigation: true
 
 format:
     html:
-        theme: cosmo                          # Modify Here  
-        toc: true                             # Table of Contents
+        date-modified: last-modified
+        date-format: "MMMM D, YYYY"               # December 12, 1999
+        theme:
+            light: cosmo                          # Modify Here  
+            dark: darkly                          # dark mode option
+        toc: true                                 # Table of Contents
+        code-fold: show  # code show option
+        code-copy: true
         include-in-header: google-verification.html    # for google search
+
+website:
+  page-footer:
+    right: "Lastly Edited: {{< meta date-modified >}}"

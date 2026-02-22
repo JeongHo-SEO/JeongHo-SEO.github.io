@@ -1,20 +1,47 @@
 ---
-title: "Blog"
+title: "Pho's Technical Notes"
 listing:
-  - id: stats-posts
-    contents: "Statistics/**.qmd"
+  - id: paper-posts
+    contents: "Paper-Review/**/*.qmd"
     type: table
     sort: "date desc"
+    fields: [date, title]
+
+- id: book-posts
+    contents: "Book-Summary/**/*.qmd"
+    type: table
+    sort: "date desc"
+    fields: [date, title]
+
+  - id: statistics-posts
+    contents: "Statistics/**/*.qmd"
+    type: table
+    sort: "date desc"
+    fields: [date, title]
+    
   - id: ai-posts
-    contents: "AI/**.qmd"
+    contents: "AI/**/*.qmd"
     type: table
     sort: "date desc"
+    fields: [date, title]
+
+  - id: mathematics-posts
+    contents: "Mathematics/**/*.qmd"
+    type: table
+    sort: "date desc"
+    fields: [date, title]
 ---
 
-## 📊 Statistics
-::: {#stats-posts}
+# 📊 Statistics & Finance
+통계학 및 리스크 관리 관련 글들입니다. `Regression`, `Causal Inference` 등의 주제를 다룹니다.
+
+::: {#statistics-posts}
 :::
 
-## 🤖 AI
+<br>
+
+# 🤖 Artificial Intelligence
+머신러닝 및 딥러닝 관련 구현 기록입니다.
+
 ::: {#ai-posts}
 :::

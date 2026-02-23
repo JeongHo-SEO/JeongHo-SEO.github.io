@@ -1,19 +1,46 @@
 ---
-title: "JeongHo SEO"
-format: html
+title: "서정호 | JeongHo SEO"
+subtitle: "Data Scientist & Analyst"
+about:
+  template: trestles  # 추천: 왼쪽 이미지, 오른쪽 텍스트의 정석적인 스타일
+  image: Home-Figure/profile.jpg  # 프로필 사진 파일명을 여기에 적으세요 (이미지 파일이 폴더에 있어야 함)
+  links:
+    - icon: github
+      text: GitHub
+      href: https://github.com/JeongHo-SEO/
+    - icon: linkedin
+      text: LinkedIn
+      href: https://www.linkedin.com/in/jeongho-seo/
+    - icon: envelope
+      text: Email
+      href: mailto:seojh1360@dgist.ac.kr
 ---
-<!-- Contents which will be displayed -->
 
-I will modify later this sites.
+## 👋 Data Science
 
-### My Curriculum-Vitae:
-- [CV](Curriculum-Vitae/)
+Hello. This is JeongHo who honestly look forward to cover data.
+I majored statistics & AI in DGIST, and will write more informations in this website.
+---
 
-### Papers which I published:
-- [Papers](Papers/)
+### 🔍 Research & Study Interests
+- Causal Inference
+- Recommendation Systems
+- Finance
+---
 
-### Books which I wrote before:
-- [Books](Books/)
+### 🚀 Current Projects
+- **Undergraduate Group Research Project (UGRP)** | DGIST | 2026.02 – 2026.12
+  - *Supervisor:* Prof. Jun-Gi Jang
+  - *Topic:* Predicting YouTuber Relationships and Community Structures on YouTube Collaboration Networks.
 
-### My Blog for academic contents:
-- [Blog](Blog/)
+- **Undergraduate Researcher** | [Data Science Lab (DS Lab)](https://dgist-ai.notion.site/), DGIST | 2026.02 – 2026.06
+  - *Supervisor:* Prof. Sang-Chul Lee
+  - *Topic:* Causal Recommendation Systems
+---
+
+### 🎓 Education
+- **Daegu Gyeongbuk Institute of Science and Technology (DGIST)** | 2020.02 – 2027.01 (Expected)
+  - B.Sc. in Computational Statistics (Candidate)
+- **Grenoble INP - UGA, Ensimag school** | 2025.08 – 2026.01
+  - Exchange Student, Enrolled in M1-AM (Applied Mathematics) & M2-SIAM (Science in Industrial and Applied Mathematics) Programs
+---

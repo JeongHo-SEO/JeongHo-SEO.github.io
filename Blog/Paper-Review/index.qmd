@@ -2,6 +2,6 @@
 title: "Research Paper Review"
 listing:
   contents: "**/*.qmd"
-  type: grid
+  type: default
   categories: true
 ---

@@ -3,45 +3,65 @@ title: "Pho's Technical Notes"
 listing:
   - id: paper-posts
     contents: "Paper-Review/**/*.qmd"
-    type: table
+    type: grid           # table, grid, ...
     sort: "date desc"
-    fields: [date, title]
+    grid-columns: 3      # 한 줄에 보여줄 카드 개수
+    image-height: 150px  # 이미지 높이 조절
+    categories: true     # 자동 부여된 카테고리를 필터로 표시
 
   - id: book-posts
-      contents: "Book-Summary/**/*.qmd"
-      type: table
-      sort: "date desc"
-      fields: [date, title]
+    contents: "Book-Summary/**/*.qmd"
+    type: grid
+    sort: "date desc"
+    grid-columns: 3
+    image-height: 150px
+    categories: true
 
   - id: statistics-posts
     contents: "Statistics/**/*.qmd"
-    type: table
+    type: grid
     sort: "date desc"
-    fields: [date, title]
+    grid-columns: 3
+    categories: true
     
   - id: ai-posts
     contents: "AI/**/*.qmd"
-    type: table
+    type: grid
     sort: "date desc"
-    fields: [date, title]
+    grid-columns: 3
+    categories: true
 
   - id: mathematics-posts
     contents: "Mathematics/**/*.qmd"
-    type: table
+    type: grid
     sort: "date desc"
-    fields: [date, title]
+    grid-columns: 3
+    categories: true
+---
+## 📝 Paper Review
+::: {#paper-posts}
+:::
+
 ---
 
-# 📊 Statistics & Finance
-통계학 및 리스크 관리 관련 글들입니다. `Regression`, `Causal Inference` 등의 주제를 다룹니다.
+## 📚 Book Summary
+::: {#book-posts}
+:::
 
+---
+
+## 📊 Statistics
 ::: {#statistics-posts}
 :::
 
-<br>
+---
 
-# 🤖 Artificial Intelligence
-머신러닝 및 딥러닝 관련 구현 기록입니다.
-
+## 🤖 AI
 ::: {#ai-posts}
+:::
+
+---
+
+## 📐 Mathematics
+::: {#mathematics-posts}
 :::

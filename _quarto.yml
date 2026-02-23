@@ -55,6 +55,7 @@ website:
 
 format:
   html:
+    css: style.css
     date-modified: last-modified
     date-format: "MMMM D, YYYY"               # December 12, 1999
     theme:

@@ -1,0 +1,439 @@
+---
+title: "[SIGIR 2021] Causal Intervention for Leveraging Popularity Bias in Recommendation"
+date: "2025-07-24"
+date-modified: last-modified
+description: "인과 개입(causal intervention)을 통해 해로운 영향만 제거하고 유익한 편향은 활용"
+toc: true
+number-sections: true
+---
+- References
+    - **Paper**: [Causal Intervention for Leveraging Popularity Bias in Recommendation](https://dl.acm.org/doi/abs/10.1145/3404835.3462875)
+    - **Official Code**: [GitHub Repository](URL)
+    - **Conference**: [SIGIR 2021](URL)
+
+- [Presentation Slides](Presentation-Slides/SIGIR21-Causal_Intervention_for_Leveraging_Popularity_Bias_in_Recommendation.pdf)
+
+# Proposal
+
+### RS: Popularity Bias problem.
+
+- Interaction frequencey [popularity] → User-Item interaction data: long-tailed distribution.
+    - Few head items가  most of the interactions 차지.
+- Previous works → Eliminate the effect of popularity bias
+    1. Inverse Propensity Scoring (IPS)
+        1. Propensity estimation 어려움.
+        2. High model variance.
+    2. Causal Embedding
+        1. Bias-free uniform data 사용. → Discard item popularity →  Expose randomly items to users → 구하기 어려움.
+        → Small data → learning: unstable.
+    3. Ranking Adjustment
+        1. Heuristically designed
+        2. Lack of theoretical foundations
+
+### Idea
+
+- Higher popularity items
+    - Better intrinsic quality
+    - Representing current trends
+    - → popularity bias를 모두 삭제하는 것은 별로 좋지 못함.
+- 어떻게 Popularity Bias를 RS 성능을 위해 사용[leverage]할 수 있을까?
+    1. Training 단계에서 Popularity Bias의 Bad impacts를 제거
+    2. Inference 단계에서 desired popularity bias를 삽입. [top-K recommendations 생성.]
+
+### Causal Graph illustration
+
+![image.png](attachment:9f5217ed-9c0f-4488-9b26-1c678747a70f:image.png)
+
+- **Cause → Effect: Directed Acyclic Graph [DAG]**
+- **U, I, Z → C**
+- **Z → I → C & Z→ C**
+    - **Z: confounder, confounding effect를 가짐.**
+    - **Z → I → C: Bad effect of popularity bias [bad effect to learn real user interest.]**
+    - **Z → I 부분을 제거해야 함.**
+    - **do-calculus 연산 사용. [de-confounded training]**
+        - $𝑑𝑜(𝐼)$ **forces to remove the impact of** $𝐼’s$ **parent nodes**
+
+### Proposal
+
+- New training & inference paradigm: **Popularity-bias Deconfounding and Adjusting (PDA)**
+    1. Training 단계에서 confounding popularity bias 제거
+    2. Inference 단계에서, **Causal Intervention** → desired popularity bias → recommendation score 조정.
+
+# Primary Knowledge
+
+### Notation
+
+1. U: user, I: item
+2. Upper-case character: random variable. e.g. $U,I$
+3. lower-case character: specific value. e.g. $u,i$
+4. Calligraphic font: sample space. e.g. $\mathcal{U}=\{u_1,\ldots,u_{|\mathcal{U}|}\}, \mathcal{I}=\{i_1,\ldots,i_{|\mathcal{I}|}\}$
+5. Probability dist.: $P\left(\cdot\right)$
+6. $\mathcal{D}_t$: t번째 stage의 data → $\mathcal{D}=\cup_{t=1}^T \mathcal{D}_t$: historical data
+7. $D_i^t$: Number of observed interactions for item i in $\mathcal{D_t}$
+
+$$
+m_i^t=\frac{D_i^t}{\sum\limits_{j\in\mathcal{I}}D_j^t}:\text{local popularity of item i on the stage t} \quad (1)
+$$
+
+<aside>
+💡
+
+Popularity = Item’s frequency
+
+</aside>
+
+### Metrics
+
+- **Drift of Popularity (DP)** between stage t and stage s **[시간이 흐를수록 popularity가 변화.]**
+    
+    $$
+    \text{DP}\left(t,s\right)=\text{JSD}\left(\left[m_1^t, \ldots, m_{\mathcal{I}}^t\right],\left[m_1^s, \ldots, m_{\mathcal{I}}^s\right]\right) \quad (2)
+    $$
+    
+    - Jensen-Shannon **Divergence**(JSD): **dis-similarity between two stages**
+    - **작을수록 분포 유사.**
+
+![image.png](attachment:5b987fb4-e97d-4e69-b4c3-678cb8d10935:image.png)
+
+- 3 real-world dataset: Kwai, Douban, Tencent
+- (a): dataset에 따라 추세가 다름.
+- (b) 시간이 지남에 따라 점차 popularity의 변화가 누적됨.
+
+# Framework
+
+## Deconfounded Training
+
+<aside>
+💡
+
+$𝑑𝑜(𝐼)$ forces to remove the impact of $𝐼’s$ parent nodes
+
+</aside>
+
+![image.png](attachment:ba47193e-321d-4446-bff1-1f1a0c8b5de7:image.png)
+
+### Traditional predictive model
+
+- $P\left(C|U=u,I=i\right)$: (user, item)에 대하여 interaction할 확률. $P\left(c=1|u,i\right)=??$
+- 높은 순서대로 top-K recommendation.
+
+### Paper’s predictive model
+
+- $Z → I$를 없애야 함. $I$를 그대로 사용하지 말고, $do(I)$를 사용.
+
+<aside>
+💡
+
+**Training: $P\left(C|U,do\left(I\right)\right)=P\left(C|do\left(U\right),do\left(I\right)\right)=P\left(C|do\left(U,I\right)\right) \rightarrow P\left(c=1|do\left(U=u,I=i\right)\right)=??$**
+
+</aside>
+
+- **Figure 1-(b) = G, Figure 1-(c) = G’이라 하면,**
+
+$$
+P\left(C|do\left(U,I\right)\right)
+=P_{G'}\left(C|U,I\right)
+=\sum\limits_{z\in Z} P_{G'}\left(C,z|U,I\right)
+=\sum\limits_{z\in Z} P_{G'}\left(C|U,I,z\right)P_{G'}\left(z|U,I\right)
+\\=\sum\limits_{z\in Z} P_{G'}\left(C|U,I,z\right)P_{G'}\left(z\right)
+=\sum\limits_{z\in Z} P\left(C|U,I,z\right)P\left(z\right) \quad (3)
+$$
+
+### Step 1. $P\left(c=1|u,i,z\right)$ estimation. for $\hat{P}\left(c=1|do\left(u,i\right)\right)$
+
+- $\Theta\text{: parameters of }P\left(c=1|U=u,I=i,z\right)$
+- **Pair-wise BPR objective function with $L_2$ regularization term.**
+    
+    $$
+    \mathcal{L}_{\text{BPR}}=
+    -\sum\limits_{\left(u,i,j\right)\in \mathcal{D}} \log\sigma\left(
+    P_{\Theta}\left(c=1|u,i,m_i^t \right) - P_{\Theta}\left(c=1|u,j,m_j^t \right)
+    \right)
+    +\lambda\|\Theta\|^2 \quad (4')
+    \\
+    \arg\min_{\Theta}\mathcal{L}_{\text{BPR}}= \hat{\Theta}
+    $$
+    
+    - $U=u, I=i, Z=m_i^t$
+    - $j$: negative sample for $u$ → interaction이 없는 item
+    - $\mathcal{L}_{\text{BPR}} \downarrow \quad \Leftrightarrow \quad P_{\Theta}\left(c=1|u,i,m_i^t \right) > P_{\Theta}\left(c=1|u,j,m_j^t \right)$: interaction이 존재하는 item의 interaction 확률이 더 크다. trivial.
+- **$\left(U,I\right), Z$ 분리. → 장점은 명확하나 정당화 하는 논거가 없음. 가정으로 판단.**
+    
+    $$
+    P_{\Theta}\left(c=1|u,i,m_i^t \right)
+    = \text{ELU}'\left(f_{\Theta}\left(u,i\right)\right)\times\left(m_i^t\right)^{\gamma} \quad (5)
+    $$
+    
+    1. $f$를 변화시켜 가며 extendable한 model 생성 가능
+    2. Inference에서 popularity bias를 조정하기 용이. $\left(m_i^t\right)^{\gamma}$
+        1. $\gamma$: hyper-parameter for tuning.
+        2. $\gamma \uparrow \quad \Rightarrow \text{higher impact of bias}$
+    - In this paper, $f:\text{Matrix Factorization}$
+    - $\text{ELU}$: Exponential Linear Unit [activation function]
+        
+        $$
+        \text{ELU}'\left(x\right)=
+        \begin{cases} e^{-x}, & \text{if } x \le 0 \\ x+1, & \text{else} \end{cases}   \quad(6)
+        $$
+        
+
+### Step 2. $\sum\limits_{z\in Z} P\left(c=1|u,i,z\right)P\left(z\right)$  estimation
+
+$$
+P\left(c=1|do\left(u,i\right)\right)
+=\sum\limits_{z\in Z} P\left(c=1|u,i,z\right)P\left(z\right)
+=\sum\limits_{z\in Z}
+P_{\Theta}\left(c=1|u,i,m_i^t \right) P\left(z\right)
+\\= \sum\limits_{z\in Z}
+\text{ELU}'\left(f_{\Theta}\left(u,i\right)\right)\times\left(m_i^t\right)^{\gamma}P\left(z\right)
+= 
+\text{ELU}'\left(f_{\Theta}\left(u,i\right)\right)\times \sum\limits_{z\in Z} z^{\gamma}P\left(z\right)
+\\=
+\text{ELU}'\left(f_{\Theta}\left(u,i\right)\right)\times \mathbb{E} \left(Z^{\gamma}\right)
+$$
+
+### **Popularity-bias Deconfounding (PD)**
+
+- **$\mathbb{E} \left(Z^{\gamma}\right)$: constant. → Popularity term $Z$: 영향 사라짐. [Z→I path 사라짐.] → Bias의 negative effect 제거.**
+- Estimated parameters $\hat{\Theta} \rightarrow 
+\text{ELU}'\left(f_{\hat{\Theta}}\left(u,i\right)\right)\times \mathbb{E} \left(Z^{\gamma}\right) \rightarrow \hat{P}\left(c=1|do\left(U=u,I=i\right)\right)$
+
+<aside>
+💡
+
+**Training: (user, item) 만으로 학습. $\hat{\Theta} \rightarrow
+\text{ELU}'\left(f_{\hat{\Theta}}\left(u,i\right)\right)\times \mathbb{E} \left(Z^{\gamma}\right) \rightarrow \hat{P}\left(c=1|do\left(U=u,I=i\right)\right)$**
+
+</aside>
+
+## Adjusting Popularity Bias in Inference
+
+- **Popularity Bias의 better usage: promoting, i.e, $\exist$ target popularity bias $\tilde{z}$**
+- 따라서 target $\tilde{z}$ [desired popularity]를 inference에 반영할 수 있다.
+    
+    $$
+    P\left(c=1|do\left(U=u,I=i\right), do\left(Z=\tilde{z}\right)\right)
+    =P_{\Theta}\left(c=1|u,i,\tilde{m_i}\right)\quad(7)
+    $$
+    
+    - $\tilde{m_i}$: popularity value of $\tilde{z}$, modeling with the time-series forecasting method.
+
+### **Popularity-bias Deconfounding and Adjusting (PDA)**
+
+$$
+\tilde{m_i}=m_i^T + \alpha\left(m_i^T-m_i^{T-1}\right)\quad (8)
+$$
+
+- $m_i^T$: popularity value of the last stage T
+- $\alpha$: hyper-parameter, control the popularity drift
+
+$$
+\text{PDA}_{u,i}=
+\text{ELU}'\left(f_{\Theta}\left(u,i\right)\right)\times \left(\tilde{m_i}\right)^{\tilde{\gamma}} \quad (9)
+$$
+
+- $\tilde{\gamma}$: hyper-parameter for the strength of popularity bias
+
+<aside>
+💡
+
+**[Inference] $\text{PDA}_{u,i}$: recommendation score → each user에 대하여 상위 K개의 item을 recommendation.**
+
+</aside>
+
+![image.png](attachment:296bb6b8-ae3f-4811-b892-cdc42fd87ab8:image.png)
+
+![image.png](attachment:36fe81dc-e137-4f20-b166-1833a0a4b670:image.png)
+
+<aside>
+💡
+
+**Inference: (user, item), target popularity bias $\tilde{z}$ → $\text{PDA}_{u,i}=
+\text{ELU}'\left(f_{\Theta}\left(u,i\right)\right)\times \left(\tilde{m_i}\right)^{\tilde{\gamma}}$→ top-K recommendation.**
+
+</aside>
+
+## Comparison with Correlation $P\left(C|U,I\right)$
+
+$$
+P\left(C|do\left(U,I\right)\right)
+=P_{G'}\left(C|U,I\right)
+=\sum\limits_{z\in Z} P_{G'}\left(C,z|U,I\right)
+=\sum\limits_{z\in Z} P_{G'}\left(C|U,I,z\right)P_{G'}\left(z|U,I\right)
+\\=\sum\limits_{z\in Z} P_{G'}\left(C|U,I,z\right)P_{G'}\left(z\right)
+=\sum\limits_{z\in Z} P\left(C|U,I,z\right)P\left(z\right) \quad (3)
+$$
+
+$$
+P\left(C|U,I\right)
+=P_{G}\left(C|U,I\right)
+=\sum\limits_{z\in Z} P_{G}\left(C,z|U,I\right)
+=\sum\limits_{z\in Z} P_{G}\left(C|U,I,z\right)P_{G}\left(z|U,I\right)
+\\=\sum\limits_{z\in Z} P_{G}\left(C|U,I,z\right)P_{G}\left(z|I\right)
+=\sum\limits_{z\in Z} P\left(C|U,I,z\right)P\left(I|z\right)\frac{P\left(z\right)}{P\left(I\right)}
+\propto \sum\limits_{z\in Z} P\left(C|U,I,z\right)P\left(I|z\right)P\left(z\right) \quad (10)
+$$
+
+- $P\left(I|z\right)=P\left(I=i|Z=m_i^t\right)$ → Popularity Z가 training에 사용됨.
+- **$P\left(C|U,I\right)$: correlation-based training**
+- **$P\left(C|do\left(U,I\right)\right)$: causality-based training with causal intervention $do\left(\cdot\right)$**
+
+# Experiments
+
+<aside>
+💡
+
+- **RQ1:**
+    1. **Does PD** achieve the goal of **removing the bad effect of popularity bias**?
+    2. How is its **performance** compared with existing methods?
+- **RQ2:**
+    1. **Can PDA** effectively **inject desired popularity bias**?
+    2. To what extent **leveraging popularity bias enhance** the recommendation **performance**.
+</aside>
+
+## Datasets
+
+1. Kwai: clicking data
+2. Douban Movie: user ratings for movies
+3. Tencent: user interactions are “likes”, which are reflective of user satisfaction but far more sparse than clicks.
+
+## Baselines vs PD
+
+![image.png](attachment:07500f26-f632-457f-88ce-a04379adec1a:image.png)
+
+### Metrics
+
+### 📌 1. Recall@k
+
+- 사용자가 실제로 상호작용한 아이템 중에서 추천 리스트에 포함된 비율
+    
+    $$
+    ⁍
+    $$
+    
+- $\text{Relevant}_u$: 사용자 $u$가 실제로 상호작용한 아이템 집합
+- $\text{Recommended}_u^k$: 모델이 사용자 $u$에게 추천한 상위 $k$개 아이템
+
+---
+
+### 📌 2. Precision@k
+
+- 추천된 아이템 중에서 사용자가 실제로 좋아한(relevant) 아이템의 비율
+    
+    $$
+    
+    \text{Precision@}k = \frac{|\text{Relevant}_u \cap \text{Recommended}_u^k|}{k}
+    
+    $$
+    
+
+---
+
+### 📌 3. Hit Ratio (HR@k)
+
+- 추천 리스트에 사용자가 좋아한 아이템이 하나라도 포함되었는지 여부
+    
+    $$
+    \text{HR@}k =
+    \begin{cases}
+    1 & \text{if } \text{Relevant}_u \cap \text{Recommended}_u^k \neq \emptyset \\\\
+    0 & \text{otherwise}
+    \end{cases}
+    $$
+    
+- 전체 사용자 평균:
+    
+    $$
+    \text{HR@}k = \frac{1}{|U|} \sum_{u \in U} \mathbb{I}\left[\text{Relevant}_u \cap \text{Recommended}_u^k \neq \emptyset\right]
+    $$
+    
+
+---
+
+### 📌 4. NDCG@k (Normalized Discounted Cumulative Gain)
+
+- 추천된 아이템의 순서가 중요할 때 사용되는 순위기반 지표
+- **DCG (Discounted Cumulative Gain)**:
+    
+    $$
+    \text{DCG@}k = \sum_{i=1}^{k} \frac{rel_i}{\log_2(i+1)}
+    $$
+    
+    - $\text{rel}_i$: 추천된 $i$번째 아이템이 relevant하면 1, 아니면 0
+- **IDCG (Ideal DCG)**: relevance 순으로 정렬된 최적 DCG
+    
+    $$
+    \text{NDCG@}k = \frac{\text{DCG@}k}{\text{IDCG@}k} \in [0,1]
+    $$
+    
+
+---
+
+### 📌 5. Relative Improvement
+
+- 기준 모델 대비 성능 향상률
+    
+    $$
+    \text{Relative Improvement (\%)} = \frac{\text{New} - \text{Baseline}}{\text{Baseline}} \times 100
+    $$
+    
+- **예시**:
+    - 기존 모델 Recall@10 = 0.10
+    - 새로운 모델 Recall@10 = 0.12
+        
+        → Relative Improvement = 20%
+        
+
+---
+
+### ✅ 정리 표
+
+| Metric | 설명 | 수식 요약 |
+| --- | --- | --- |
+| Recall@k | Relevant 중 얼마나 맞췄는가 | $\frac{\text{TP}}{\text{TP + FN}}$ |
+| Precision@k | 추천 중 얼마나 Relevant한가 | $\frac{\text{TP}}{k}$ |
+| Hit Ratio@k | 하나라도 맞췄는가 | 0 or 1 |
+| NDCG@k | 순서까지 고려한 정답성 측정 | $\frac{DCG@k}{IDCG@k}$ |
+| Relative Improv. | 기준 모델 대비 성능 향상률 | $\frac{\text{New} - \text{Baseline}}{\text{Baseline}}$ |
+
+## Deconfounding Performance (RQ1)
+
+### Baselines vs PD
+
+- Group 1-10: average popularity
+- Group 1: 가장 인기 많음 ~ Group 10: 가장 인기 없음.
+
+![image.png](attachment:6e80a2a8-8aae-4d28-9859-827aad139414:image.png)
+
+![image.png](attachment:b5f3bd4b-ae1a-470e-b703-8ebb67be4a74:image.png)
+
+- **BPRMF**: Group 1에 많은 추천 → popularity와 추천이 비례 → popularity bias amplification.
+- **DICE**: Group 5에 많은 추천 → 반반.
+- **PD**: training 데이터의 RR 분포와 가장 유사 & 표준편차(std. dev.)가 가장 작음
+    - → **bias amplification 제거 → popularity bias 영향 제거됨**
+
+### **Global Popularity V.S. Local Popularity**
+
+![image.png](attachment:582aa766-56c7-49e3-80bd-7c5c276d507b:image.png)
+
+- 각 stage에 대응하는 Popularity 값을 쓰는 것이 더 성능 좋음.
+
+## Performance of Adjusting Popularity (RQ2)
+
+- (a): $\tilde{m_i}=m_i^T$
+- (b): $\tilde{m_i}=m_i^T + \alpha\left(m_i^T-m_i^{T-1}\right)\quad (8)$ → 더 성능 좋음.
+
+![image.png](attachment:248515d8-e3ff-44bf-9b39-eb2f6126b6c9:image.png)
+
+### **More Refined Predictions for Popularity.**
+
+- Uniformly split the data in the last training stage into 𝑁 sub-stages by time
+- (a): $\tilde{m_i}=m_i^T$ 사용.
+- N이 증가할수록 성능 증가하는 경향 → popularity를 더 정밀하게 예측할수록 성능 향상.
+- *This experiment shows that the performance of PDA can be further improved with a more precise prediction of popularity.*
+
+![image.png](attachment:c60310e9-7be7-4617-8a69-477105b3ecea:image.png)
+
+### Total Improvements of PDA.
+
+![image.png](attachment:eb6f4cb3-905b-4689-80fb-1c2733f3ee17:image.png)

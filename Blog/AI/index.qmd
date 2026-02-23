@@ -1,1 +1,6 @@
-
+---
+title: "AI Scetion"
+listing:
+  contents: "**/*.qmd"
+  type: grid
+---

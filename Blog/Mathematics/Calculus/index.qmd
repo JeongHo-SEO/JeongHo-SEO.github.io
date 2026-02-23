@@ -2,5 +2,5 @@
 title: "Calculus"
 listing:
   contents: "*.qmd"
-  type: grid
+  type: default
 ---

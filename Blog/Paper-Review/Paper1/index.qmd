@@ -1,1 +1,7 @@
+---
+title: "Paper Title"
+date: "2025-11-25"
+date-modified: last-modified
+---
 
+내용 적기.

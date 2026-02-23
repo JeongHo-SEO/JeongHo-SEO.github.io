@@ -4,5 +4,4 @@ listing:
   contents: "**/*.qmd"
   type: grid
   categories: true
-
 ---

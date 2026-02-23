@@ -2,6 +2,6 @@
 title: "Statistics"
 listing:
   contents: "**/*.qmd"
-  type: default
+  type: grid
   categories: true
 ---

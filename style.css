@@ -1,0 +1,15 @@
+/* style.css */
+
+/* 1. 날짜(Modified) 위치가 거슬릴 때 우측 하단으로 보내는 설정 */
+/* 필요할 때 아래 주석을 풀어서(삭제해서) 사용하세요. */
+/*
+.quarto-title-meta-column-end {
+  text-align: right;
+  margin-top: 2rem;
+  border-top: 1px solid #eee;
+  padding-top: 1rem;
+}
+.quarto-title-meta-heading { display: none; }
+*/
+
+/* 2. 기타 폰트나 간격 조정을 위해 비워둠 */

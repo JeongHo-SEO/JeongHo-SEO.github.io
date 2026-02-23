@@ -2,20 +2,20 @@
 title: "Teaching & Mentoring"
 ---
 ## 🏫 University Teaching
-1. **Undergraduate Teaching Assistant (TA)** | DGIST | 2026.02 - 2026.06
+- **Undergraduate Teaching Assistant (TA)** | DGIST | 2026.02 - 2026.06
   - **Course:** Linear Algebra
   - **Lecturer:** Prof. Doo-Seok Lee
   - **Responsibilities:** Manage assignments, supervise exams and etc.
   - **Materials:** [TA documents](https://github.com/JeongHo-SEO/DGIST-Linear-Algebra-TA-2026s)
 
-2. **Tutoring: Tutor** | DGIST | 2026.02 - 2026.06
+- **Tutoring: Tutor** | DGIST | 2026.02 - 2026.06
   - **Course:** Introduction to Probability and Mathematical Statistics with R | In this semester, practical session was proceeded with **Python**.
   - **Lecturer:** Prof. Carlos Scarinci
   - **Responsibilities:** 작성예정
   - **Materials:** [Tutoring Materials](https://github.com/JeongHo-SEO/DGIST-Basic-Stats-Tutor-2026s)
 
 ## 📚 Other Mentoring
-1. 교육봉사 지역아동센터
-2. **Personal Tutoring (Mathematics)** | 2019.05 - Present
+- 교육봉사 지역아동센터
+- **Personal Tutoring (Mathematics)** | 2019.05 - Present
   - 중/고등학생 대상 수학 교과목 개인 지도 (수능 및 내신 대비)
   - 대학생 대상 미적분학 개인 지도. (수정 예정 in eng)

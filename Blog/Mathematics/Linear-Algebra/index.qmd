@@ -1,0 +1,6 @@
+---
+title: "Linear Algebra"
+listing:
+  contents: "*.qmd"
+  type: grid
+---

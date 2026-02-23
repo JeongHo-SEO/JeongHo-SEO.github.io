@@ -18,14 +18,16 @@ about:
 
 ## 👋 Data Science
 
-Hello. This is JeongHo who honestly look forward to cover data.
-I majored statistics & AI in DGIST, and will write more informations in this website.
+Hello. This is JeongHo who honestly look forward to cover data.  
+I majored statistics & AI in DGIST, and I will write more informations in this website.
+
 ---
 
 ### 🔍 Research & Study Interests
 - Causal Inference
 - Recommendation Systems
 - Finance
+
 ---
 
 ### 🚀 Current Projects
@@ -36,6 +38,7 @@ I majored statistics & AI in DGIST, and will write more informations in this web
 - **Undergraduate Researcher** | [Data Science Lab (DS Lab)](https://dgist-ai.notion.site/), DGIST | 2026.02 – 2026.06
   - *Supervisor:* Prof. Sang-Chul Lee
   - *Topic:* Causal Recommendation Systems
+
 ---
 
 ### 🎓 Education
@@ -43,4 +46,5 @@ I majored statistics & AI in DGIST, and will write more informations in this web
   - B.Sc. in Computational Statistics (Candidate)
 - **Grenoble INP - UGA, Ensimag school** | 2025.08 – 2026.01
   - Exchange Student, Enrolled in M1-AM (Applied Mathematics) & M2-SIAM (Science in Industrial and Applied Mathematics) Programs
+
 ---

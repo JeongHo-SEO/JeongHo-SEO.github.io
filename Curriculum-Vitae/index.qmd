@@ -1,6 +1,5 @@
 ---
 title: "Curriculum Vitae"
-author: "JeongHo SEO"
 format: 
   html:
     toc: true

@@ -1,6 +1,2 @@
-# List and Short Description
-- [book1](book1/)
-    - Description 1
-
-- [book2](book2/)
-    - Description 2
+This pages covers several books I (personally) published.
+(Later) I will upload them on this webpage.

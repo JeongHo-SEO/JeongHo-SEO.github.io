@@ -32,11 +32,11 @@ website:
         href: Curriculum-Vitae/index.qmd
       - text: Projects
         href: Main-Projects/index.qmd
-      - text: Books/
+      - text: Books
         href: Books/index.qmd
-      - text: Teaching/
+      - text: Teaching
         href: Teaching/index.qmd
-      - text: Blog/
+      - text: Blog
         href: Blog/index.qmd
     
     right:

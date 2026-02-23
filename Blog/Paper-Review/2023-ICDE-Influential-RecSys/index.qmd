@@ -10,6 +10,7 @@ number-sections: true
     - **Paper**: [Influential Recommender System](https://ieeexplore.ieee.org/abstract/document/10184767)
     - **Conference**: [ICDE 2023](https://ieeexplore.ieee.org/xpl/conhome/10184508/proceeding)
 
+- [Paper download](ICDE'2023-Influential_Recommender_System.pdf)
 - [Presentation Slides](Presentation-Slides/ICDE2023-Influential_Recommender_System.pdf)
 
 # Abstract + I. Introduction

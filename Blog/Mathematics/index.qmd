@@ -1,11 +1,30 @@
 ---
 title: "Mathematics"
+toc: true
 listing:
-  contents: 
-    - "**/*.qmd"          # 모든 글을 가져오되
-    - "!index.qmd"        # 현재 폴더의 index.qmd 제외
-    - "!**/index.qmd"     # 모든 하위 폴더의 index.qmd 제외 (핵심!)
-  type: grid
-  categories: true
-  sort: "date desc"
+  - id: calculus-list
+    contents: 
+      - "Calculus/*.qmd"      # Calculus 폴더 내 모든 qmd
+      - "!Calculus/index.qmd" # 폴더 메인 페이지는 카드에서 제외
+    type: grid
+    grid-columns: 3
+    sort: "date desc"
+  - id: linear-list
+    contents: 
+      - "Linear-Algebra/*.qmd"
+      - "!Linear-Algebra/index.qmd"
+    type: grid
+    grid-columns: 3
+    sort: "date desc"
 ---
+
+## 📐 Calculus
+::: {#calculus-list}
+:::
+
+---
+
+## 🧮 Linear Algebra
+::: {#linear-list}
+:::
+

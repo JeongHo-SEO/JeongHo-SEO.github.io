@@ -1,0 +1,534 @@
+---
+title: "[ICDE 2023] Influential Recommender System"
+date: "2025-07-22"
+date-modified: last-modified
+description: "influence path를 통한 objective item 유도: active recommendation"
+toc: true
+number-sections: true
+---
+- References
+    - **Paper**: [Influential Recommender System](https://ieeexplore.ieee.org/abstract/document/10184767)
+    - **Conference**: [ICDE 2023](https://ieeexplore.ieee.org/xpl/conhome/10184508/proceeding)
+
+- [Presentation Slides](Presentation-Slides/ICDE2023-Influential_Recommender_System.pdf)
+
+# Abstract + I. Introduction
+
+## User-oriented Recommender System (URS)
+
+- Traditional Recommender Systems
+- User’s historical interests [internal interests]
+→ RS recommends to adapt the user’s current interests
+: Passive Recommendation
+
+### **Goal** in commercial applications
+
+- User’s interests를 확장시켜서 user가 몰랐거나 관심없던 items를 Accept하게 만드는 것.
+→ Customer[user] Interactions를 증가시킬 방안이 필요.
+→ URS: User’s interests 내에서만 Recommendation이 이루어지므로 불가능.
+→ **IRS 제안.**
+
+## Influential Recommender System (IRS)
+
+### Concepts
+
+- User $u$, item $i$
+1. Objective Item 설정.: Target item, $i_t$
+2. Influence path 설정.: Sequential list of carefully selected items
+
+→ user’s historical interests 만족 & user’s interests를 $i_t$로 확장.
+
+→ User가 given objective item을 좋아하도록 유도.: Active Recommendation
+
+### Example with watching movies
+
+![**FIg. 1.이 잘못되었습니다.**
+Tom의 실선이 The Matrix에도 가야하고, The Matrix가 Cameron에 의해 directed되었어야 합니다.
+따라서 **Tom: Expedition: Bismarck → The Matrix → The Abyss 여야 합니다.**](attachment:3c97553a-9e50-4640-9560-99665fa12ab9:image.png)
+
+**FIg. 1.이 잘못되었습니다.**
+Tom의 실선이 The Matrix에도 가야하고, The Matrix가 Cameron에 의해 directed되었어야 합니다.
+따라서 **Tom: Expedition: Bismarck → The Matrix → The Abyss 여야 합니다.**
+
+- Interest 대상 (3가지)
+    - Genre: Fantasy, Romance
+    - Director: Cameron
+- Arrows
+    - Solid arrows [실선]: Users’ viewing histories
+    → users’ chronological behavioral sequences
+    - Dash arrows [점선]: Users’ influence path
+- Objective item for user **Eric**: **The Notebook**
+    - Influence Path: Inception → The Matrix **→ The Abyss → The Terminator → Avatar → Titanic → The Notebook**
+    1. Only Fantasy
+    2. Tom과 movie 겹침 → Tom’s watching history를 recommendation
+    : Fantasy + Cameron
+    → Fantasy + Cameron + Romance
+    → Cameron + Romance
+    3. Jenny와 movie 겹침 → Jenny’s watching history를 recommendation
+    : Cameron + Romance
+    → **Romance: Objective item**
+
+### Challenges
+
+1. Influence Path
+    1. User’s historical interest에서 너무 많이 벗어나면 안됨. for user’s trust and satisfaction
+    2. Objective item에 관계된 추천을 해야 함.
+2. Generation of influence path
+    - items간의 sequential dependencies에 부합해야 함.
+    - 즉, next item/action은 user가 최근에 참여한 items/actions에 더욱 의존해야 함.
+3. User’s preference for external influence
+    - User마다 외부 영향에 대한 선호가 다름. 즉, personal함.
+        1. Extrovert한, external influences에 쉽게 시도하는 user
+            
+            → influence path가 more aggressive할 수 있음.
+            
+        2. New interests를 설득하기 어려운 user
+            
+            → influence path를 더 조심스럽게 해야 함.
+            
+    - Impressionability: External influence에 대하여 user마다 서로 다른 preference를 가짐.
+
+---
+
+**해결책 → IRN framework including PIM**
+
+### Influential Recommender Network (IRN)
+
+- **Challenge 2**: Item’s sequential dependencies를 encoding 해야 함.
+    1. User-Item interaction sequence: sequential 구조.
+    & NLP sentences: sequential 구조.
+    2. Items간의 dependencies: 인접하거나 멀리 있는 items 모두 고려.
+    & Words간의 dependencies: 인접하거나 멀리 있는 words 모두 고려.
+    
+    → NLP의 Transformer model과 특성이 유사.
+    
+    **→ Transformer-based sequential model을 구축. == IRN framework**
+    
+- **Challenge 3**: Each user마다 개인화된 influence path 필요.
+    
+    → Item attention weights 계산할 때, user embedding을 넣어야 함.
+    
+    **→ Personalized Impressionability Mask (PIM)**
+    
+
+### Evaluation metrics for IRN’s performance
+
+- IRS와 관련된 기존 연구가 없음. → 평가 척도 필요. → design해서 사용.
+- IRS가 user’s satisfaction을 유지시키면서 user’s interest를 objective item으로 확장시켰는가?
+
+### Evaluator
+
+- 얼마나 많은 user가 unseen item에 관심을 가졌는지 평가 필요.
+→ offline dataset에서 obtain 불가.
+→ unseen item에 대한 user의 reaction을 simulation 해야 함.
+→ **Evaluator**
+
+### Contribution
+
+1. Given objective item에 대하여 user에게 pro-actively lead [active recommendation]
+2. Challenges 해결.: IRN framework
+3. Performance Metrics design & IRN Performance: better than baseline recommenders
+
+# II. Related Work
+
+## A. Bayesian Persuasion
+
+### Persuasion
+
+- Def.: Influencing behavior via the provision of information.
+    - info. → (provider) → influence to (someone)’s behavior
+- Abstraction:
+    - info. → (sender) → influence to (receiver)’s behavior
+- In RS:
+    - Influence path → (recommender) → user becomes to like the objective item
+
+### Bayesian Persuasion
+
+- Persuasion problem related to Bayesian manner
+- Social learning, Products advertisement, Matching markets… 등 real-world scenarios에 적용됨.
+- Domain Knowledge 필요
+
+### IRN
+
+- Data → Designing influence path w/ proper ML techniques
+    - data-driven manner
+    - Domain Knowledge 필요 없음.
+- **RS를 persuasion behavior과 통합시켰음.**
+
+## B. Sequential Recommendation System
+
+### Sequential Recommender System (SRS)
+
+- **Input: Sequential signals [IRS와의 공통점]**
+- Output: Next-item recommendation
+- **Challenges**
+    1. Higher-order sequential dependencies 학습
+        1. Lower-order sequential: simple → Markov chain or factorization machines로 modeling
+        2. Higher-order sequential: complex → RNN, graph-based models
+    2. Handling user-item interaction sequences **w/ flexible order and noise**
+        1. CNN, Attention models로 해결
+    3. Handling user-item interaction sequences **w/ heterogeneous relations and hierarchical structures**
+        1. Mixture models로 해결
+
+### SRS vs IRS
+
+- SRS: Items’ sequential dependencies → next-item recommendation에 사용.
+    - SRS $\subset$ URS
+- IRS: sequential dependency information → influence paths generation에 사용. for objective item
+    - IRS $\not \subset$ URS
+
+# III. Influential Recommender System
+
+## A. Problem Definition
+
+![image.png](attachment:34412680-7d38-466a-b852-d762ccd32481:image.png)
+
+- IRS만을 기준으로 하면,
+    - Input: $s_h \oplus s_p$
+    - output: 최종 $s_p$
+
+### Notation
+
+- Item set: $I=\{ i_1, i_2, \ldots, i_{|I|} \}$
+- User set: $U=\{ u_1, u_2, \ldots, u_{|U|} \}$
+
+---
+
+- 특정 user u에 대한, User-Item interaction sequence: $s^u=\{ i_1, i_2, \ldots, i_{m} \} \in S_u$
+    - Watching Movie라고 하면, 시간의 흐름 $t_1, t_2, \ldots, t_m$에 대한 movies 순서 sequence
+    - Movie == item, watching = interaction
+- 특정 user u에 대한, set of $s$: $S_u$
+- 모든 (user,item)에 대한, interaction sequence set: $S = \cup_{u=1}^{|U|} S_u = \{ s_1,s_2, \ldots, s_{|S|} \}$
+
+---
+
+- 특정 user u에 대한,
+    - user’s viewing history: $s_h^u=\{ i_1, i_2, \ldots, i_{q-1} \}$ means user’s original interests
+    - Influence path: $s_p^u = \{ i_j, i_{j+1}, \ldots, i_k \}$
+    - Objective item: $i_t^u$ means target item for user u
+
+### Algorithm
+
+- Assumption: Simplicity를 위해, user가 모든 recommendations을 accept한다고 가정
+    - 원래는 user가 recommendation을 보고 item accept or reject를 결정
+- $\mathcal{F}$: Recommender function → learning 필요.
+- $s_p$: 초기엔 empty set → 점차 채워짐.
+
+![**학습이 완료된 후, 최종 $\mathcal{F}$를 algorithm 1에 사용함.**](attachment:48981f67-9810-45c8-9304-376ca9c59d58:image.png)
+
+**학습이 완료된 후, 최종 $\mathcal{F}$를 algorithm 1에 사용함.**
+
+## B. Path-finding Algorithms as IRS
+
+<aside>
+💡
+
+Influence path generation == path-finding problem in Graph
+
+</aside>
+
+- $S_u$로부터 graph를 그려야 함.
+- $s_h$의 last item을 $i_h$라고 하면, $i_h$는 user의 recent interest임.
+- $i_h$와 $i_t$ 사이의 path를 찾아야 함. → path-finding algorithm 사용.
+- 가장 먼저 소개된 path-finding algorithm: Pf2Inf
+- Pf2Inf algorithm example
+    
+    ![image.png](attachment:14e962de-7ff4-484c-875f-e08be1880aac:image.png)
+    
+    - $s_h = \{, \ldots,i_1\}, \ i_t = i_{11}$일 때, shortest path를 influence path로 찾음.
+        - $s_p = \{ i_1, i_6, i_4, i_{11} \}$
+    
+
+## C. Adapting Existing RS with Greedy Search
+
+### Pf2Inf 단점.
+
+1. $s_h$에서 items의 sequential patterns를 구할 수 없다.
+2. Sparse recommendation dataset에서, disjoint graphs가 발생한다.
+    
+    ![image.png](attachment:62acd4a7-05ac-4130-bc3b-96104490f10f:image.png)
+    
+    이 경우 $s_h=\{i_3, i_4, i_{10}\}, i_t=i_{12}$일 때, 적절한 $s_p$를 찾을 수 없다.
+    
+
+### Pf2Inf’s Alternative = Rec2Inf
+
+- Greedy search strategy
+1. Given $s_h$, use existing RS $\mathcal{R}$ → generate top-k recommendations set $\mathcal{R}_k = \mathcal{R}\left(s_h \oplus s_p \right)$
+2. Item embedding ← e.g. item2vec
+3. Calculate distance betw. item $i \in \mathcal{R}_k$ and objective item $i_t$
+4. Choose the closest item $i'$ and then Add $i'$ into the $s_p$
+5. Repeat 1 - 4
+    
+    **→ End if**  $i_t$ is added into the $s_p$
+    
+
+### Rec2Inf’s Limitations
+
+1. 각 iteration에서 distance가 minimum인 item 하나씩 $s_p$로 더해짐.
+→ local optimal selection
+→ global optimal influence path라고 할 수 없음.
+2. Objective item $i_t$가 training process에는 포함되지 않음.
+→ RS가 이른 시기에 계획될 수 없음. 
+
+<aside>
+💡
+
+[목표] Influence Path $s_p$ 찾기.
+
+- B & C에서 시도했던 graph-based model
+    
+    → path-finding problem이 잘 해결되지 않음.
+    
+    → graph-based model 포기.
+    
+- 다른 방법? → N.N-based IRN.
+</aside>
+
+## D. Influential Recommender Network (IRN)
+
+![image.png](attachment:aa598382-595a-4f1f-b864-9c5ca34b821b:image.png)
+
+### Framework
+
+1. Embedding layer: input sequence → input vector
+    
+    ![image.png](attachment:6a194465-4e79-45f0-87b8-4eb86e74d185:image.png)
+    
+2. L decoder layers: 각각 self-attention layer 존재, with Personalized Masking
+    
+    ![image.png](attachment:be484634-2080-411b-b98c-b5e8091f4c0e:image.png)
+    
+3. Output layer: hidden states → 확률분포
+    
+    ![image.png](attachment:530faaeb-9dcf-43fa-8622-45e1290144c3:image.png)
+    
+
+### 1) Item Embedding
+
+![image.png](attachment:6a194465-4e79-45f0-87b8-4eb86e74d185:image.png)
+
+- Embedding: item[discrete token] → vector [output]
+- 이 때 transformer 구조에서 ordering property를 살리기 위해, Positional Encoding 필요.
+    
+    $$
+    \mathbf{e}\left(i_j\right) = \text{TE}\left[i_j\right] + \text{PE}\left[j\right]\in \mathbb{R}^d \quad  \text{for}\  j=1,\ldots,m \quad (1)
+    $$
+    
+    - $\text{TE} \in \mathbb{R}^{|I| \times d}$: Token Embedding matrix [Item embedding]
+    - $\text{PE} \in \mathbb{R}^{m \times d}$: Positional Embedding matrix [Positional Encoding]
+- Pre-trained embedding by item2vec model → better initial weights → better model performance
+
+### 2) Decoder
+
+- L개의 layers, input → 1st layer → 2nd layer → … → L-th layer → output
+    - First decoder layer’s input: $\mathbf{H}^0 =\{\mathbf{e}\left(i_1\right),\ldots,\mathbf{e}\left(i_m\right)\}$
+    - Embedding sequence $\mathbf{H}^0$ → Sequence of hidden states $\mathbf{H}^L=\{\mathbf{h}_1^L,\ldots,\mathbf{h}_m^L\}$
+- **PIM을 고려하지 않았을 경우, [Not personalized]**
+    - $\mathbf{h}_j$: hidden state of $i_j$ ← [history, target] $i_1, i_2, \ldots, i_{j-1}, i_t$
+        
+        $$
+        \mathbf{h}_j=\text{Dec}\left(\mathbf{h}_{<j}, \mathbf{h}_t\right) \quad (2)
+        $$
+        
+    - Each decoder layer: $(l-1)^{th}$ layer가 $l^{th}$ layer를 update.
+        
+        $$
+        \mathbf{H}^l=\text{Self-Attn}\left(\mathbf{H}^{l-1}\right)\quad(3)
+        $$
+        
+    - **But, 식 (3)은 틀린 식인 것 같음. Add&Norm, FFN이 고려되지 않음. in Fig. 4.**
+    - **수정한 식.**
+        
+        $$
+        \mathbf{H}^l
+        =\text{FFN}\left(
+        \text{AddNorm}\left(
+        \text{Self-Attn}\left(
+        \mathbf{H}^{l-1}
+        \right)
+        \right)
+        \right) \quad(3')
+        $$
+        
+    - 또한 위 구조에서 Query, Key, Values는 모두 같은 값을 사용.
+        
+        $$
+        \text{Self-Attn}\left(\mathbf{H}^l\right)=\text{Attention}\left(\mathbf{H}^l,\mathbf{H}^l,\mathbf{H}^l\right)
+        \\
+        \qquad \qquad\qquad\qquad\qquad\qquad\qquad\qquad\qquad\qquad\qquad(4)
+        \\
+        \text{Attention}\left(\mathbf{Q},\mathbf{K},\mathbf{V}\right)=\left[\text{softmax}\left(\frac{\mathbf{Q}\mathbf{K}^T}{\sqrt{d_k}}\right)\right]^T \mathbf{V}
+        $$
+        
+        - $\mathbf{Q}$: Query vector
+        - $\mathbf{K}$: Key vector
+        - $\mathbf{V}$: Value vector
+- Personalized Impressionability Mask (PIM)
+    - self-attention layer에 삽입
+    1. Which items can be seen by the attention layer
+    2. to what extent the item will be aggregated to produce the hidden states
+
+### 3) Perceiving objective
+
+- PIM: standard attention mask의 확장
+    
+    → decoder가 previous items & objective item 모두 인지하게 만듦.
+    
+    ![image.png](attachment:393919e9-9708-4b2f-897c-851387c9423d:image.png)
+    
+- $w_t$: mask weight for $i_t$
+- $w_h$: mask weight for preceding history.
+    - j-th row: Only $i_1, \ldots, i_j$ predicts $i_{j+1}$.
+- $w_t > w_h$: $i_t$에 더 많은 가중치를 부여. → $w_t$값을 조정함으로서 IRN의 공격적인 정도를 조정할 수 있음. [사람에 따라 공격적으로 유도하는 등.]
+
+### 4) Personalized Impressionability Factor
+
+![image.png](attachment:36fe9f3c-e6a4-4744-a0b6-ec0cebb7f3a1:image.png)
+
+- Users마다 external influence에 대한 acceptance가 다름. [Personalized Curiousness of exploration]
+    - → IRN의 aggressive 정도 조절 ↔ $w_t$ 조정.
+    
+    $$
+    \mathbf{e}\left(u\right)=\mathcal{U}\left[u\right]
+    \\
+    r_u=\mathbf{W}^U\mathbf{e}\left(u\right)\quad (5)
+    $$
+    
+    - $\mathbf{e}\left(u\right)\in \mathbb{R}^{d'}$: embedding of user u
+    - $\mathcal{U}$: user embedding matrix
+    - $\mathbf{W}^U$: parameters of the linear transformation
+- 기존: history & target
+    
+    ![image.png](attachment:93baa4a4-f0d0-4cc0-bcee-e70bf31486c6:image.png)
+    
+- paper: Personalized term 넣어서 PIM 삽입. user-term인 $r_u$를 곱하여, $w_t \times r_u$사용.
+    
+    ![image.png](attachment:12415231-38b2-4f6e-85da-69cb4395efcb:image.png)
+    
+- **PIM 고려한 최종 식.**
+    
+    $$
+    \mathbf{h}_j=\text{Dec}\left(\mathbf{h}_{<j}, \mathbf{h}_t, r_u\right) \quad
+    \\
+    \mathbf{H}^l=\text{Self-Attn}\left(\mathbf{H}^{l-1}, r_u\right) \quad (*)
+    \\
+    \mathbf{H}^l
+    =\text{FFN}\left(
+    \text{AddNorm}\left(
+    \text{Self-Attn}\left(
+    \mathbf{H}^{l-1}, r_u
+    \right)
+    \right)
+    \right)
+    \\\text{for} \ l=1,\ldots,L \quad(6)
+    $$
+    
+    - 마찬가지로, $(*)$은 틀린 식 같음. (6)으로 수정.
+
+### 5) Pre-padding Input Sequences
+
+- item sequences → lengths가 모두 다름. → padding이 필요.
+- post-padding 대신 pre-padding 방식 사용.
+- e.g. pre-padding vs post-padding
+    - Maximum sequence length = 5
+    - item sequences = $\{i_1, i_2, i_3\}$
+        - pre-padded sequence = $\{PAD, PAD, i_1, i_2, i_3\}$
+        - post-padded sequence = $\{ i_1, i_2, i_3,PAD, PAD\}$
+        - $PAD$: padding token
+- **Pre-padding: $i_t$의 position이 fixed. b/c last item in sequence → 안정적.**
+- Post-padding: sequence length에 따라 $PAD$개수가 달라지므로, $i_t$의 position 변동.
+
+### 6) Output Probability
+
+![image.png](attachment:530faaeb-9dcf-43fa-8622-45e1290144c3:image.png)
+
+$$
+p\left(i_j|i_{<j}, i_t, u\right)=\text{softmax}\left(\mathbf{W}^p \mathbf{h}_{j-1}^L\right) \quad (7)
+$$
+
+- $\mathbf{W}^p \in \mathbb{R}^{|I|\times d}$: projection matrix
+- IRN’s Recommendation: probability dist. $p\left(i_j|i_{<j}, i_t, u\right)$ → item generating → influence path. at each step.
+
+### 7) Objective Function
+
+for user u,
+
+- sequence of items $s=\{i_1,\ldots,i_m\} \in S_u$
+- If actual path $s$ → $P\left(s|i_t, u\right)$: maximized
+- $\text{PPL}\left(s|i_t, u\right):=P\left(s|i_t,u\right)^{-\frac{1}{m}}$: minimized
+    
+    $$
+    \text{PPL}\left(i_1,\ldots,i_m|i_t, u\right)
+    =\left(
+    \prod\limits_{j=1}^m
+    P\left(i_j|i_{<j},i_t,u\right)
+    \right)^{-\frac{1}{m}}\quad (8)
+    $$
+    
+- Computing을 위해 $\text{PPL}\left(s|i_t, u\right) \downarrow  \ \Rightarrow \log{\text{PPL}\left(s|i_t, u\right)}\downarrow$를 사용하여,
+    
+    $$
+    \text{log}\text{PPL}\left(i_1,\ldots,i_m|i_t, u\right)
+    =-\frac{1}{m}
+    \sum\limits_{j=1}^m
+    \text{log}P\left(i_j|i_{<j},i_t,u\right):\text{minized}
+    $$
+    
+- 따라서 Loss function으로 Cross-Entropy loss 사용.
+    
+    $$
+    \mathcal{L}=\frac{1}{|S|}\sum\limits_{u\in U}\sum\limits_{s \in S_u}
+    \left(
+    \sum\limits_{j=1}^m
+    \text{log}P\left(i_j|i_{<j},i_t,u\right)\right)\quad (9)
+    $$
+    
+    - $S=\cup_{u=1}^{|U|} S_u$이므로, 모든 user가 고려됨.
+    - Each user: multiple sequences 가능.
+
+# IV. Experiment
+
+## A. Datasets
+
+### 1) Preprocessing
+
+### 2) Dataset Splitting
+
+## B. IRS Evaluation
+
+### 1) Objective Item Selection
+
+### 2) Evaluation Metrics
+
+![image.png](attachment:ea4291fc-3d8d-40b8-b9e5-35ef37f25e5e:image.png)
+
+![image.png](attachment:259d7ecf-f261-47d1-ba3e-e41b7e75b5e1:image.png)
+
+![image.png](attachment:74fe9547-363f-4f38-b418-deb47ad0979f:image.png)
+
+### 3) IRS Evaluator
+
+![image.png](attachment:81cd4b47-2c05-45b4-81e8-9f28f985e80b:image.png)
+
+## C. Baselines
+
+## D. Experiment Result
+
+![image.png](attachment:f8335ba4-8cd2-4b22-88b2-b83afda5aaa0:image.png)
+
+### 1) Overall Comparison
+
+### 2) Short-term Interests Match
+
+### 3) Aggressiveness of IRS
+
+### 4) Effectiveness of the Personalized Mask Weight
+
+### 5) Stepwise evolution of User Interests
+
+### 6) Hyperparameter Tuning and Ablation Study
+
+### 7) Case Study
+
+# V. Conclusion

@@ -1,5 +1,5 @@
 ---
-title: "AI Scetion"
+title: "Artificial Intelligence"
 listing:
   contents: "**/*.qmd"
   type: grid

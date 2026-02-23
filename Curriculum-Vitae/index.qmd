@@ -8,10 +8,10 @@ format:
 ---
 
 # JeongHo SEO
-**Email:** [seojh1360@dgist.ac.kr](mailto:seojh1360@dgist.ac.kr)  
-**Website:** [jeongho-seo.github.io](https://jeongho-seo.github.io/)  
-**GitHub:** [github.com/JeongHo-SEO](https://github.com/JeongHo-SEO)  
-**LinkedIn:** [linkedin.com/in/jeongho-seo](https://www.linkedin.com/in/jeongho-seo)
+**Email:** [seojh1360@dgist.ac.kr](mailto:seojh1360@dgist.ac.kr) <br>
+**Website:** [jeongho-seo.github.io](https://jeongho-seo.github.io/) <br>
+**GitHub:** [github.com/JeongHo-SEO](https://github.com/JeongHo-SEO) <br>
+**LinkedIn:** [linkedin.com/in/jeongho-seo](https://www.linkedin.com/in/jeongho-seo) <br>
 
 ---
 

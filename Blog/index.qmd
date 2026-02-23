@@ -7,11 +7,11 @@ listing:
     sort: "date desc"
     fields: [date, title]
 
-- id: book-posts
-    contents: "Book-Summary/**/*.qmd"
-    type: table
-    sort: "date desc"
-    fields: [date, title]
+  - id: book-posts
+      contents: "Book-Summary/**/*.qmd"
+      type: table
+      sort: "date desc"
+      fields: [date, title]
 
   - id: statistics-posts
     contents: "Statistics/**/*.qmd"

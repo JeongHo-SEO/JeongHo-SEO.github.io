@@ -1,0 +1,206 @@
+---
+title: "[NeurIPS 2017] Attention Is All You Need"
+date: "2025-07-22"
+date-modified: last-modified
+description: "RNN, CNN 없이 only Attention → transformer for NLP"
+toc: true
+number-sections: true
+---
+- References
+    - **Paper**: [Attention Is All You Need](https://proceedings.neurips.cc/paper/2017/hash/3f5ee243547dee91fbd053c1c4a845aa-Abstract.html)
+    - **Conference**: [NeurIPS 2017](https://proceedings.neurips.cc/paper_files/paper/2017)
+
+- [Presentation Slides](Presentation-Slides/NeurIPS17-Attention_is_All_you_Need.pdf)
+
+
+# Proposal
+
+## NLP → Sequence transduction model.
+
+- Sequence → Sequence 변환
+- 기존 (1): RNN or CNN 사용. using encoder & decoder
+- 기존 (2): Best model: Attention mechanism 사용해서 encoder - decoder 연결
+
+## Transformer architecture 제안.
+
+- RNN[LSTM, GRU], CNN 사용 X
+- 오직 attention mechanisms [specifically, self-attention]만 사용.
+- 기존: encoder-decoder architectures를 사용한 recurrent layers
+→ transformer: multi-headed self-attention
+- Experiments 결과 → transformer: 병렬화 up & 학습시간 down.
+- 평가척도: BLEU score, 2014 WMT [Workshop on Machine Translation]에서 성과 얻음.
+    - English to German, English to French
+- GPU도 적게 사용!!.
+
+# 3. Model Architecture
+
+## Sequence transduction models
+
+### encoder-decoder structure
+
+- Encoder: [input] $\mathbf{x} \rightarrow \mathbf{z}$ [output]
+    - $\mathbf{x}=\left( x_1, \ldots, x_n \right)$: Symbol sequence
+    - $\mathbf{z}=\left(z_1,\ldots,z_n\right)$: Continuous sequence
+- Decoder: [input] $\mathbf{z} \rightarrow \mathbf{y}$ [output]
+    - $\mathbf{z}=\left(z_1,\ldots,z_n\right)$: Continuous sequence
+    - $\mathbf{y}=\left( y_1, \ldots, y_m \right)$: Symbol sequence
+
+### Full architecture
+
+![image.png](attachment:5adb12a9-4091-4cef-9f67-a7b350e64964:image.png)
+
+## 3.1. Encoder and Decoder Stacks
+
+### 1st.
+
+![image.png](attachment:c637e481-a783-4381-aa42-2cfff85e222a:image.png)
+
+- Inputs == input tokens
+- tokens → embedding vector $\in \mathbb{R}^{d_\text{model}}$
+- embedding vector + positional encoding: Input.
+
+### 2nd. == Encoder
+
+![image.png](attachment:ba92143a-1aeb-4bf4-9ec8-90428c4e9035:image.png)
+
+- N = 6개의 identical layers, input → 1st layer → 2nd layer → … → N-th layer → output
+- each layer == two sub layers
+    1. [Multi-Head Attention] Multi-Head self-Attention mechanism
+    2. [Feed Forward] position-wise fully connected Feed-Forward Network [FFN]
+    - [Add & Norm] $\text{LayerNorm}\left( \right)$ function
+- Sub-layers’ outputs
+    - $\text{LayerNorm}\left( \mathbf{x}+\text{Sublayer}\left(\mathbf{x}\right)\right)$, where $\mathbf{x}$: input of the each sub-layer
+
+### 3rd.
+
+![image.png](attachment:b811ab44-5550-4973-be21-e4101dabe562:image.png)
+
+- Outputs == output tokens
+- tokens → embedding vector $\in \mathbb{R}^{d_\text{model}}$
+- embedding vector + positional encoding: Output.
+
+### 4th. == Decoder
+
+![image.png](attachment:57a98968-a51d-4d41-8355-fe5e8c0ea07f:image.png)
+
+- N = 6개의 identical layers, input → 1st layer → 2nd layer → … → N-th layer → output
+- each layer == three sub layers
+    1. **[Masked Multi-Head Attention]**
+        - **Masking**: i의 position이 i보다 작은 positions의 outputs에만 의존함을 보장.
+        - 1, 2, 3, …, i-1 → i
+    2. [Multi-Head Attention] Multi-Head self-Attention mechanism
+        - **주의**: Encoder output에 multi-head attention 적용.
+    3. [Feed Forward] position-wise fully connected Feed-Forward Network [FFN]
+    - [Add & Norm] $\text{LayerNorm}\left( \right)$ function
+- Sub-layers’ outputs
+    - $\text{LayerNorm}\left( \mathbf{x}+\text{Sublayer}\left(\mathbf{x}\right)\right)$, where $\mathbf{x}$: input of the each sub-layer
+
+### 5th. == 3.4.
+
+![image.png](attachment:89ee328c-85b9-446d-9c8f-1b5183d6ca97:image.png)
+
+## 3.2. Attention
+
+- Inputs
+    - query vector: $\mathbf{q}$ → dimension $d_q = d_k$
+    - keys vector: $\mathbf{k}$ → dimension $d_k$
+    - values vector: $\mathbf{v}$ → dimension $d_v$
+- Output vector = values의 가중합, weight ← (query, key)
+
+![image.png](attachment:4eb68d11-592d-4cac-8eef-60eb00ce2575:image.png)
+
+### 3.2.1. Scaled Dot-Product Attention [single attention head]
+
+![image.png](attachment:b7e0919e-0091-4ef2-aa27-dc310af133f4:image.png)
+
+- $\mathbf{q}, \mathbf{k}, \mathbf{v} \rightarrow \text{matrix} \ Q, K, V$
+    
+    $$
+    \text{Attention}\left(Q,K,V\right)=\text{softmax}\left(\frac{QK^T}{\sqrt{d_k}}\right)V \quad (1)
+    $$
+    
+    - dot product → scaling → softmax
+
+### 3.2.2. Multi-Head Attention
+
+![image.png](attachment:3e02223f-d6cf-44a7-b342-d78d9c61a166:image.png)
+
+- $h=8$개의 multi-head 사용. with $W:\text{parameter matrix}$
+    
+    $$
+    \text{MultiHead}\left(Q,K,V\right)=\text{Concat}\left(\text{head}_1,\ldots,\text{head}_h\right)W^O
+    \\
+    \text{where} \quad \text{head}_i=\text{Attention}\left(QW_{i}^Q,KW_{i}^K,VW_{i}^V\right)
+    $$
+    
+    $$
+    W_{i}^Q \in \mathbb{R}^{d_{\text{model}}\times d_k},\  W_{i}^K \in \mathbb{R}^{d_{\text{model}}\times d_k},\  W_{i}^V \in \mathbb{R}^{d_{\text{model}}\times d_v}
+    $$
+    
+    $$
+    d_k=d_v=\frac{d_{\text{model}}}{h} = 64 \rightarrow d_{\text{model}}=512
+    $$
+    
+
+### 3.2.3. Applications of Attention in our Model
+
+Transformer uses multi-head attention in three different ways
+
+1. Encoder-Decoder Attention layers
+    
+    ![image.png](attachment:c59ad151-fd6f-4343-bb04-4179e8e1f315:image.png)
+    
+    1. previous decoder layer’s output → queries
+    2. encoder layer’s output → memory keys and values
+2. Encoder’s self-attention layers [Q, K, V가 모두 같은 곳에서 나옴.]
+    
+    ![image.png](attachment:8740560a-c296-48d3-aa6f-476a57d1f873:image.png)
+    
+    1. previous encoder layer’s output → keys, values and queries
+3. Decoder’s self-attention layers
+
+## 3.3. Position-wise Feed-Forward Networks
+
+- [Feed Forward]: Fully connected feed-forward network
+    
+    $$
+    \text{FFN}\left(\mathbf{x}\right)=\text{RELU}\left(\mathbf{x}W_1 + \mathbf{b}_1\right)W_2 + \mathbf{b}_2 \quad (2)
+    \\
+    \text{where} \ \text{RELU}\left(x\right)=\text{max}\left(0,x\right)
+    $$
+    
+    - row vector을 사용한 것 같다. $\mathbf{x}W_1$을 보면.
+
+## 3.4. Embeddings and Softmax
+
+![image.png](attachment:89ee328c-85b9-446d-9c8f-1b5183d6ca97:image.png)
+
+- input/output tokens → embedding vectors
+- Learned linear transformation & softmax function: decoder output → predicted next-token probabilities.
+
+## 3.5. Positional Encoding
+
+- RNN, CNN 사용 X → sequence의 ordering 사용 불가.
+- → Positional eocodings를 encoder and decoder stacks의 bottoms에 삽입.
+
+<aside>
+💡
+
+Sequence의 ordering property 사용 위함.
+
+</aside>
+
+- 다양한 positional encodings 사용 가능. → 논문에서는 아래와 같이 사용.
+    
+    $$
+    \text{PE}_{\left(pos, 2i\right)}=\sin\left(\frac{pos}{10000^{\frac{2i}{d_{\text{model}}}}}\right)
+    \\
+    \text{PE}_{\left(pos, 2i+1\right)}=\cos\left(\frac{pos}{10000^{\frac{2i}{d_{\text{model}}}}}\right)
+    $$
+    
+    - $pos$: position
+    - $i$: dimension
+
+# 4. Why Self-Attention
+
+![image.png](attachment:bb27068d-cba2-4e60-8467-b5c2160e2d76:image.png)

@@ -1,8 +1,7 @@
 ---
-title: "Book Summary"
+title: "Book Summaries"
 listing:
   contents: "**/*.qmd"
   type: grid
   categories: true
-
 ---

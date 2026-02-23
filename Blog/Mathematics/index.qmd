@@ -1,1 +1,6 @@
-
+---
+title: "Mathematics"
+listing:
+  contents: "**/*.qmd"
+  type: grid
+---

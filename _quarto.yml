@@ -10,6 +10,9 @@ render:
   - "!**/README.md"                         # README file: Just Description, Do not include in the website
   - "!**/Archive/**"                        # Archive folder: NO Rendering, Do not include in the website
 
+execute:
+  freeze: auto
+
 website:
   title: "JeongHo SEO"
   site-url: "https://jeongho-seo.github.io"  # for google Sitemaps

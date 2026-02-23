@@ -1,7 +1,9 @@
 ---
 title: "Paper Title"
-date: "2025-11-25"
+date: "2026-02-23"
 date-modified: last-modified
+description: "Summary of this paper briefly"
+toc: true
 ---
 
 내용 적기.

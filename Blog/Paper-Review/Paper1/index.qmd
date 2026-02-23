@@ -1,9 +1,13 @@
 ---
-title: "Paper Title"
+title: "[SIGIR 2024] Paper Title"
 date: "2026-02-23"
 date-modified: last-modified
 description: "Summary of this paper briefly"
 toc: true
 ---
+- References
+  - **Paper**: [Paper Title](URL)
+  - **Official Code**: [GitHub Repository](URL)
+  - **Conference**: [SIGIR 2024](URL)
 
-내용 적기.
+이후 내용 적기.

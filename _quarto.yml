@@ -57,7 +57,7 @@ format:
     theme:
       light: cosmo                            # Modify Here  
       dark: darkly                            # dark mode option
-    toc: true                                 # Table of Contents
+    toc: false                                # Table of Contents
     code-fold: show                           # code show option
     code-copy: true
     include-in-header: google-verification.html    # for google search

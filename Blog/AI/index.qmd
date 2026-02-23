@@ -9,3 +9,23 @@ listing:
   categories: true        # 우측 사이드바에 카테고리 노출
   sort: "date desc"
 ---
+
+
+---
+title: "Artificial Intelligence"
+toc: true
+listing:
+  - id: recsys-list
+    contents: 
+      - "Recommendation-System/*.qmd"
+      - "!Recommendation-Syste/index.qmd"
+    type: grid
+    grid-columns: 3
+    sort: "date desc"
+---
+
+## Recommendation System
+::: {#recsys-list}
+:::
+
+---

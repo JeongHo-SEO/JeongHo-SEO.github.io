@@ -11,6 +11,7 @@ number-sections: true
     - **Official Code**: [GitHub Repository](URL)
     - **Conference**: [SIGIR 2021](URL)
 
+- [Paper download](SIGIR'21-Causal_Intervention_for_Leveraging_Popularity_Bias_in_Recommendation.pdf)
 - [Presentation Slides](Presentation-Slides/SIGIR21-Causal_Intervention_for_Leveraging_Popularity_Bias_in_Recommendation.pdf)
 
 # Proposal

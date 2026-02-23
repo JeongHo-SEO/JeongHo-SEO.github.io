@@ -1,1 +1,6 @@
-
+---
+title: "Recommendation System"
+listing:
+  contents: "*.qmd"
+  type: default
+---

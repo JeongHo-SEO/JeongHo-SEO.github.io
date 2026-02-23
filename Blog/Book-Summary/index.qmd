@@ -1,11 +1,19 @@
 ---
 title: "Book Summaries"
+toc: true
 listing:
-  contents: 
-    - "**/*.qmd"          # 모든 글을 가져오되
-    - "!index.qmd"        # 현재 폴더의 index.qmd 제외
-    - "!**/index.qmd"     # 모든 하위 폴더의 index.qmd 제외 (핵심!)  type: grid
-  type: grid
-  categories: true        # 우측 사이드바에 카테고리 노출
-  sort: "date desc"
+  - id: mining-of-massive-datasets-list
+    contents: 
+      - "Mining-of-Massive-Datasets/*.qmd"
+      - "!Mining-of-Massive-Datasets/index.qmd" # 폴더 메인 페이지는 카드에서 제외
+    type: grid
+    grid-columns: 3
+    sort: "date desc"
+
+---
+
+## Mining of Massive Datasets
+::: {#mining-of-massive-datasets-list}
+:::
+
 ---

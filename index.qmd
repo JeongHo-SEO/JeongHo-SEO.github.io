@@ -46,6 +46,9 @@ I majored statistics & AI in DGIST, and I will write more informations in this w
 - **Daegu Gyeongbuk Institute of Science and Technology (DGIST)** | 2020.02 – 2027.01 (Expected)
   - B.Sc. in Computational Statistics (Candidate)
 - **Grenoble INP - UGA, Ensimag school** | 2025.08 – 2026.01
-  - Exchange Student, Enrolled in M1-AM (Applied Mathematics) & M2-SIAM (Science in Industrial and Applied Mathematics) Programs
+  - Exchange Student, Enrolled in
+    - M1-AM (Applied Mathematics)
+    - M2-SIAM (Science in Industrial and Applied Mathematics)  
+    Programs
 
 ---

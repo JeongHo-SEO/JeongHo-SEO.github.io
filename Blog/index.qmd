@@ -1,5 +1,7 @@
 ---
 title: "Pho's Technical Notes"
+toc: true                # 전체 설정(_quarto.yml)에서 껐으므로 여기서 명시적으로 켬
+toc-title: "Contents"    # TOC 제목 설정
 listing:
   - id: paper-posts
     contents: "Paper-Review/**/*.qmd"

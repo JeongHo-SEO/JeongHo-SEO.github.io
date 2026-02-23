@@ -1,5 +1,6 @@
 ---
-title: "서정호 | JeongHo SEO" <!-- Home Section -->
+# Home Section
+title: "서정호 | JeongHo SEO"
 subtitle: "Data Scientist & Analyst"
 about:
   template: marquee # https://quarto.org/docs/websites/website-about.html#templates 참조.

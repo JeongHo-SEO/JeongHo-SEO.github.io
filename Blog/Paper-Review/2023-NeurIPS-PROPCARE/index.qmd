@@ -11,6 +11,8 @@ number-sections: false
     - **Official Code**: [GitHub Repository](https://github.com/mediumboat/PropCare)
     - **Conference**: [NeurIPS 2023](https://proceedings.neurips.cc/paper_files/paper/2023)
 
+- [Presentation Slides](NeurlIPS23-Estimating_Propensity_for_Causality-based_Recommendation_without_Exposure_Data)
+
 # Abstract
 
 - **Causality-based Recommendation Systems [RS]:**

@@ -1,0 +1,873 @@
+---
+title: "[NeurIPS 2023] Estimating Propensity for Causality-based Recommendation without Exposure Data"
+date: "2025-07-15"
+date-modified: last-modified
+description: "Exposure Data & Propensity Scores 없을 때의 Causality-based RS"
+toc: true
+number-sections: false
+---
+- References
+    - **Paper**: [Estimating Propensity for Causality-based Recommendation without Exposure Data](https://proceedings.neurips.cc/paper_files/paper/2023/hash/a237f11d6aad94f59a182d70405d3fdb-Abstract-Conference.html)
+    - **Official Code**: [GitHub Repository](https://github.com/mediumboat/PropCare)
+    - **Conference**: [NeurIPS 2023](https://proceedings.neurips.cc/paper_files/paper/2023)
+
+# Abstract
+
+- **Causality-based Recommendation Systems [RS]:**
+    - **[Focus] item exposure [cause]→ user-item interactions [causal effects == result]**
+    - ↔ Conventional Correlation-based RS **대표적인 고전 RS 모델 논문 찾아보기**
+
+---
+
+- Existing Causality-based RS
+: additional input[exposure data and/or propensity scores] 필요 for training. **초기 Causality-based RS 모델 논문 찾아보기**
+    1. exposure data
+    2. propensity scores == probability of exposure
+    3. exposure data & propensity scores
+- **[Problem]** Such data: often Not available in real-world situations b/c technical or privacy constraints
+- **[Solution in this paper]**
+    - **Propensity Estimation** for Causality-based Recommendation **(PROPCARE)**
+    - **Only interaction data** 사용. for training and inference
+    - **[Method]** Relating the pairwise characteristics between propensity and item popularity
+        
+        → Theoretical analysis on the *bias of the causal effect* under our model estimation.
+        
+        → Empirically evaluate PROPCARE through both quantitative and qualitative experiments.
+        
+
+# 1. Introduction
+
+<aside>
+💡
+
+**RS의 4가지 paradigm**
+
+1. Classical paradigm
+    - [Limitation] Ignore the Causal Impact behind recommendation
+2. Causality-based RS w/ observed [Exposure Data] or [Propensity Scores]
+    - [Problem] Exposure Data를 얻을 수 없음.
+3. Causality-based RS w/ observed [Exposure Data] but w/o [Propensity Scores]
+    - Estimate propensity scores
+    - Limitations
+        1. 대부분의 SOTA[state-of-the-art] methods: Propensity estimator을 훈련시키기 위해 Exposure Data가 필요.
+        2. Prior knowledge를 propensity estimator에 통합 실패 → Not robust estimation
+4. Causality-based RS w/o observed [Exposure Data] and [Propensity Scores]
+    - **Only interaction data** 사용.
+    - (propensity, item popularity) pairwise relationship을 prior knowledge로 통합
+    → more Robust Propensity Estimation
+    - model에 영향을 주는 factors에 대한 분석 제공.
+</aside>
+
+- RS 활용도: applications such as
+    - streaming services
+    - online shopping
+    - job searching
+- Primary aim of RS: boosting sales, user engagement, …
+    - ⇒ User Interactions(clicking or purchasing items)에 의존
+    - **user-item interactions == clicking, purchasing**
+        
+        <aside>
+        💡
+        
+        - Recommender System에서는 User의 반응을 이끌어 내는 것이 목적이므로, 클릭이나 구매 두 가지 수단을 interaction으로 묶는 것 같다.
+        - 흠… 그러면 단순히 능동적인 행동(클릭, 구매)이 아니라, just 머리 속으로만 “이 item 괜찮아보이네” 생각을 가지는 것은 체크하기 어려울 것 같음.
+        - 결국 RS에서는 User가 Item에 대하여 무언가 가시적인 행동을 하도록 유도하는 것 같다.
+        </aside>
+        
+
+### Classical paradigm:
+
+1. Predict user-item interactions
+2. Interaction Probability → Recommend items to users **참고문헌 [8, 22, 33, 35] 참조.**
+- [Limitation] Ignore the Causal Impact behind recommendation
+
+### Recent Studies for **Causality-based Recommendation Systems [RS]**
+
+- Treatments [Cause] → User’s behavior [Result] **참고문헌 [38, 30, 28, 37] 참고**
+    - **Treatments: Recommend/Expose the item or not**
+    - **Behavior: Click or Purchase**
+- Assumption (1): Recommending items의 관점에서,
+    - With the higher causal effect > with the higher interaction probability.
+- User’s behavior에서의 Causal Effect 정량화 ← Observed data & Counterfactual treatment
+- Assumption (2): Exposure Data or the Propensity Scores가 training 단계에서 관측가능.
+    - **Exposure Data** == item이 user에게 recommend 되었는지 여부
+        - Exposure == Recommendation
+    - **Propensity Scores** == user에게 item이 recommending/exposing될 확률
+- [Problem] Exposure Data를 얻을 수 없음.
+    - e.g. e-commerce platform에서 item 구매 이력은 feasible.
+        - But purchases가 w/ exposure인지 w/o exposure인지 알 수 없음. b/c technical and privacy constraints.
+    - training 단계에서 exposure data and/or propensity scores 없음
+        
+        → 기존의 causality-based recommenders [RS] 사용 불가.
+        
+
+### **[Solution in this paper] for Causality-based RS**
+
+- Setup: Exposure and propensity scores: Not observable
+- Some previous works: Estimate propensity scores ← e.g. addressing biases in recommendation **참고문헌 [38, 42, 1, 14, 21] 참조.**
+    - Limitations
+        1. 대부분의 SOTA[state-of-the-art] methods: Propensity estimator을 훈련시키기 위해 Exposure Data가 필요.
+        2. Prior knowledge를 propensity estimator에 통합 실패 → Not robust estimation
+- [Paper Solution] New framework: PROPCARE
+    - 각 user의 각 item에 대한 propensity score, exposure를 estimation
+    1. above limitations 해결
+    2. data gap 문제 해결
+- Observation: (propensity scores, item popularity) pairwise characteristic
+    - 언제? == user-item interaction의 확률이 잘 control될 때.
+    - **Assumption 1**: probability of user-item interaction is well controlled.
+    ****empirically validated in Sect. 4.2.
+        - → propensity estimation을 위해 item popularity를 prior knowledge로 포함시킴.
+- Theoretical analysis on the bias of the estimated causal effect.
+    - → estimation에 영향을 미치는 factors를 알 수 있음.
+    - → model & experiment design.
+
+### Previous Propensity Estimation  Vs  PROPCARE
+
+![image.png](attachment:113d7608-9098-4029-9fa1-f6d54725397f:image.png)
+
+- PROPCARE 장점.
+    1. Propensity or Exposure Data가 전혀 필요하지 않음.
+    2. Prior Information을 Robust Estimation에 포함시켜 사용.
+- Paper Contributions
+    1. Previous Causality-based RS: propensity score and/or exposure data are often unavailable but required for model training or inference.
+    → 이러한 문제 해결.
+    2. (propensity, item popularity) pairwise relationship을 prior knowledge로 통합 → more Robust Propensity Estimation
+    3. model에 영향을 주는 factors에 대한 분석 제공.
+    4. PROPCARE의 효과를 quantitative and qualitative 결과를 통해 검증.
+
+# 2. Related Work
+
+<aside>
+💡
+
+**찾아볼 것.**
+
+- **A/B test**
+- Naive Estimator **참고문헌 [30]** [RecSys'20: Unbiased Learning for the Causal Effect of Recommendation](https://dl.acm.org/doi/abs/10.1145/3383313.3412261)
+- **Inverse Propensity Score (IPS) estimator 참고문헌 [30] 참조.**
+- CausCF **참고문헌 [38] 참조.**
+- doubly robust estimator **참고문헌 [37] 참조.**
+- **Missing-Not-At-Random (MNAR) 문제가 발생.**  **참고문헌 [32] 참조.**
+- **Interaction models를 이용하는 approaches == click models 참고문헌 [24, 3, 42, 21] 참조.**
+</aside>
+
+## Causal effect estimation in recommendation
+
+- Typical RS: positive feedback or interactions(clicks, purchases)가 성공적인지를 고려
+    - → Recommendations로 인한 causal effect를 최적화하는 것이 더 가치있다.
+- Causal Effect를 구하는 것의 challenges
+    - Online A/B tests: exposure strategies를 비교할 수 있음. But 비싸고 selection bias에 취약. **참고문헌 [27] 참조.**
+    - → 해결책: Causal Effect Estimators.
+        1. Naive Estimator **참고문헌 [30] 참조.**
+        2. Inverse Propensity Score (IPS) estimator **참고문헌 [30] 참조.**
+            - propensity score := probability of exposure **참고문헌 [25] 에서 정의.**
+            - Non-parametric approach
+        3. CausCF **참고문헌 [38] 참조.**
+            - Parametric models 사용해서 outcomes prediction.
+        4. doubly robust estimator **참고문헌 [37] 참조.**
+            - parametric model + non-parametric IPS estimator → bias and variance 감소.
+        
+        **→ 문제점: training stage 단계에서 propensity scores and/or exposure data가 필요함.**
+        
+
+## Propensity estimation in recommendation
+
+- Existing Causal Effect Estimation approaches
+    - **문제점 (1): training stage 단계에서 propensity scores and/or exposure data가 필요함.**
+    - **문제점 (2): Missing-Not-At-Random (MNAR) 문제가 발생. 참고문헌 [32] 참조.**
+    [KDD'10 Training and testing of recommender systems on data missing not at random](https://dl.acm.org/doi/abs/10.1145/1835804.1835895)
+        
+        ![image.png](attachment:abf34efb-6a34-4d8f-a880-0a0d91b4e088:image.png)
+        
+        - Romance movies를 좋아하는 사람은 romance movies에만 최고 점수 5점을 주고, horror movies는 평가하지 않음.(누락)
+        - 같은 방식으로, horror movies를 좋아하는 사람은 horror movies에만 최고 점수 5점을 주고, romance movies는 평가하지 않음.(누락)
+            - → Missing (누락): user가 각자 좋아하거나 알고 있는 movies만 평가
+            - → test sets에 MNAR 문제가 발생. 항상 user - item(movie)의 pair가 본인이 좋아하는 영화만 pair로 생성.
+            - → (user, item)이 항상 최고 점수 5점만 발생, 항상 5점을 예측하는 쓸모 없는 추천 시스템 탄생
+            - → [해결책] (user, item)에서 ratings(평가)이 observed or missing item 모두에 대하여 prediction/ranking을 해야 함.
+- Some methods: Estimate propensity in a **heuristic way [경험적인 방법]**
+    1. Using item popularity **참고문헌 [30] 참조.**
+    2. Using other side Information. e.g., items participating in promotional campaigns **참고문헌 [28] 참조.**
+    
+    **→ 문제점: Personalization 부족 & Noisy results.**
+    
+- Interaction models를 이용하는 approaches == click models **참고문헌 [24, 3, 42, 21] 참조.**
+    - propensity scores, relevance, interactions과 관계있음.
+    - **문제점: 추가적인 constraints 없이는 interaction model 단독으로는 optimize하기 어려움. [Sect. 4.1.]**
+- Matrix factorization, Linear regression, Dual learning, Double robust learning: propensity scores 학습 가능.
+    - Exposure data를 training labels or known variables로 가정
+    - → **문제점: Exposure data가 필요**
+
+# 3. Preliminaries
+
+## Data notations
+
+- **Typical recommendation dataset**
+    - $D = \{(Y_{u,i})\}$: collection of observed **training** user-item **interaction data**
+- **Interactions between users-items.: Purchases or Clicks [Result]**
+    - $Y_{u,i} \in \{0,1\}$: observed interaction
+        - $Y_{u,i} = 1$: **user u interacted to item i**
+    - User $u \in \{1, 2, 3,..., U\}$
+    - Item $i \in \{1, 2, 3,..., I\}$
+- **Unobservable indicator variable for Exposure [Cause]**
+    - $Z_{u,i} \in \{0, 1\}$
+        - **$Z_{u,i} = 1$: item i is exposed/recommended to user u**
+- **Propensity score := probability of exposure**
+    - $p_{u,i} := P\left(Z_{u,i}=1\right)$
+
+## Causal effect modeling
+
+- **Potential outcomes for different exposure statuses: $Z_{u,i} = 0 \ or \  1$**
+    - 윗점차: Exposure 여부. [Cause]
+    - 값: Interaction 여부. [Result]
+    - $Y_{u,i}^0 \in \{0,1\}$: **Exposure** ❌일 때의 interaction
+    - $Y_{u,i}^1 \in \{0,1\}$: **Exposure ⭕**일 때의 interaction
+    - **문제점: real-world에서는 특정 (u,i)에 대하여 $Y_{u,i}^0$ 또는 $Y_{u,i}^1$만 관측할 수 있음. [Counterfactual Nature]** **참고문헌 [9] 참조.**
+- **Counterfactual Model**
+    - Causal Effect: $\tau_{u,i} := Y_{u,i}^1-Y_{u,i}^0\in \{-1, 0, 1\}$ means **Exposure(Recommendation) → Interaction Relationship**
+        - $\tau_{u,i} = 1$: **recommending item i to user u** ⇒ user-item interaction 증가.
+            - 3가지 주체(Users, Sellers, Platforms) 모두 positive causal effects를 결과로 하는 recommendation으로부터 이득을 얻음.
+            
+            <aside>
+            💡
+            
+            **RS의 주체: User, Seller, Platform** 3가지를 기준으로 세우는 것 같다.
+            
+            </aside>
+            
+        - $\tau_{u,i} = -1$: **recommending item i to user u** ⇒ user-item interaction 감소.
+        - $\tau_{u,i} = 0$: **recommending or not** ⇒ user-item interaction에 영향을 끼칠 수 없음.
+
+## Causal effect estimation
+
+- Causal effect $\tau_{u,i}$: [Counterfactual Nature] 때문에 observed data로부터 direct하게 계산 불가능. ⇒ Estimation 필요.
+    - $Y_{u,i}^1, Y_{u,i}^0$을 동시에 observation할 수 없다.
+- CausCF or Doubly robust estimator
+    - direct parametric models라서 potential outcomes의 prediction error에 민감
+        - → 고품질 labeled Exposure Data 필요. (for parametric models)
+        - → this paper의 setup이 아님.
+- **This paper**: IPS estimator $\in$ Non-parametric approach 사용.
+    - [**Appendix B**]
+        
+        $$
+        \hat{Y}_{u,i}^1 = \frac{Z_{u,i} Y_{u,i}}{p_{u,i}}
+        , \quad
+        \hat{Y}_{u,i}^0 = \frac{\left(1-Z_{u,i}\right) Y_{u,i}}{1-p_{u,i}}
+         \text{: Unbiased (IPS) Estimator}
+        \\ \text{Since} \qquad 
+        Y_{u,i}=Z_{u,i}Y_{u,i}^1 + \left(1-Z_{u,i}\right)Y_{u,i}^0 \quad (a.10)  
+        \\
+        \qquad \qquad \mathbb{E}\left[Z_{u,i}\right]= 1\cdot p_{u,i} + 0\cdot \left(1-p_{u,i}\right)=p_{u,i}
+        $$
+        
+    
+    $$
+    \hat{\tau_{u,i}}^{IPS}= \hat{Y}_{u,i}^1 - \hat{Y}_{u,i}^0
+     = \frac{Z_{u,i} Y_{u,i}}{p_{u,i}} - \frac{\left(1-Z_{u,i}\right) Y_{u,i}}{1-p_{u,i}}
+     \text{: Also Unbiased Estimator} \quad (1)
+    $$
+    
+
+<aside>
+💡
+
+IPS estimator에서 더 발전한 점이 무엇인가?
+
+문제점: training stage 단계에서 propensity scores and/or exposure data가 필요함.
+
+→ [해결]: 추정치 사용하여 대체하였음. [Section 4.5]
+
+- $p_{u,i} \rightarrow \hat{p_{u,i}}$
+- $Z_{u,i} \rightarrow \hat{Z_{u,i}}$
+</aside>
+
+## Interaction model
+
+- Assumption: Relationship betw. interactions, propensity and relevance
+
+$$
+y_{u,i} = p_{u,i} \times r_{u,i} \quad (2)
+$$
+
+- $y_{u,i}=P\left(Y_{u,i} =1\right)$: **Probability of interaction** betw. user u and item i [**Result: Interaction Prob.**]
+- $p_{u,i} := P\left(Z_{u,i}=1\right)$: Propensity score := **probability** of exposure [**Cause: Exposure Prob.**]
+- $r_{u,i}$: **Probability** that **item i** is **relevant** to **user u [Relevant Prob.]**
+
+<aside>
+💡
+
+**Assumption: Interaction Prob. = Exposure Prob. * Relevant Prob.**
+
+</aside>
+
+# 4. Proposed Approach: PROPCARE
+
+## 4.1. Naive propensity estimator
+
+- **Setup: only interaction data** are observable
+- Objective: Estimate propensity scores and exposure
+    1. Main focus: Estimation of propensity scores $\hat{p_{u,i}}$
+    2. → Propensity로부터 corresponding Exposure은 쉽게 sampling 가능. using threshold. [Section 4.3]
+- **Naive Loss Function** for the interaction model $y_{u,i} = p_{u,i} r_{u,i}$
+    
+    $$
+    \mathcal{L}_{\text{naive}} = - Y_{u,i} \times \log f_p(\mathbf{x}_{u,i}; \Theta_p) f_r(\mathbf{x}_{u,i}; \Theta_r) - (1 - Y_{u,i}) \times \log(1 - f_p(\mathbf{x}_{u,i}; \Theta_p) f_r(\mathbf{x}_{u,i}; \Theta_r)) \quad (3)
+    $$
+    
+    <aside>
+    💡
+    
+    - Interaction model: $y_{u,i} = p_{u,i} r_{u,i}$
+        - $\hat{p_{u,i}} = f_p \left(\mathbf{x_{u,i}};\Theta_p\right)$
+        - $\hat{r_{u,i}} = f_r  \left(\mathbf{x_{u,i}};\Theta_r\right)$
+        - ⇒ $\hat{y_{u,i}}=\hat{p_{u,i}} \times \hat{r_{u,i}}$
+        - $\mathcal{L}_{\text{naive}} = - Y_{u,i} \times \log \hat{y_{u,i}} - (1 - Y_{u,i}) \times \log(1 -\hat{y_{u,i}})$
+        : **Binary Cross-Entropy Loss ftn.** [  label*log (prob.) ] ⇒ **Point-wise manner**
+    </aside>
+    
+    - $\mathbf{x}_{u,i} = f_e \left(u,i;\Theta_e\right)$: Joint user-item embedding output
+        - $f_e$: learnable embedding function
+        - $\mathbf{x}_{u,i}: f_p, f_r$의 Input으로 사용.
+    - $f_p$: learnable propensity function → Estimated propensity score $\hat{p_{u,i}}$
+    - $f_r$: learnable relevance function → Estimated relevance probability $\hat{r_{u,i}}$
+    
+    <aside>
+    💡
+    
+    - Exposure Prob., Relevant Prob. 모두 구할 수 없음 → Estimation 해서 사용. with learnable function
+    - [MLP] 구조
+        - [Input] (u,i) → embedding vector 변환 → MLP로 $\mathbf{x}_{u,i} = f_e \left(u,i;\Theta_e\right)$ [Output] 출력.
+        $\Theta_e$: Weights of MLP ftn. $f_e$
+        - [Input] $\mathbf{x}_{u,i}$ → MLP로 $\hat{p_{u,i}} = f_p \left(\mathbf{x_{u,i}};\Theta_p\right), \hat{r_{u,i}} = f_r  \left(\mathbf{x_{u,i}};\Theta_r\right)$ [Output] 출력.
+        $\Theta_*$: Weights of MLP ftn. $f_*$
+    - MLP: [Input] (u,i) → $\hat{p_{u,i}} = f_p \left(\mathbf{x_{u,i}};\Theta_p\right), \hat{r_{u,i}} = f_r  \left(\mathbf{x_{u,i}};\Theta_r\right)$ [Output]
+        - Exposure Prob., Relevant Prob. Estimation.
+    </aside>
+    
+    - **Each learnable function $f_*$: parameter을 가짐 → $\Theta_*$: parameter set of $f_*$ → MLP로 parameter 학습됨.**
+    - **문제점: $\hat{y_{u,i}} = f_p \left(\mathbf{x_{u,i}};\Theta_p\right) \times f_r  \left(\mathbf{x_{u,i}};\Theta_r\right)$: $f_p$, $f_r$이 곱해진 form**
+        - **→ $\mathcal{L}_{\text{naive}}$로부터 $f_p$ or $f_r$을 학습시킬 수 없음. $\hat{y_{u,i}}=\hat{p_{u,i}} \times \hat{r_{u,i}}$가 학습됨.**
+        - **→ Propensity Score 추정 불가능. $\hat{p_{u,i}} = f_p \left(\mathbf{x_{u,i}};\Theta_p\right)$을 구할 수 없음.**
+
+## 4.2. Incorporating prior knowledge
+
+- **Naive Loss Function의 해결법: Prior Knowledge로 $f_p$ or $f_r$을 constrain 하는 것.**
+- *Observation: more popular items will have a higher chance to be exposed*  **[Popularity → Exposure Prob.]**
+    - $pop_i$: **Popularity** of **item i**
+        
+        $$
+        pop_i := \frac{\sum_{u=1}^U Y_{u,i}}{\sum_{j=i}^I \sum_{u=1}^U Y_{u,j}}
+        $$
+        
+        - 모든 (user, item) pairs 의 interactions #중, item i에 대하여 얼마나 많은 user가 interaction을 하였는가?
+        - **Popularity of item i ⇒ 전체 interaction 중 item i에 대한 비중.**
+    - 직관적이지만 popularity-exposure 관계를 설명하기에 적절하지 못함.
+    - **→ 반례**: 높은 interaction 확률을 가진 item ⇒ 높은 노출 chance를 가지는 경향이 있음.
+        - **[Interaction Prob. → Exposure Prob.]**
+        - **[문제점]** **Popularity, Interaction Prob. → Exposure Prob.**
+        - Causal Effect: Exposure → Interaction
+            - Thus, Popularity factor을 소거해야 함.
+    - **[해결책]** Popularity를 propensity/exposure estimation에 대한 Prior Knowledge로 통합시킴.
+        - → Interaction Prob. control. → **Assumption 1 (Pairwise Relationship on Popularity and Propensity)**
+
+### **Assumption 1 (Pairwise Relationship on Popularity and Propensity) == Prior Knowledge**
+
+<aside>
+💡
+
+1. Popularity
+2. Interaction Prob. → fixed. [control]
+3. Exposure Prob. = Propensity
+
+**Popularity → Exposure Prob. 관계**만을 보기 위함.
+
+$\therefore$ **Prior Knowledge: 인기가 많은 item이 노출이 많이 된다. [Propensity 크다]**
+
+</aside>
+
+- user: u
+- pair of items: (i, j)
+- $pop_i > pop_j, \ y_{u,i} \approx y_{u,j}\  \Rightarrow \ p_{u,i} > p_{u,j}$
+    - **정확히는, $y_{u,i} \approx y_{u,j} \ \Rightarrow \ \left( pop_i > pop_j\Leftrightarrow \ p_{u,i} > p_{u,j} \right )$
+    : Popularity, Propensity의 대소 관계가 같다. if Interaction Prob. fixed.**
+
+### Empirical validation of Assumption 1
+
+Assumption 1을 만족시키는 3가지 dataset(DH_original, DH_personalized and ML)에서의 실험적 검증. by calculating
+
+![Figure 2](attachment:68586a6a-6a74-4cb3-bc8c-4bcf6c706301:image.png)
+
+Figure 2
+
+- x-axis: bins [intervals]: **Inverse Similarity** in **Interaction Prob.** $|y_{u,j} - y_{u,i}|$
+    - **ps. Inverse Similarity == Distance.**
+- y-axis: $\text{ratio}_b$: 각 bin에 대하여 Assumption 1을 만족시키는 items의 확률
+
+<aside>
+💡
+
+$\left( |y_{u,j} - y_{u,i}| \downarrow \ \Rightarrow \ \text{ratio}_b \uparrow \right) \  \text{means}
+\quad  \left[ y_{u,i} \approx y_{u,j} \ \Rightarrow \ \left( pop_i > pop_j\Leftrightarrow \ p_{u,i} > p_{u,j} \right ) \right]$
+
+즉, Assumption 1이 실험적으로 검증 끝.
+
+</aside>
+
+1. Estimate $y_{u,i}$ from $Y_{u,i}$ using logistic matrix factorization **참고문헌 [11] 참조.**
+2. Obtain $p_{u,i}$ from ground truth values in the datasets
+3. 각 user별로 item pairs (i,j)에 대하여,  $|y_{u,j} - y_{u,i}|$ [Similarity in interaction prob.]을 기준으로 각 bin에 배치
+    - 실험의 가정 상 $y_{u,i} \approx y_{u,j}$ 이므로, $|y_{u,j} - y_{u,i}|$은 0.5 까지만 실험.
+4. $\text{ratio}_b$ 계산.
+**user u**에 대하여 **특정 bin b**에 존재하는 **item pairs** 중 $pop_i > pop_j \Rightarrow \ p_{u,i} > p_{u,j}$을 만족시키는 pairs의 개수. [확률]
+
+$$
+ratio_b = \frac{1}{U} \sum_{u=1}^U \frac{\text{\# item pairs }(i,j) \text{ for user } u \text{ in bin } b \text{ s.t. } (p_{u,j} - p_{u,i})(\text{pop}_j - \text{pop}_i) > 0}{\text{\# item pairs }(i,j) \text{ sampled for user } u \text{ in bin } b}\quad (4)
+$$
+
+### Integrating prior knowledge
+
+- $\mathcal{L_\text{naive}}$에서 **$\hat{y_{u,i}}=\hat{p_{u,i}} \times \hat{r_{u,i}}$**가 학습됨 → **$f_p$ or $f_r$을 학습시킬 수 있도록,** 분리된 Loss function 사용.
+- $pop_i > pop_j, y_{u,i} \approx y_{u,j}$일 때, $f_p \left(\mathbf{x_{u,i}}\right) > f_p \left(\mathbf{x_{u,j}}\right)$ 여야 함. From. Assumption 1 [Prior Knowledge]
+    
+    $$
+    \text{loss} = -\log\left[ \sigma\left( f_p \left(\mathbf{x_{u,i}}\right)-f_p \left(\mathbf{x_{u,j}}\right) \right) \right] \in \left(0, \infty \right) \quad (5)
+    $$
+    
+    - $f_p \left(\mathbf{x_{u,i}}\right)-f_p \left(\mathbf{x_{u,j}}\right) \uparrow \ \Rightarrow \text{loss} \downarrow$: 따라서 loss를 minimize하려는 방향이 우리의 Prior Knowledge에 잘 부합한다.
+        
+        <aside>
+        💡
+        
+        추측으로는, -log-likelihood function을 노린 것 같다. 찾아보면 있을 지도. 유명한 꼴 같음.
+        
+        통계학에서 배웠듯이 “loss function을 minimize 하는 것 == log-likelihood function을 maximize 하는 것.”
+        
+        이라서, loss function을 “-log-likelihood function”으로 많이 잡기 때문.
+        
+        </aside>
+        
+    - $\sigma$: Sigmoid function.
+    - loss: pair-wise 방식으로 popularity를 잘 사용했음.
+- Above $\text{loss}$의 Advantages
+    1. $f_p, f_r$ 분리
+    2. Interaction data으로 계산이 가능한 item popularity만 사용. ← $pop_i := \frac{\sum_{u=1}^U Y_{u,i}}{\sum_{j=i}^I \sum_{u=1}^U Y_{u,j}}$
+    3. $pop_i \neq pop_j$이므로 예측값 $\hat{p_{u,i}} \approx 0 \ \text{or}\  1$ 방지. [Section 4.5의 Remark 2]
+- **Final Popularity-loss function: Popularity → Exposure Prob.** $\hat{p_{u,i}}$ **[Assumption 1]**
+    
+    $$
+    \mathcal{L}_{\text{pop}} = -\kappa_{u,i,j} \log \left[ \sigma(\text{sgn}_{i,j} \cdot (f_p(\mathbf{x}_{u,i}) - f_p(\mathbf{x}_{u,j}))) + \sigma(\text{sgn}_{i,j} \cdot (f_r(\mathbf{x}_{u,j}) - f_r(\mathbf{x}_{u,i}))) \right] \quad (6)
+    \\
+    \arg\min_{\Theta_\text{pop}} \mathcal{L_\text{pop}} = \hat{\Theta_{\text{pop}}} \ \rightarrow \  \hat{p_{u,i}}, \hat{r_{u,i}}
+    $$
+    
+    <aside>
+    💡
+    
+    For a Fixed $y_{u,i}$,
+    
+    - $\hat{p_{u,i}} = f_p \left(\mathbf{x_{u,i}}\right)$
+    - $\hat{r_{u,i}} = f_r  \left(\mathbf{x_{u,i}}\right)$
+    
+    $$
+    \mathcal{L}_{\text{pop}} = -\kappa_{u,i,j} \times \log \left[ \sigma(\text{sgn}_{i,j} \cdot (\hat{p_{u,i}}) - \hat{p_{u,j}}))) + \sigma(\text{sgn}_{i,j} \cdot (\hat{r_{u,j}} - \hat{r_{u,i}})) \right] \quad (6')
+    $$
+    
+    - **Popularity → Exposure Prob. → Relevance Prob.: 위 loss function은 결국 popularity에 의존 [**$\mathcal{L}_{\text{pop}}$**]**
+    </aside>
+    
+    1. $sgn_{i,j} = \text{sign}\left(pop_i - pop_j\right) \in \{1, -1\}$: $pop_i > pop_j, pop_i < pop_j$ 모두 고려.
+    2. $\kappa_{u,i,j} = e^{\eta\left(y_{u,i}-y_{u,j}\right)^2}, \eta<0$: weighting function. $|y_{u,i}-y_{u,j}| \downarrow \ \ \Rightarrow \ \kappa_{u,i,j} \uparrow$
+        - $\eta$: learnable parameter
+        - Assumption 1의 조건에 부합할수록 loss의 가중치를 크게 만듦.: $y_{u,i} \approx y_{u,j}$ 조건 고려.
+    3. Interaction model: $y_{u,i} = p_{u,i} \times r_{u,i}$ ⇒ for a fixed $y_{u,i}$,  $p_{u,i} \uparrow \ \ \Rightarrow r_{u,j} \downarrow$
+        - $f_p$ 만 고려하지 않고, $f_r$까지 고려. → model training을 더 향상시킴.
+        - 뒷 부분 relevance term이 ***j - i*** 인 이유. $p_{u,i} \uparrow \ \ \Rightarrow r_{u,j} \downarrow$
+
+## 4.3. Propensity learning
+
+1. **$\mathcal{L_\text{naive}}:\hat{y_{u,i}}=\hat{p_{u,i}} \times \hat{r_{u,i}}$가 학습됨 → Interaction model $y_{u,i} = p_{u,i} \times r_{u,i}$ 최적화**
+2. $\mathcal{L}_{\text{pop}}:\hat{p_{u,i}},\hat{r_{u,i}}$**가 학습됨. [Pairwise-loss]** → **Popularity**를 **Propensity learning**을 위한 **Prior information**으로 사용.
+    
+    → 통합시킨 total loss function. $\mathcal{L_\text{total}}$ 사용하자.
+    
+3. Propensity score $\hat{p_{u,i}}$ Regularization for [$\hat{p_{u,i}} \approx 0 \ \text{or}\  1$ 방지].
+    
+    → **Regularization Term: $\mu \cdot \text{KLD}\left(Q \| \text{Beta}(\alpha, \beta)\right)$, Regularization parameter:** $\mu$
+    
+    $$
+    \mathcal{L_\text{total}} = \sum_{u,i,j} \left(\mathcal{L}_{\text{naive}} + \lambda \cdot\mathcal{L}_{\text{pop}}\right) + \mu \cdot \text{KLD}\left(Q \| \text{Beta}(\alpha, \beta)\right) \quad (7)
+    \\
+    \arg\min_{\Theta_{\text{total}}} \mathcal{L_\text{total}} = \hat{\Theta_{\text{total}}} \ \rightarrow \  \hat{p_{u,i}}, \hat{r_{u,i}}
+    $$
+    
+    - 소수의 인기 아이템만 노출확률이 크기 때문에, propensity scores [**ground-truth**]는 **long-tailed distribution**.
+        - → 마찬가지로 long-tailed인 **Beta distribution**을 propensity scores의 regularization에 사용.
+        [선행연구: **참고문헌 [4, 15] 참조.**]
+        - $Q$: Empirical distribution of all estimated propensity scores $\hat{p_{u,i}}$
+        - $\alpha, \beta$: parameters which are selected to simulate a long-tailed shape.
+        - **$\text{KLD}\left(\cdot \| \cdot\right)$: Kullback-Leibler Divergence betw. two distributions. → 작을수록 예측 분포와 실제 분포가 비슷함.**
+    - $\lambda, \mu$: trade-off hyper-parameters [weighting term.]
+        - $\lambda: \mathcal{L_\text{naive}}, \mathcal{L}_{\text{pop}}$ 조율.
+        - $\mu$: Regularization 조율.
+    - Estimated propensity score $\hat{p_{u,i}}$ → $\hat{Z_{u,i}}$ 예측.
+        - $\hat{Z_{u,i}}=1 \quad if \ \ \text{Norm}\left(\hat{p_{u,i}}\right) \geq \epsilon$
+        - $\hat{Z_{u,i}}=0 \quad \text{otherwise}$
+        - $\epsilon$: threshold hyper-parameter
+        - $\text{Norm}$: Normalization function such as Z-score normalization
+    - Algorithms [in Appendix A]: update all learnable parameters based on the total loss
+        
+        ![image.png](attachment:fcf89e5a-4448-4fd1-ab4a-a9b728eeda4c:image.png)
+        
+
+<aside>
+💡
+
+- [Input] $D = \{(Y_{u,i})\} \rightarrow \mathcal{L}_{\text{total}} \rightarrow \hat{p_{u,i}}, \hat{r_{u,i}} \rightarrow \hat{Z_{u,i}}$ [Output]
+- $\hat{r_{u,i}}$도 함께 구할 수 있지만, 실제 PROPCARE framework에는 사용되지 않음.
+</aside>
+
+## 4.4. Causality-based recommendation
+
+- **DLCE: Debiased Learning for the Causal Effect 참고문헌 [30] 참조. → DLCE loss가 충분히 이해되지 않음..**
+    - **SOTA [state-of-the-art] Causality-based Recommender w/ IPS estimator**
+    - Input: Interaction $Y_{u,i}$, Exposure $Z_{u,i}$, Propensity $p_{u,i}$
+    - **Output: Ranking Score $\hat{s_{u,i}}$ for each user-item (u,i) pair**
+        - User u를 위한 Recommendation Ranking을 정할 때 사용되는, each item의 Ranking Score.
+    - Given $(u, i, j) \quad s.t. \  i \neq j$, the **DLCE loss function**
+        
+        $$
+        \mathcal{L}_{\text{DLCE}}= \frac{Z_{u,i}Y_{u,i}}{\max(p_{u,i},\chi^1)} \log \left(1+e^{-\omega(\hat{s_{u,i}}-\hat{s_{u,j}})}\right) + \frac{(1-Z_{u,i})Y_{u,i}}{\max(1-p_{u,i},\chi^0)} \log \left(1+e^{\omega(\hat{s}_{u,i}-\hat{s}_{u,j})}\right) \quad (8)
+        $$
+        
+        $$
+        \mathcal{L}_{\text{DLCE}}= \frac{Y_{u,i}}{\max(p_{u,i},\chi^1)} \log \left(1+e^{-\omega(\hat{s}_{u,i}-\hat{s}_{u,j})}\right) \times \mathbb{I} \left(Z_{u,i}=1\right)
+        \\ \qquad  \qquad \qquad \ + \ 
+         \frac{Y_{u,i}}{\max(1-p_{u,i},\chi^0)} \log \left(1+e^{\omega(\hat{s}_{u,i}-\hat{s}_{u,j})}\right) \times \mathbb{I} \left(Z_{u,i}=0\right) \quad (8)
+        $$
+        
+        $$
+        \hat{s_{u,i}} = f_s \left(u,i,\Theta_s\right), \quad
+        \arg\min_{\Theta_{s}} \mathcal{L_\text{DLCE}} = \hat{\Theta_{s}} \ \rightarrow \  \hat{s_{u,i}}
+        $$
+        
+        - $\chi^1, \chi^0, \omega$: hyper-parameters
+    - **[This paper] Ground truth 대신 추정치 사용.**
+        - $p_{u,i} \rightarrow \hat{p_{u,i}}$
+        - $Z_{u,i} \rightarrow \hat{Z_{u,i}}$
+        
+        $$
+        \mathcal{L}_{\text{PC-DLCE}}= \frac{\hat{Z_{u,i}}Y_{u,i}}{\max(\hat{p_{u,i}},\chi^1)} \log \left(1+e^{-\omega(\hat{s_{u,i}}-\hat{s_{u,j}})}\right) + \frac{(1-\hat{Z_{u,i}})Y_{u,i}}{\max(1-\hat{p_{u,i}},\chi^0)} \log \left(1+e^{\omega(\hat{s_{u,i}}-\hat{s_{u,j}})}\right) \quad \left(8'\right)
+        $$
+        
+        $$
+        \hat{s_{u,i}} = f_s \left(u,i,\Theta_s\right), \quad
+        \arg\min_{\Theta_{s}} \mathcal{L_\text{PC-DLCE}} = \hat{\Theta_{s}} \ \rightarrow \  \hat{s_{u,i}}
+        $$
+        
+        - PC: PROPCARE
+
+<aside>
+💡
+
+**DLCE**: [Input] $Y_{u,i}, \hat{p_{u,i}}, \hat{Z_{u,i}} \rightarrow \hat{s_{u,i}}$ [Output]
+
+</aside>
+
+<aside>
+💡
+
+**PROPCARE Structure**
+
+- [Input] $D = \{(Y_{u,i})\} \rightarrow \hat{s_{u,i}}$ [Output]
+- User u에 대하여, $\{\hat{s_{u,1}}, \hat{s_{u,2}}, \ldots, \hat{s_{u,I}}\}$를 sorting하여 가장 큰 상위 K개 선발.
+    - → Top-K Recommendation Lists. [Final Output]
+</aside>
+
+## 4.5. Theoretical property
+
+- 기존 Causal Effect의 IPS estimator: Unbiased Estimator.
+    
+    $$
+    \hat{\tau_{u,i}}^{IPS}=\frac{Z_{u,i} Y_{u,i}}{p_{u,i}} - \frac{\left(1-Z_{u,i}\right) Y_{u,i}}{1-p_{u,i}} \text{: Unbiased Estimator} \quad (1)
+    $$
+    
+- **[This paper] Ground truth 대신 추정치 사용. → IPS estimator: Biased Estimator.**
+    - $p_{u,i} \rightarrow \hat{p_{u,i}}$
+    - $Z_{u,i} \rightarrow \hat{Z_{u,i}}$
+    
+    $$
+    \hat{\tau_{u,i}}^{PC-IPS}=\frac{\hat{Z_{u,i}} Y_{u,i}}{\hat{p_{u,i}}} - \frac{\left(1-\hat{Z_{u,i}}\right) Y_{u,i}}{1-\hat{p_{u,i}}} \text{: Biased Estimator} \quad (1')
+    $$
+    
+
+### Proposition 1
+
+$$
+\text{bias}\left(\hat{\tau_{u,i}}^{PC-IPS}\right)=
+\left( \frac{p_{u,i}+\mathbb{E}\left[ \hat{Z_{u,i}}-Z_{u,i} \right]}{\hat{p_{u,i}}} -1 \right) Y_{u,i}^1
+-
+\left( \frac{1-p_{u,i}-\mathbb{E}\left[ \hat{Z_{u,i}}-Z_{u,i} \right]}{\hat{1-p_{u,i}}} -1 \right) Y_{u,i}^0 \ \quad (9)
+$$
+
+### Remark 1
+
+$\text{bias}\left(\hat{\tau_{u,i}}^{PC-IPS}\right)$의 major factors:
+
+$$
+\frac{p_{u,i}}{\hat{p_{u,i}}}, \  \frac{1-p_{u,i}}{1-\hat{p_{u,i}}}, \  \mathbb{E}\left[ \hat{Z_{u,i}}-Z_{u,i} \right] \quad
+ \ \rightarrow \quad \left( \hat{p_{u,i}}=p_{u,i}, \ \hat{Z_{u,i}}=Z_{u,i} \ \Rightarrow \text{bias}\left(\hat{\tau_{u,i}}^{PC-IPS}\right)=0\right)
+$$
+
+### Remark 2
+
+$$
+\hat{p_{u,i}} \approx \text{0 or 1} \ \Rightarrow \ \text{bias}\left(\hat{\tau_{u,i}}^{PC-IPS}\right) \approx \pm \infty
+$$
+
+- **Exposure variable**: $Z_{u,i} \in \{0, 1\}$ is **Binary variable**. → **F1 score같은 binary classification metrics 사용.**
+    - $\mathbb{E}\left[ \hat{Z_{u,i}}-Z_{u,i} \right] \rightarrow\text{bias}\left(\hat{\tau_{u,i}}^{PC-IPS}\right)$이므로 $\hat{Z_{u,i}}$를 잘 추정할수록 bias가 작아짐.
+- **Propensity**: $p_{u,i} := P\left(Z_{u,i}=1\right)$ is **Continuous variable. → KLD, Kendall’s Tau같은 metrics 사용.** [Section 5.2]
+    - Remark 2에서 $\hat{p_{u,i}} \not\approx \text{0 or 1}$이어야 함. → Eq. (7)처럼 **Regularization 사용**하는 것이 좋다.
+
+# 5. Experiment
+
+- PROPCARE가 quantitative & qualitative experiments 모두에서 효과적임을 보인다.
+
+## 5.1. Experiment setup
+
+### Datasets
+
+- 3가지 standard Causality-based Recommendation Benchmarks: **DH_original, DH_personalized, MovieLens 100K (ML 100K)**
+- **DH_original, DH_personalized** $\in$ DunnHumby dataset
+    - purchase and ptomotion logs @ 오프라인 소매점, 93주 기간동안.
+    - DH_original: 주간 전단지 → Exposure → ground-truth Propensity Scores
+    - DH_personalized: Simulation → ground-truth Propensity Scores
+- **ML 100K**
+    - Users’ Rating on movies
+    - Simulated Propensity Scores ← ratings & user behaviors
+- PROPCARE: ground-truth propensity scores → Model Output Evaluation에만 사용.
+    - Note: training 단계에서 ground-truth values 사용 ❌
+- Datasets → training/validation/test sets
+    - Statistics: number or average values of Key variables [User, Item, Observed Interaction, Exposure, Causal Effect, Propensity]
+    
+    ![image.png](attachment:1eed134b-181b-43d3-bda6-cb8322c5de6d:image.png)
+    
+
+### Baselines
+
+- PROPCARE  vs  Baselines [other methods]
+- Propensity Estimators
+    - **Ground-truth values: propensity $p_{u,i}$, exposure $Z_{u,i}$ → input of DLCE on training**
+        1. **Ground-truth**: datasets → Propensity Score & Exposure values
+    - **Estimate propensity $\hat{p_{u,i}}$ → Derive exposire $\hat{Z_{u,i}}$ → input of DLCE on training**
+        1. **Random**: Propensity Scores $\in \left(0, 1\right)$ randomly
+        2. Item Popularity (**POP**): Propensity Scores = Normalization of POP $\in \left(0, 1\right)$
+        3. **CJBPR**: Propensity → Relevance → Propensity → Relevance → … point-wise optimization
+        4. **EM**: Expectation-Maximization algorithm → Propensity Scores point-wise learning
+
+### Parameter settings
+
+- Validation data → Tuning hyper-parameters
+    - PROPCARE: Use the trade-off hyper-parameters as
+        - $\lambda = 10$
+        - $\mu=0.4$
+    - Other settings: Appendix C.2.
+
+### Evaluation metrics
+
+- **Performance** of Causality-based Recommendation → Evaluation metrics [Appendix C.3.]
+    1. **CP@10, CP@100**: Causal effect-based Precision (CP)
+    2. **CDCG**: Causal effect-based Discounted Cumulative Gain (CDCG)
+    
+    $$
+    \text{CP@K} = \frac{1}{U} \sum_{u=1}^{U} \sum_{i=1}^{I} \frac{\mathbf{1}(\text{rank}_u(\hat{s}_{u,i}) \le K)\tau_{u,i}}{K} \quad (a.11)
+    \\ \text{CDCG} = \frac{1}{U} \sum_{u=1}^{U} \sum_{i=1}^{I} \frac{\tau_{u,i}}{\log_2 (1 + \text{rank}_u(\hat{s}_{u,i}))}  \quad (a.12)
+    $$
+    
+
+## 5.2. Results and discussions
+
+- PROPCARE > Baselines: additional experiments in [ Appendix D. ]
+
+### Performance comparison
+
+- PROPCARE > Baselines in two aspects
+    1. The **downstream causality-based recommendation** using the estimated propensity and exposure
+    2. The accuracy of the estimated propensity and exposure
+
+![image.png](attachment:c7eb3a1f-4dfd-4a16-9341-2793df3286f4:image.png)
+
+- **Performance** of Causality-based Recommendation [Evaluation metrics 비교.]
+- Ground-truth: performance 가장 좋다. [Evaluation metrics 가장 큼.]
+    - 실제 propensity, exposure values를 DLCE에 그대로 사용하기 때문.
+        - → But real-world에서는 사용 불가.
+    - PROPCARE: 가장 Ground-truth 값에 가까움. 특히 DH_personalized에서는 큰 차이 ❌
+    - PROPCARE > CJBPR, EM
+        - → Pairwise method by Assumption 1.이 좋다.
+
+![image.png](attachment:178c32e0-5c81-40ab-8a84-bdca379185dd:image.png)
+
+- Propensity, Exposure Estimation Accuracy
+- POP: Baselines 중에서, Kendall’s Tau 기준 가장 좋다.
+    - But Table 2를 보면 POP의 causality metrics는 좋지 못함.
+        - KLD 값이 큰 것으로 보아, propensity score의 distribution 예측이 잘 되지 않았기 때문. → ill-fit propensity distribution.
+    - F1 score가 작음 → Exposure estimation도 잘 되지 못하였음.
+- PROPCARE: F1 score, KLD에서 효과가 좋음 & Table 2에서 causality metrics도 좋은 성능을 의미.
+    - Tau scores가 다른 baselines보다 약간 나쁘지만, 나머지 두 지표가 좋음.
+        - → Propensity Score, Exposure 둘 모두 estimation 잘됨. → Causal Performance 좋음.
+- Causality-based Recommendation: multiple factors에 의하여 영향을 받음.
+→ **influencing factors가 무엇이 있는가? [5.2. 마지막 단락]**
+
+### Ablation study
+
+$$
+\mathcal{L}_{\text{pop}} = -\kappa_{u,i,j} \log \left[ \sigma(\text{sgn}_{i,j} \cdot (f_p(\mathbf{x}_{u,i}) - f_p(\mathbf{x}_{u,j}))) + \sigma(\text{sgn}_{i,j} \cdot (f_r(\mathbf{x}_{u,j}) - f_r(\mathbf{x}_{u,i}))) \right] \quad (6)
+$$
+
+<aside>
+💡
+
+$\mathcal{L}_{\text{pop}}$의 term를 변화시켰을 때, PROPCARE에 비하여 성능이 많이 떨어짐 → 변화된 term이 중요한 term이다.
+
+</aside>
+
+- Derive 5 variants
+    1. **NO_P**: ***Removing the constraint on estimated $\hat{p_{u,i}}$*** by deleting the term with $f_p(\mathbf{x}_{u,i}) − f_p(\mathbf{x}_{u,j})$
+    2. **NO_R**: ***Removing the constraint on estimated $\hat{r_{u,i}}$***  by deleting the term with $f_r(\mathbf{x}_{u,j}) − f_r(\mathbf{x}_{u,i})$
+    3. **NO_P_R**: ***Removing $\mathcal{L}_{\text{pop}}$*** entirely from the overall loss $\mathcal{L}_{\text{total}}$ to eliminate Assumption 1 altogether
+    4. **NEG**: Reversing Assumption 1 by ***replacing $\text{Sgn}_{i,j}$ with $-\text{Sgn}_{i,j}$*** to assume that more popular items have smaller propensity scores
+        - ***Removing the condition*** $\left( pop_i > pop_j\Leftrightarrow \ p_{u,i} > p_{u,j} \right )$
+    5. $\kappa=1$: Setting all $\kappa_{u,i,j} = 1$ → equal weighting of all training triplets.
+        - ***Removing the condition $y_{u,i} \approx y_{u,j}$***
+    
+    ![image.png](attachment:2b10f4fd-68c2-48aa-a125-b552b2777a29:image.png)
+    
+    - x-axis: dataset
+    - y-axis: performance
+    - PROPCARE: best performance
+    - NEG: worst performance → Assumption 1 is most important.
+    
+    <aside>
+    💡
+    
+    Importance:
+    
+    1. $\left( pop_i > pop_j\Leftrightarrow \ p_{u,i} > p_{u,j} \right )$
+    2. $\mathcal{L}_{pop}$
+    3. $y_{u,i} \approx y_{u,j}$
+    4. $\hat{p_{u,i}}$
+    5. $\hat{r_{u,i}}$
+    </aside>
+    
+
+### Effect of regularization
+
+$$
+\mathcal{L_\text{total}} = \sum_{u,i,j} \left(\mathcal{L}_{\text{naive}} + \lambda \cdot\mathcal{L}_{\text{pop}}\right) + \mu \cdot \text{KLD}\left(Q \| \text{Beta}(\alpha, \beta)\right) \quad (7)
+\\
+\arg\min_{\Theta_{\text{total}}} \mathcal{L_\text{total}} = \hat{\Theta_{\text{total}}} \ \rightarrow \  \hat{p_{u,i}}, \hat{r_{u,i}}
+$$
+
+- Regularization parameter: $\mu$
+    
+    ![image.png](attachment:7ed34733-6b47-4d74-a585-c8e5deddeed5:image.png)
+    
+    - $\mu \approx 0 \  \Rightarrow \ \text{performance CDCG} \downarrow$
+    - $\mu \uparrow \  \Rightarrow \ \text{performance CDCG} \uparrow, \quad \mu_{\text{peak}} \in \left[0.2, 0.8\right]$
+
+### Factors influencing causality-based recommendation
+
+- **방법 1: ground-truth propensity or exposure values에 Noises Injection [각각 (b), (a)]**
+    
+    <aside>
+    💡
+    
+    Estimation Accuracy  Vs  Causality-based Recommendation Performance**: Important Factors**
+    
+    Propensity Score - Estimation Accuracy  Vs  Exposure - Estimation Accuracy
+    
+    </aside>
+    
+    ![image.png](attachment:3fe0d2eb-3463-41b3-9a57-d62a7615a1f1:image.png)
+    
+    - (a) Ground-truth propensity scores $p_{u,i}$를 DLCE training에 사용하면서, $Z_{u,i}$를 $0↔1$로 일부분 randomly flip.
+    **[$Z_{u,i}$ 오염.]**
+        - x-axis: Flip ratio
+        - y-axis: CDCG performance
+        - 오염 비중이 커질 수록 성능 급격히 하락.
+            - → Causality-based Recommendation: Exposure의 Estimation에 매우 민감.
+            
+            <aside>
+            💡
+            
+            **Exposure - Estimation Accuracy가 더 중요하다.**
+            
+            </aside>
+            
+    - (b) Ground-truth exposure $Z_{u,i}$를 DLCE training에 사용하면서, Add Gaussian Noises to the propensity scores.
+    **[$p_{u,i}$ 오염.]**
+        - x-axis: Variance of Noises
+        - y-axis: CDCG performance
+        - 오염 비중이 커질 수록 성능 적당히 하락.
+            - → Causality-based Recommendation: Propensity Score의 Estimation에 적당히 민감.
+- **방법 2: Correlation betw. Estimation Accuracy & Recommendation Performance**
+    
+    <aside>
+    💡
+    
+    Estimation Accuracy  Vs  Causality-based Recommendation Performance **: Correlation**
+    
+    </aside>
+    
+    - Dataset: Only DH_original dataset [3개의 dataset 중 그냥 하나 뽑은 듯함.]
+        
+        ![image.png](attachment:dc73b9be-c5b3-4b55-b433-e8cd6523de81:image.png)
+        
+        - x-axis: Estimation Accuracy
+            - KLD, Kendall’s Tau: Propensity Scores
+            - F1 score: Exposure
+        - y-axis: CDCG performance [Recommendation Performance]
+        
+        <aside>
+        💡
+        
+        1. $\text{KLD} \downarrow \ \Rightarrow \ \text{CDCG} \uparrow$
+        : Estimated Propensity Scores $\hat{p_{u,i}}$ 분포가 long-tailed인 beta 분포와 비슷할수록 Performance good.
+        2. $\text{Kendall’s Tau} \uparrow \ \Rightarrow \ \text{CDCG} \uparrow$
+        3. $\text{F1 score} \uparrow \ \Rightarrow \ \text{CDCG} \uparrow$
+        </aside>
+        
+
+## 5.3. Case study
+
+- PROPCARE: Ranking-based Recommendation
+    
+    ![image.png](attachment:8c00ee71-67b0-4c21-87a0-86cc6020430d:image.png)
+    
+    - Top-5 Recommend items [User ID 2308, DH_personalized dataset]
+    1. **Ground-truth: DLCE가 ranking list를 효과적으로 생성하였음.**
+        - Most items가 Positive Causal Effect.
+            - $\tau_{u,i} := Y_{u,i}^1-Y_{u,i}^0 = 1$
+            - → **Recommending item i to user u** ⇒ user-item interaction[click or purchase] 증가.
+        - All items in positive causal effect: 모두 purchased 되었음. → Goal of Causality-based Recommendation 성공.
+    2. **CJBPR, PROPCARE: Purchased items의 Causal Effects는 각기 다르다.**
+        - **CJBPR - strawberries:** causal effect ❌
+            - **Recommending or not ⇒ user-item interaction[Purchasing]에 영향을 끼칠 수 없음.**
+        - **PROPCARE - infant soy**: Positive causal effect
+            - **Recommending item i to user u ⇒ user-item interaction[click or purchase] 증가.**
+    3. **POP: Negative Causal Effect를 가진 item(tortilla chips)도 recommend를 한다.**
+        - **→ POP: 좋은 method가 아님.**
+
+# 6. Conclusion
+
+- PROPCARE: w/o ground-truth of propensity and exposure data
+- Observation of (propensity scores, item popularity) → Key Assumption → Prior Information → Causality-based RS
+- Factors for bias in estimated causal effects
+- Empirical studies: PROPCARE > Baselines [other methods]
+- Future research suggestion:
+    1. Direct exposure estimation w/o propensity scores [i.e, w/o propensity estimation]
+    2. Parametric causal effect estimators [IPS estimator: Non-parametric approach]
+
+---
+
+---

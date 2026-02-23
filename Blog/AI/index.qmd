@@ -3,4 +3,6 @@ title: "Artificial Intelligence"
 listing:
   contents: "**/*.qmd"
   type: grid
+  categories: true
+
 ---

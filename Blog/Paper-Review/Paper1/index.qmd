@@ -1,13 +1,22 @@
 ---
-title: "[SIGIR 2024] Paper Title"
+title: "[SIGIR 2024] Going Beyond Popularity and Positivity Bias: Correcting for Multifactorial Bias in Recommender Systems"
 date: "2026-02-23"
 date-modified: last-modified
 description: "Summary of this paper briefly"
 toc: true
+number-sections: true
 ---
 - References
-  - **Paper**: [Paper Title](URL)
-  - **Official Code**: [GitHub Repository](URL)
-  - **Conference**: [SIGIR 2024](URL)
+    - **Paper**: [Paper Title](https://dl.acm.org/doi/10.1145/3626772.3657749)
+    - **Official Code**: [GitHub Repository](URL)
+    - **Conference**: [SIGIR 2024](https://dl.acm.org/doi/proceedings/10.1145/3626772)
 
-이후 내용 적기.
+# Overview & Problem (Motivation)
+
+# Preliminaries
+
+# Method (Solution)
+
+# Experiments & Result
+
+# Conclusion

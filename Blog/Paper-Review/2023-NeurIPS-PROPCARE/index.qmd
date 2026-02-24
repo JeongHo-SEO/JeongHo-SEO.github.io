@@ -1,7 +1,6 @@
 ---
 title: "[NeurIPS 2023] Estimating Propensity for Causality-based Recommendation without Exposure Data"
 date: "2025-07-15"
-date-modified: last-modified
 description: "Exposure Data & Propensity Scores 없을 때의 Causality-based RS"
 toc: true
 number-sections: false

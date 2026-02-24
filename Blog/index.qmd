@@ -1,6 +1,6 @@
 ---
 title: "Pho's Technical Notes"
-date-modified: false     # 메인 리스트 화면에서는 날짜 숨김
+date-modified: ""        # 메인 리스트 화면에서는 날짜 숨김
 toc: true                # 전체 설정(_quarto.yml)에서 껐으므로 여기서 명시적으로 켬
 toc-title: "Contents"    # TOC 제목 설정
 listing:

@@ -204,3 +204,5 @@ Sequence의 ordering property 사용 위함.
 # 4. Why Self-Attention
 
 ![image.png](attachment:bb27068d-cba2-4e60-8467-b5c2160e2d76:image.png)
+
+

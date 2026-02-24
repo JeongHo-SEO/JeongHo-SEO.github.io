@@ -56,7 +56,7 @@ website:
 format:
   html:
     css: style.css
-    date-modified: last-modified
+    date-modified: git                        # commit 기준으로 last-modified 날짜 수정.
     date-format: "MMMM D, YYYY"               # December 12, 1999
     theme:
       light: cosmo                            # Modify Here  

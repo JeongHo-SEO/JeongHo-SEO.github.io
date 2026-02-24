@@ -15,7 +15,8 @@ number-sections: true
 
 ## Selection Bias
 우리는 실제 모집단(population)의 distribution을 알 수 없기 때문에, 표본(sample)을 추출하여 사용한다.  
-이 때 표본이 모집단의 distribution을 제대로 반영하지 못하는 경우, **Sample**에 **Selection Bias**가 존재한다고 할 수 있다. [Ovaisi et al. definition] - Sampling Bias라고 일컬어도 좋을 것 같은데, "Sampling" 주체가 Algorithm이니 Selection Bias라고 하는 것 같다.  
+이 때 표본이 모집단의 distribution을 제대로 반영하지 못하는 경우, **Sample**에 **Selection Bias**가 존재한다고 할 수 있다. [Ovaisi et al. definition]  
+> Sampling Bias라고 일컬어도 좋을 것 같은데, "Sampling" 주체가 Algorithm이니 Selection Bias라고 하는 것 같다.  
 
 이러한 Selection Bias는 user가 특정 item과 interaction을 많이 하는 *self-selection bias*와, 추천 시스템의 알고리즘이 user에게 item을 추천하는 *algorithmic bias*에 의해 발생한다.  
 
@@ -46,32 +47,38 @@ real-world에서는 여러 bias가 동시에 발견되기 때문에, 앞에서 �
 ## Notation
 이러한 Notation 및 Definition들은 Publications마다 조금씩 달라서, 한 번 정리하는 것이 좋다.  
 특히, 논문에는 $y$를 rating이라고 표현하지만, 정확히는 preference로 보는 것이 적절해보인다. (문맥상)
+
 - user set: $\mathcal{U} = \{u_1, \ldots, u_N\}$
 - item set: $\mathcal{I} = \{i_1, \ldots, i_M\}$
+
 - rating score set: $\mathcal{R} = \{1, 2, 3, 4, 5\}$
   - preference score variable: $y_{u,i} \in \mathcal{R}$
     - 혼동을 피하기 위해 언급하자면, DB에 기록된 값이 아닌, user u가 item i를 소비했다면 매겼을 True Preference이다. $\forall (u,i)$에서 존재하는 값.
   - rating score variable: $r_{u,i} \in \mathcal{R}$: 실제 DB에 기록된 값, user u가 item i에 대해 실제로 rating한 값. $(o_{u,i}=1)$일 때.
     - $r_{u,i} = o_{u,i} * y_{u,i}$로 모델링 가능할 듯.
+
 - observition set: $\{0, 1\}$ - rated or not
   - observation
   - observation variable: $o_{u,i} \in \{0, 1\}$
   - observation matrix: $\mathcal{O} = \{o_{u,i}\}$ - sparse by Positivity Bias
-- logged rating (sample) dataset: $\mathcal{D} = \{\left(u, i, y_{u,i}\right) | o_{u,i} = 1 \}$ - 관찰된 (user, item, preference) tuple. <- rating tuple ($r_{u,i}$)로 봐도 무방. $\forall (u,i) \in \mathcal{D}: y_{u,i}=r_{u,i}$.
+
+- logged rating (sample) dataset: $\mathcal{D} = \{\left(u, i, y_{u,i}\right) | o_{u,i} = 1 \}$
+> 관찰된 (user, item, preference) tuple. $\leftarrow$ rating tuple ($r_{u,i}$)로 봐도 무방. $\forall (u,i) \in \mathcal{D}: y_{u,i}=r_{u,i}$.
 
 ## Definition
 
 ### Propensity Score
 $p_{u,i} = P\left(o_{u,i}=1 | u,i,y_{u,i}\right)$: 주어진 (u,i) pair에서 user가 item을 observing 했을 확률이다.   
-다른 논문([PROPCARE](https://proceedings.neurips.cc/paper_files/paper/2023/hash/a237f11d6aad94f59a182d70405d3fdb-Abstract-Conference.html))에서는 Exposure Probability로 정의하였는데, Exposure == Observation 로 보면 일맥상통 한다. (Publications 맥락바다 다른 것 같음)  
-통계학에서는 특정 condition X가 given일 때, Treatment T를 받을 확률로 Propensity Score를 정의한다.: $e(X)=P(T=1|X)$
+다른 논문([PROPCARE](https://proceedings.neurips.cc/paper_files/paper/2023/hash/a237f11d6aad94f59a182d70405d3fdb-Abstract-Conference.html))에서는 Exposure Probability로 정의하였는데, Exposure == Observation 로 보면 일맥상통 한다. (Publications 맥락마다 다른 것 같다.)  
+통계학에서는 특정 condition X가 given일 때, Treatment T를 받을 확률로 Propensity Score를 정의한다.  
+> $e(X)=P(T=1|X)$
 
 ### Selection Bias
 => Selection Bias가 없다면 모든 표본의 분포들과 모집단의 분포가 같다. (identical distribution)  
 => 따라서 임의의 (user, item) pair를 선정했을 때, observing prob.인 $p_{u,i}$ 또한 같을 것이다. (missing completely at random - MCAR)  
 => 반대로, $p_{u,i}$가 (user, item) pair에 의해 값이 변한다면, identical distribution이 아니므로 Selection Bias가 존재한다.
 
-$$ Selection-bias\left(\mathcal{D}\right) \Leftrightarrow \exist u,u',i,i': p_{u,i} \neq p_{u', i'}$$
+$$ Selection-bias\left(\mathcal{D}\right) \Leftrightarrow \exists u,u',i,i': p_{u,i} \neq p_{u', i'}$$
 
 
 ### Positivity and Popularity Bias
@@ -143,7 +150,7 @@ $$
 기존의 다른 연구 또한 positivity or popularity bias에만 의존한다는 관점에서 propensity를 추정하였으나, 본 논문에서는 둘 모두를 고려하는 ***Milti-factorial bias***관점을 채택한다.  
 
 - positivity bias 관점에서, $\hat{p}_{u,i}^{\text{pos}}=P\left(o=1 | y=y_{u,i}\right)$
-- popularity bias 관점에서, $\hat{p}_{u,i}^{\text{pop}}=P\left(o=1 | i \right)$ (item = i 일 때)
+- popularity bias 관점에서, $\hat{p}_{u,i}^{\text{pop}}=P\left(o=1 | i \right)$ $\leftarrow$ item = i 일 때  
 
 따라서 최종적으로 multi-factorial bias 관점에서 propensity score를 추정하면, 아래와 같다.  
 $$
@@ -180,11 +187,11 @@ $$
 \end{aligned}
 $$
 
-- 논문에서는 $\delta(\hat{y}_{u,i}, y_{u,i})=(\hat{y}_{u,i} - y_{u,i})^2$ 와 같이 MSE를 사용하였지만, 다른 오차 함수 모두 사용 가능하다.
+- 논문에서는 예시로 $\delta(\hat{y}_{u,i}, y_{u,i})=(\hat{y}_{u,i} - y_{u,i})^2$ 와 같은 MSE로 설명하였지만, 이후 Table 1에서 볼 수 있듯이 다른 오차 함수를 사용할 수 있다.  
 
 # Method (Solution)
 - For updating our parameters $\theta \in \Theta$, we use ***alternating gradient descent*** algorithm and ***Adam*** optimizer.
-- Eq. 19: $\theta_{t} = \text{ADAM}\left(\theta_{t-1}, \nabla\theta_{t-1} \mathcal{L}_{\text{MF-IPS}^{\text{Mul}}}\right)$
+- Eq. 19: $\quad \theta_{t} = \text{ADAM}\left(\theta_{t-1}, \nabla\theta_{t-1} \mathcal{L}_{\text{MF-IPS}^{\text{Mul}}}\right)$
   ![Algorithm1](figures/Algorithm-1.png)
 
 # Experiments & Result
@@ -219,13 +226,14 @@ $$
   - $\text{MF-IPS}^{\text{MF}}$: MF model - propensity estimation using MF with logistic regression
   - $\text{MF-IPS}^{\text{Pop}}$: MF model with $\hat{p}_{u,i}^{\text{pop}}$
   - $\text{MF-IPS}^{\text{Pos}}$: MF model with $\hat{p}_{u,i}^{\text{pos}}$
+
 > Paper: Multi-factorial Bias $\text{MF-IPS}^{\text{Mul}}$: MF model with $\hat{p}_{u,i}^{\text{mul}}$
 
 ## Hyper-parameters tuning
 
 ### In the MF-based methods
-- learning rate $\eta$
-- $L_2$ regularization weights $\lambda$
+- learning rate: $\eta$
+- $L_2$ regularization weights: $\lambda$
 - dimension of embeddings of users and items: $d$
 
 ### In the VAE method
@@ -235,15 +243,16 @@ $$
 - Kullback-Leibler term
 
 ### Paper method (multi-factorial bias)
-- learning rate $\eta$
-- $L_2$ regularization weights $\lambda$
+- learning rate: $\eta$
+- $L_2$ regularization weights: $\lambda$
 - dimension of embeddings of users and items: $d$
-- smoothing parameters $\alpha_1, \alpha_2$
+- smoothing parameters: $\alpha_1, \alpha_2$
 
 ![Table1](figures/Table-1.png)
 
 ## RQ1 Answer: [Model Performance]
 > RQ1: Does our proposed multifactorial method better mitigate the effect of bias in logged rating data than existing single-factor debiasing methods?  
+
 - Yes. 모든 Error Function $\delta$에서 paper의 모형이 가장 Error evaluation이 낮다. 두 dataset 모두
 - $\text{MF-IPS}^{\text{Mul}} \succ \text{MF-IPS}^{\text{Pos}} \succ \text{MF-IPS}^{\text{Pop}}$: positivity bias has a stronger effect than popularity bias in rating predictions.
 

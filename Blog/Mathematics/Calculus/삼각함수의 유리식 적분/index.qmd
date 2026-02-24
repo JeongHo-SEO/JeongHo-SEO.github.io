@@ -2,7 +2,6 @@
 title: "삼각함수의 유리식 적분"
 description: "1/(a+sinx), 1/(a+cosx) 적분"
 date: "2025-11-24"
-date-modified: last-modified
 ---
 
 ### Question.

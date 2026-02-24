@@ -1,7 +1,6 @@
 ---
 title: "[NeurIPS 2017] Attention Is All You Need"
 date: "2025-07-22"
-date-modified: last-modified
 description: "RNN, CNN 없이 only Attention → transformer for NLP"
 toc: true
 number-sections: true

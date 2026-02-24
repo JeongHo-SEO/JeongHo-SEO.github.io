@@ -11,7 +11,7 @@ render:
   - "!**/Archive/**"                        # Archive folder: NO Rendering, Do not include in the website
 
 execute:
-  freeze: auto
+  freeze: false                             # auto: true
 
 website:
   title: "JeongHo SEO"

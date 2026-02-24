@@ -1,1 +1,3 @@
-
+---
+date-modified: git                      # commit 기준으로 수정한 글만 MODIFIED 날짜 수정.
+---

@@ -1,7 +1,6 @@
 ---
 title: "[SIGIR 2021] Causal Intervention for Leveraging Popularity Bias in Recommendation"
 date: "2025-07-24"
-date-modified: last-modified
 description: "인과 개입(causal intervention)을 통해 해로운 영향만 제거하고 유익한 편향은 활용"
 toc: true
 number-sections: true

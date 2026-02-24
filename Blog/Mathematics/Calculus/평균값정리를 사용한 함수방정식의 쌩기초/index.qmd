@@ -1,7 +1,6 @@
 ---
 title: "평균값정리를 사용한 함수방정식의 쌩기초"
 date: "2025-11-25"
-date-modified: last-modified
 ---
 
 # Question  

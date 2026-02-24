@@ -1,7 +1,6 @@
 ---
 title: "[SIGIR 2024] Going Beyond Popularity and Positivity Bias: Correcting for Multifactorial Bias in Recommender Systems"
 date: "2026-02-23"
-date-modified: last-modified
 description: "Summary of this paper briefly"
 toc: true
 number-sections: true

@@ -1,2 +1,6 @@
+---
+date-modified: git                      # commit 기준으로 수정한 글만 MODIFIED 날짜 수정.
+---
+
 This pages covers several books I (personally) published.  
 (Later) I will upload them on this webpage.

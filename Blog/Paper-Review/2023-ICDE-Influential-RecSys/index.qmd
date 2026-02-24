@@ -1,7 +1,6 @@
 ---
 title: "[ICDE 2023] Influential Recommender System"
 date: "2025-07-22"
-date-modified: last-modified
 description: "influence path를 통한 objective item 유도: active recommendation"
 toc: true
 number-sections: true

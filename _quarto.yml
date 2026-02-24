@@ -56,7 +56,7 @@ website:
 format:
   html:
     css: style.css
-    # date-modified: git                        # commit 기준으로 수정한 글만 MODIFIED 날짜 수정. last-modified 사용 시 모든 글에 MODIFIED 날짜 수정됨.
+    # date-modified: git                      # 루트 폴더에서 기입해두면 모든 글이 같은 수정 날짜를 공유함. 삭제.
     date-format: "MMMM D, YYYY"               # December 12, 1999
     theme:
       light: cosmo                            # Modify Here  

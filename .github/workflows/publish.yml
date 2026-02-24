@@ -15,7 +15,7 @@ concurrency:
   cancel-in-progress: false
 
 env:
-  TZ: "Asia/Seoul" # TimeZone
+  TZ: "Asia/Seoul"
 
 jobs:
   build:
@@ -24,15 +24,21 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
         with:
+          # 모든 히스토리를 가져와야 커밋 날짜를 인식합니다.
           fetch-depth: 0
 
       - name: Git Safe Directory Config
-        run: git config --global --add safe.directory '*'
+        # [핵심] 깃허브 서버의 모든 보안 제약을 무시하고 Git 기록을 읽게 합니다.
+        # 이 한 줄이 'Invalid Date'를 실제 날짜로 바꾸는 핵심입니다.
+        run: |
+          git config --global --add safe.directory '*'
+          git config --global --add safe.directory "$GITHUB_WORKSPACE"
 
       - name: Set up Quarto
         uses: quarto-dev/quarto-actions/setup@v2
 
       - name: Render Quarto Project
+        # 이제 Git 기록을 정상적으로 읽어와서 렌더링합니다.
         run: quarto render
 
       - name: Configure Pages

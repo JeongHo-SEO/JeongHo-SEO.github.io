@@ -46,7 +46,6 @@ listing:
 
   - id: mathematics-posts
     contents: "Mathematics/**/*.qmd"
-    type: grid
     type: grid           # table, grid, ...
     sort: "date desc"
     max-items: 6

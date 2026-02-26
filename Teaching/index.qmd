@@ -1,6 +1,5 @@
 ---
 title: "Teaching & Mentoring"
-date-modified: git                      # commit 기준으로 수정한 글만 MODIFIED 날짜 수정.
 ---
 ## 🏫 University Teaching
 - **Undergraduate Teaching Assistant (TA)** | DGIST | 2026.02 - 2026.06

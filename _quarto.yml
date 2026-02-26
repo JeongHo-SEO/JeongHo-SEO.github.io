@@ -5,7 +5,7 @@ project:
   type: website                             # Modify Here (default, website, blog, manuscript, book, confluence)
   output-dir: _site
 
-date-modified: git
+date-modified: last-modified                # git
 date-format: "MMMM D, YYYY"                 # December 12, 1999
 
 render:

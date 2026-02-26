@@ -24,19 +24,16 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
         with:
-          # 커밋 기록을 전부 가져와야 날짜를 인식합니다.
           fetch-depth: 0
 
       - name: Set up Quarto
         uses: quarto-dev/quarto-actions/setup@v2
 
-      - name: Render Quarto Project
-        # [핵심] 여기서 모든 문제를 한 번에 해결합니다.
-        # 1. 보안 해제, 2. 과거 캐시(_freeze) 강제 삭제, 3. 렌더링
+      - name: Render
         run: |
           git config --global --add safe.directory '*'
           rm -rf _freeze
-          quarto render
+          quarto render .
 
       - name: Configure Pages
         id: pages
@@ -48,12 +45,12 @@ jobs:
           path: _site
 
   deploy:
+    needs: build
+    runs-on: ubuntu-latest
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: ubuntu-latest
-    needs: build
     steps:
-      - name: Deploy to GitHub Pages
+      - name: Deploy
         id: deployment
         uses: actions/deploy-pages@v4

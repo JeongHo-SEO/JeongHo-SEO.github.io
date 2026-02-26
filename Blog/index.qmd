@@ -12,7 +12,7 @@ listing:
     # grid-columns: 3      # 한 줄에 보여줄 카드 개수
     image-height: 150px  # 이미지 높이 조절
     categories: false
-    fields: [title, date-modified]  # 필요한 정보만 표시
+    fields: [title]  # 필요한 정보만 표시
 
 
   - id: book-posts

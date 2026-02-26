@@ -3,4 +3,5 @@ title: "Linear Algebra"
 listing:
   contents: "*.qmd"
   type: default
+  sort: "date desc"
 ---

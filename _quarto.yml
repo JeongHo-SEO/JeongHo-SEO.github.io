@@ -4,7 +4,6 @@
 project:
   type: website                             # Modify Here (default, website, blog, manuscript, book, confluence)
   output-dir: _site
-  date-modified: last-modified
 
 render:
   # Not Rendered files and folders
@@ -57,7 +56,7 @@ website:
 format:
   html:
     css: style.css
-    # date-modified: git                      # 루트 폴더에서 기입해두면 모든 글이 같은 수정 날짜를 공유함. 삭제.
+    date-modified: git
     date-format: "MMMM D, YYYY"               # December 12, 1999
     theme:
       light: cosmo                            # Modify Here  

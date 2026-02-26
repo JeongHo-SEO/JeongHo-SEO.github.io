@@ -3,8 +3,8 @@ title: "Research Paper Review"
 listing:
   contents: 
     - "**/*.qmd"          # 모든 글을 가져오되
-    - "!index.qmd"        # 현재 폴더의 index.qmd 제외
-    - "!**/index.qmd"     # 모든 하위 폴더의 index.qmd 제외 (핵심!)  type: grid
+#    - "!index.qmd"        # 현재 폴더의 index.qmd 제외
+#    - "!**/index.qmd"     # 모든 하위 폴더의 index.qmd 제외 (핵심!)  type: grid
   type: default
   categories: true        # 우측 사이드바에 카테고리 노출
   sort: "date desc"

@@ -4,18 +4,14 @@ toc: true
 listing:
   - id: calculus-list
     contents: 
-      - "Calculus/*.qmd"      # Calculus 폴더 내 모든 qmd
-      - "!Calculus/index.qmd" # 폴더 메인 페이지는 카드에서 제외
+      - "Calculus/index.qmd"
     type: grid
-    grid-columns: 3
     sort: "date desc"
 
   - id: linear-list
     contents: 
-      - "Linear-Algebra/*.qmd"
-      - "!Linear-Algebra/index.qmd"
+      - "Linear-Algebra/index.qmd"
     type: grid
-    grid-columns: 3
     sort: "date desc"
 ---
 

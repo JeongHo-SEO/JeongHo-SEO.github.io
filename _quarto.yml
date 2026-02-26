@@ -5,6 +5,9 @@ project:
   type: website                             # Modify Here (default, website, blog, manuscript, book, confluence)
   output-dir: _site
 
+date-modified: git
+date-format: "MMMM D, YYYY"                 # December 12, 1999
+
 render:
   # Not Rendered files and folders
   - "!**/README.md"                         # README file: Just Description, Do not include in the website
@@ -12,7 +15,7 @@ render:
   - "!**/archive/**"
 
 execute:
-  freeze: false                             # auto: true
+  freeze: auto
 
 website:
   title: "JeongHo SEO"
@@ -52,11 +55,10 @@ website:
 
   page-navigation: true
 
+
 format:
   html:
     css: style.css
-    date-modified: git
-    date-format: "MMMM D, YYYY"               # December 12, 1999
     theme:
       light: cosmo                            # Modify Here  
       dark: darkly                            # dark mode option

@@ -32,7 +32,6 @@ jobs:
       - name: Render
         run: |
           git config --global --add safe.directory '*'
-          rm -rf _freeze
           quarto render .
 
       - name: Configure Pages

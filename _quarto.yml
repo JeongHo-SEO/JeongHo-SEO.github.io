@@ -50,8 +50,6 @@ website:
         href: https://www.linkedin.com/in/jeongho-seo/
 
   page-navigation: true
-  page-footer:
-    right: "Lastly Edited: {{< meta date-modified >}}"
 
 format:
   html:

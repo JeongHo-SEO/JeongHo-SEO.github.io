@@ -8,7 +8,7 @@ listing:
     contents: "Paper-Review/**/*.qmd"
     type: grid           # table, grid, ...
     sort: "date desc"
-    grid-columns: 3      # 한 줄에 보여줄 카드 개수
+    # grid-columns: 3      # 한 줄에 보여줄 카드 개수
     image-height: 150px  # 이미지 높이 조절
     categories: true     # 자동 부여된 카테고리를 필터로 표시
 

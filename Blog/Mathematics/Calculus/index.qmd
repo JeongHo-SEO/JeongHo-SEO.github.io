@@ -3,4 +3,5 @@ title: "Calculus"
 listing:
   contents: "*.qmd"
   type: default
+  sort: "date desc"
 ---

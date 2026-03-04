@@ -1,0 +1,5 @@
+---
+title: "Journal Papers"
+---
+
+{{< include _list_journal.qmd >}}

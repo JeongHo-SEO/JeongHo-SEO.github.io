@@ -1,0 +1,5 @@
+---
+title: "Working Papers"
+---
+
+{{< include _list_working.qmd >}}

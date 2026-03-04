@@ -1,0 +1,12 @@
+---
+title: Published Papers
+description: "Published conference and journal papers"
+---
+
+## Conference
+{{< include _list_conference.qmd >}}
+
+---
+
+## Journal
+{{< include _list_journal.qmd >}}

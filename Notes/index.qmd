@@ -1,1 +1,11 @@
-
+---
+title: "Lecture Notes"
+listing:
+  contents: 
+    - "*/index.qmd"    # 각 하위 폴더의 index.qmd 파일들을 수집
+  type: grid           # 카드 형태로 보여줌
+  sort: "title desc"   # 제목순 정렬
+  categories: true     # 폴더별 카테고리(분류) 표시
+  grid-columns: 2      # 한 줄에 2개씩 배치 (깔끔함)
+  image-height: 150px
+---

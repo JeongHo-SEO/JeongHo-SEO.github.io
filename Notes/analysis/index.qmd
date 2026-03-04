@@ -1,5 +1,6 @@
 ---
 title: "Introduction to Mathematical Analysis for the Undergraduate"
+subtitle: "TP309 | Spring 2026 @ DGIST"
 author: "Jeong-Ho SEO"
 listing:
   contents: "week*.qmd" # week01, chap02... 파일들을 수집

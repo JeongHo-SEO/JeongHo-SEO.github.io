@@ -5,6 +5,7 @@ listing:
   contents: "week*.qmd" # week01, chap02... 파일들을 수집
   type: table           # 목차이므로 '표' 형태가 보기 편함
   fields: [title, date] # 제목과 날짜만 깔끔하게 노출
+image: "cover.png"      # 썸네일 이미지
 ---
 
 ### Course Description

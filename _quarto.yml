@@ -29,18 +29,20 @@ website:
         href: index.qmd                 # Link to the file
       - text: Publications
         menu:
-          - text: Journal Papers
-            href: Publications/Journal.qmd
+          - text: Publicated Papers
+            href: Publications/published.qmd
           - text: Conference Papers
-            href: Publications/Conference.qmd
+            href: Publications/conference.qmd
+          - text: Journal Papers
+            href: Publications/journal.qmd
           - text: Working Papers
-            href: Publications/Working.qmd
+            href: Publications/working.qmd
       - text: CV
         href: Curriculum-Vitae/index.qmd
       - text: Projects
         href: Main-Projects/index.qmd
-      - text: Books
-        href: Books/index.qmd
+      - text: Notes
+        href: Notes/index.qmd
       - text: Teaching
         href: Teaching/index.qmd
       - text: Blog

@@ -8,5 +8,5 @@ listing:
   categories: true     # 폴더별 카테고리(분류) 표시
   grid-columns: 2      # 한 줄에 2개씩 배치 (깔끔함)
   image-height: 150px
-  fields: [title, image]
+  fields: [title, subtitle, image]
 ---

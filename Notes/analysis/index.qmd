@@ -11,10 +11,20 @@ image: "cover.png"      # 썸네일 이미지
 
 ### Course Description
 2026년도 봄학기에 DGIST에서 수강한 "학부생을 위한 해석학 개론" 강의를 정리한 Lecture Note입니다.  
-안흥주교수님께서 강의하셨으며, 과제로 교수님의 강의노트를 기반하여 수업에서 다룬 주제들을 정리하였습니다.
+안흥주교수님께서 강의하셨으며, 과제로 교수님의 강의노트(`.md`)를 기반으로 수업에서 다룬 주제들을 정리하였습니다.
 
 ### Main Textbook
-Understanding Analysis, 2nd edition | Stephen Abbott
+`Understanding Analysis, 2nd edition | Stephen Abbott`
 ![Main Textbook: Understanding Analysis](cover.png)
 
-## Chapters
+## Contents
+| ID       | Chapter | Remark |
+| :--- | :--- | :--- |
+| **Ch 1** | The Real Numbers | Real Number System |
+| **Ch 2** | Sequences and Series |  |
+| **Ch 3** | Basic Topology of $\mathbb{R}$ | Topological Structures |
+| **Ch 4** | Functional Limits and Continuity | |
+| **Ch 5** | The Derivative | |
+| **Ch 6** | Sequences and Series of Functions | ***Important*** |
+| **Ch 7** | The Riemann Integral | |
+| **§ 8.5** | Fourier Series | ***Important***, **Our Goal** |

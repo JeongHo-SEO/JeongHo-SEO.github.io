@@ -12,13 +12,13 @@ image: "cover.png"      # 썸네일 이미지
 ### Course Description
 2026년도 봄학기에 DGIST에서 수강한 "학부생을 위한 해석학 개론" 강의를 정리한 Lecture Note입니다.  
 [DGIST 안흥주 교수님](https://scholar.dgist.ac.kr/researcher/acdc3119-4b60-4371-8c9d-a671ebe96e8e)께서 강의하셨으며, 교수님께서 주차별로 강의록의 초안을 markdown 파일로 작성해주셨습니다.  
-해석개론 강의의 과제로서 *교수님의 강의록(`.md`)*을 원본으로 하여, 강의록의 내용을 정리 및 변경, 추가하여 정리하였습니다. (내용 오류 수정 및 증명 추가 등)  
+해석개론 강의의 과제로서 ***교수님의 강의록(`.md`)***을 원본으로 하여, 증명 및 Exercises에 대한 풀이와 같은 내용을 추가하고, 일부 내용은 수정과 함께 보기 쉽게 정리하였습니다.  
 
 교수님께 직접 `변경 및 배포 등에 대한 허가`를 구하여 게시하게 되었음을 알립니다.
 
 
 ### Main Textbook
-`Understanding Analysis, 2nd edition | Stephen Abbott`
+Understanding Analysis, 2nd edition | Stephen Abbott
 ![Main Textbook: Understanding Analysis](cover.png)
 
 ## Contents

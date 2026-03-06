@@ -1,0 +1,361 @@
+---
+title: "Week01: Proof-Bootcamp"
+author: "Jeong-Ho SEO"
+date: "2026-03-06"
+---
+
+# Week 1: Why Analysis? + Proof Bootcamp
+
+## Introduction
+
+Welcome to Introduction to Mathematical Analysis! This first week serves as a crucial foundation for everything that follows. While you've mastered calculus computations, mathematical analysis requires a different mindset - one built on rigorous proof and logical reasoning. 
+
+This week addresses the fundamental question: "Why do we need such rigor?" We'll explore situations where mathematical intuition fails, requiring careful logical analysis. We'll also equip you with the essential proof-writing tools needed throughout this course.
+
+## Knowledge Points
+
+### 1. Why Rigor Matters
+- Understanding the limitations of computational intuition
+- Historical counterexamples that challenged mathematical understanding
+- The role of rigor in engineering and scientific applications
+- When approximations break down and exact proofs become essential
+
+### 2. Logic Review (Section 1.2)
+- **Quantifiers**: Understanding "for all" (∀) and "there exists" (∃)
+- **Negation**: How to properly negate statements with quantifiers
+- **Contrapositive**: Understanding equivalence of "if P then Q" and "if not Q then not P"
+- **Logical connectives**: AND, OR, NOT, IMPLIES
+- Truth tables and logical equivalence
+
+### 3. Brief Review of Set Theory (Section 1.2)
+- **Set**: A collection of distinct objects
+- **Set Operations**: Union, intersection, difference, complement, power set, Cartesian product
+- **Set Notation**: ∈ (element of), ∉ (not element of), ∅ (empty set), ∪ (union), ∩ (intersection), Aᶜ (complement)
+- **Set Properties**: Commutativity, associativity, distributivity, De Morgan's laws
+- **Function**: A rule that assigns to each element of a set a unique element of another set
+- **Function Notation**: f(x), f: A → B, f(x) = y, domain, codomain, range, preimage
+- **Function Properties**: Injectivity, surjectivity, bijectivity
+- **Function Operations**: Composition, inverse, identity, set-theoretic operations
+
+### 4. Proof Techniques (Section 1.2)
+- **Direct Proof**: Starting from assumptions and reaching conclusions
+- **Proof by Contradiction**: Assuming the opposite and deriving impossibility
+- **Mathematical Induction**: Proving statements for all natural numbers
+- **Proof by Cases**: Breaking complex statements into manageable scenarios
+
+### 5. Practice with Simple Number Theory Proofs (Section 1.2)
+- Divisibility properties
+- Even and odd numbers
+- Prime numbers and basic properties
+- Modular arithmetic basics
+
+### 6. Natural Number $\mathbb{N}$, Integer $\mathbb{Z}$, Rational Number $\mathbb{Q}$, Real Number $\mathbb{R}$, and Complex Number $\mathbb{C}$
+- The natural numbers are the work of God (Kronecker).
+- The other numbers are the work of man.
+
+
+## Detailed Explanations
+
+### 1. Why Rigor Matters
+
+Mathematical rigor isn't just about being pedantic - it's about ensuring our conclusions are actually true. Consider these classic examples:
+
+**Example 1: Pointwise Limits of Continuous Functions**
+You might think that if each function in a sequence is continuous, their limit must also be continuous. This is false! The sequence fₙ(x) = xⁿ on [0,1] consists of continuous functions, but the limit function $\left(\lim_{n\rightarrow \infty}f_n(x)\right)$ is discontinuous at x = 1.
+
+**Example 2: Rearranging Series**
+In calculus, you learned that addition is commutative. But for infinite series, this fails! The alternating harmonic series 1 - 1/2 + 1/3 - 1/4 + ... converges to ln(2), but rearranging the terms can make it converge to any real number you want!
+
+These examples show why engineers and scientists need analysis: numerical methods, Fourier series, and differential equations all rely on these subtle mathematical properties.
+
+---
+
+### 2. Logic Review 
+
+**Universal and Existential Quantifiers are the foundation of mathematical statements:**
+
+- "∀x ∈ ℝ, x² ≥ 0" means "For every (or all, or a given, or any) real number x, x squared is non-negative"
+- "∃x ∈ ℝ, x² = 2" means "There exists (or is)  a real number x such that x squared equals 2"
+
+**The order in which quantifiers occur is often critical:**
+- "∀x ∈ ℝ, ∃y ∈ ℝ, x + y = 0" means "For every real number x, there exists a real number y such that x + y = 0" (True)
+- "∃y ∈ ℝ, ∀x ∈ ℝ, x + y = 0" means "There exists a real number y such that for every real number x, x + y = 0" (False)
+
+**Negating quantifiers follows a simple rule:**
+- NOT(∀x, P(x)) is equivalent to ∃x, NOT(P(x))
+- NOT(∃x, P(x)) is equivalent to ∀x, NOT(P(x))
+
+**Examples:**
+- The negation of "All students passed the exam" is "There exists a student who did not pass the exam."
+- The negation of "There exists a student who passed the exam" is "All students failed the exam."
+
+**Truth Tables on and, or, not, implies, and logical equivalence:**  
+- $p, q, r, \ldots$ are called **proposition**.
+
+|$p$|$q$|$\neg p$|$\neg q$|$p\land q$|$\neg p \lor \neg q$|$p\lor q$|$\neg p \land \neg q$|$p\implies q$|$\neg q \implies \neg p$|$\neg p \lor q$|
+|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
+|T|T|F|F|T|F|T|F|T|T|T|
+|T|F|F|T|F|T|T|F|F|F|F|
+|F|T|T|F|F|T|T|F|T|T|T|
+|F|F|T|T|F|T|F|T|T|T|T|
+
+We can check the **Equivalent proposition** such as
+$$\left(p \implies q\right) \iff \left(\neg p \lor q\right)$$
+from the truth table.
+
+---
+
+### 3. Set Theory Review
+
+**Set**: A collection of distinct objects, but this is a undefined notion (_collection_ should be defined in set theory). In set theory, we do not define _set_ as a collection of objects, but as a _set_ of objects.
+ 
+**Set Notations and Operations**: 
+- $x \in A$ ($x$ is an _element_ of $A$), and $x \notin A$ ($x$ is not an element of $A$)   
+- $A \subset B$ ($A$ is a subset $B$) $\iff$ $\forall x \in A$, $x \in B$ ($x \in A \implies x \in B$)
+  - similar to $\subseteq$ (subset or equal), and more examples are:
+  - $\supset$ (superset), $\supseteq$ (superset or equal)
+  - $\not\subset$ (not subset), $\not\subseteq$ (not subset and not equal)
+  - $\not\supset$ (not superset), $\not\supseteq$ (not superset and not equal)
+  - proper subset (denoted by $\subset$ or $\subsetneq$), proper superset (denoted by $\supset$ or $\supsetneq$)
+- $A=B \iff A \subset B \land A \supset B$
+- $\emptyset$ is defined as the set with no elements (we accept the existence of the empty set as an axiom)
+  - $\emptyset \in \emptyset, \emptyset \in A$ for any non-empty set A
+  - (proof using truth table) $\left(x\in\emptyset \implies x \in A \right)$ is true since $x \in \emptyset$ is false.
+- $A \cup B$ (union of $A$ and $B$) is defined as $\{x \mid x \in A \lor x \in B\}$
+- $\bigcup_{i \in I} A_i$ is defined as $\{x \mid x \in A_i \text{ for some } i \in I\}$, and we say $I$ as the *index set*.
+- $A \cap B$ (intersection of $A$ and $B$) is defined as $\{x \mid x \in A \land x \in B\}$
+- $\bigcap_{i \in I} A_i$  is defined as $\{x \mid x \in A_i \text{ for all } i \in I\}$
+- $A \setminus B$ (difference of $A$ and $B$) is defined as $\{x \mid x \in A \land x \notin B\}$
+- $A^c$ (complement of $A$ with respect to a universal set $X$) is defined as $\{x \in X \mid x \notin A\}$
+- $A \times B$ (Cartesian product of $A$ and $B$) is defined as $\{(x,y) \mid x \in A \land y \in B\}$
+- $P(A)$ (power set of $A$) is defined as $\{B \mid B \subseteq A\}$
+  - For example,
+  - $P(\emptyset) = \{\emptyset\}$
+  - $P(\{1,2\}) = \{\emptyset, \{1\}, \{2\}, \{1,2\}\}$
+  
+
+> **Theorem**: Commutativity, associativity, distributivity, De Morgan's laws
+1. $A \cup B = B \cup A$, $A \cap B = B \cap A$
+2. $A \cup (B \cup C) = (A \cup B) \cup C$, $A \cap (B \cap C) = (A \cap B) \cap C$
+3. $A \cup (\bigcap_{i \in I} B_i) = \bigcap_{i \in I} (A \cup B_i)$ 
+4. $A \cap (\bigcup_{i \in I} B_i) = \bigcup_{i \in I} (A \cap B_i)$
+5. If $X$ is a universal set, then $A^c = X \setminus A = X \cap A^c$
+6. $A \subset B \iff A^c \supset B^c$, and $(A^c)^c = A$
+7. De Morgan's laws: $\big(\bigcap_{i \in I} A_i\big)^c = \bigcup_{i \in I} A_i^c$ and $\big(\bigcup_{i \in I} A_i\big)^c = \bigcap_{i \in I} A_i^c$
+
+
+**Definition**: $f: X \to Y$ is a _function_ from $X$ to $Y$ if for every $x \in X$, there exists a unique $y \in Y$ such that $f(x) = y$. 
+- $f(x)$ is the image of $x$ under $f$, and more generally, $f(A)=\{f(x) \mid x \in A\}$ is the image (or range) of $A$ under $f$, 
+- $f^{-1}(B)=\{x \in X \mid f(x) \in B\}$ is the preimage of $B$ under $f$. 
+- $f$ is one-to-one (injective) if $f(x_1) = f(x_2) \implies x_1 = x_2$ for all $x_1, x_2 \in X$.
+- $f$ is onto (surjective) if for every $y \in Y$, there exists an $x \in X$ such that $f(x) = y$. In other words, $f\left(X\right) = Y$.
+- $f$ is bijective if it is both injective and surjective.
+- Graph of $f$ is $\{(x,f(x)) \in X \times Y \mid x \in X\}$.
+- If $g: Y \to Z$ is a function, then $g \circ f: X \to Z$ is the _composition_ of $f$ and $g$.
+
+**Definition**: Let $f: X \to Y$ be a bijective function. Then $f$ has an _inverse function_ $f^{-1}: Y \to X$ defined by $f^{-1}(y) = x$ where $f(x) = y$.
+
+> **Theorem**: $f:X \to Y$ is a bijective function if and only if there exists a function $g: Y \to X$ such that $g(f(x)) = x$ for all $x \in X$ and $f(g(y)) = y$ for all $y \in Y$. (In this case, $g = f^{-1}$.)
+
+Recall that for the identity function $\mathrm{Id}$,
+$$
+g = f^{-1} \Leftrightarrow f\circ g = g\circ f = \mathrm{Id}
+$$
+
+**Proof**:  
+($\implies$) If $f$ is bijective, take $g = f^{-1}$. Then $f^{-1}(f(x)) = x$ and $f(f^{-1}(y)) = y$ hold by definition.
+
+($\impliedby$) Assume there exists $g: Y \to X$ with $g(f(x)) = x$ for all $x \in X$ and $f(g(y)) = y$ for all $y \in Y$.  
+
+Suppose that $f(x_1)=f(x_2)$ for arbitrary $x_1, x_2 \in X$. Then
+$$
+x_1=g(f(x_1))=g(f(x_2))=x_2,
+$$
+so we conclude $x_1=x_2$ (injectivity).
+
+For surjectivity, pick any $y \in Y$. By setting $x = g\left(y\right)$, we have $x = g\left(y\right) \in X$ and $f(x)=f\left(g\left(y\right)\right)=y$.  
+This shows that $\forall y \in Y, \exists x \in X$ such that $f\left(x\right)=y$ (surjectivity). $\quad \blacksquare$
+
+
+> **Theorem**: Let $f: X \to Y$ and $A_i \subset X$ for $i \in I$, $B_j \subset Y$ for $j \in J$, and $A\subset X$, $B\subset Y$. Then the following holds: 
+
+1. $f(\bigcup_{i \in I} A_i) = \bigcup_{i \in I} f(A_i)$ and $f(\bigcap_{i \in I} A_i) \subset \bigcap_{i \in I} f(A_i)$.
+2. $f^{-1}(\bigcup_{j}(B_j)) = \bigcup_{j} f^{-1}(B_j)$ and $f^{-1}(\bigcap_{j}(B_j)) = \bigcap_{j} f^{-1}(B_j)$.
+3. $A \subset f^{-1}(f(A))$. Equality holds if $f$ is injective.
+4. $f(f^{-1}(B)) \subset B$. Equality holds if $f$ is surjective.
+5. $f^{-1}(Y \setminus B) = X \setminus f^{-1}(B)$.
+
+**Proof**: Note that $A=B \iff A \subset B \land B \subset A$  
+
+We only prove the first statement.
+1. To show $f(\bigcup_{i \in I} A_i) = \bigcup_{i \in I} f(A_i)$, we need to show that $f(\bigcup_{i \in I} A_i) \subset \bigcup_{i \in I} f(A_i)$ and $\bigcup_{i \in I} f(A_i) \subset f(\bigcup_{i \in I} A_i)$.
+- ($\subset$) Suppose $y \in f(\bigcup_{i \in I} A_i)$, then $y=f(x)$ for some $x \in \bigcup_{i \in I} A_i$, so that $x \in A_i$ for some $i \in I$ by the definition of union. Hence $y=f(x) \in f(A_i)$ for some $i \in I$, which means $y \in \bigcup_{i \in I} f(A_i)$.
+- ($\supset$) Suppose $y \in \bigcup_{i \in I} f(A_i)$, then $y=f(x)$ for some $x \in A_i$ so that for some $i \in I$. $x \in \bigcup_{i \in I} A_i$ by the definition of union. Hence $y=f(x) \in f(\bigcup_{i \in I} A_i)$.
+- Next, to show $f(\bigcap_{i \in I} A_i) \subset \bigcap_{i \in I} f(A_i)$, suppose $y \in f(\bigcap_{i \in I} A_i)$, then $y=f(x)$ for some $x \in \bigcap_{i \in I} A_i$. Thus $x \in A_i$ for all $i \in I$ by the definition of intersection. Hence $y=f(x) \in f(A_i)$ for all $i \in I$, which means $y \in \bigcap_{i \in I} f(A_i)$. $\quad \blacksquare$
+
+
+### 4. Proof Techniques
+
+A proof in mathematics is a logical argument that establishes the truth of a mathematical statement beyond any doubt. It consists of a sequence of deductions from axioms, definitions, and previously established theorems, following the rules of formal logic. There are inference rules that allow us to derive new statements from existing ones. 
+
+**Inference Rules**: 
+1. Modus ponens (전건긍정): $p \land (p \implies q) \implies q$
+2. Modus tollens (후건 부정): $\neg q \land (p \implies q) \implies \neg p$
+3. Hypothetical syllogism (가언 삼단논법): $(p \implies q) \land (q \implies r) \implies (p \implies r)$
+4. Disjunctive syllogism (선언 삼단논법): $(p \lor q) \land \neg p \implies q$
+
+Let me explain the inference rules in more detail. If we know the statement $p$ is true and  $(p \implies q)$ is true, then we can infer that $q$ is true. This is because if $p$ is true and $p \implies q$ is true, then $q$ must be true (see Truth Table). This is the inference rule of modus ponens.
+
+**Key Features of a Mathematical Proof**
+- Logical Deduction: Each step follows from previous steps using rules of inference.
+- Rigor: Every claim made in the proof must be justified.
+- Universality: A proof shows that a statement is true in all cases where its assumptions hold, not just for specific examples.
+- Verifiability: Anyone following the proof logically should arrive at the same conclusion.
+
+
+**Direct Proof Structure:**
+1. State what you're given (hypotheses)
+2. State what you need to prove (conclusion)
+3. Use logical steps to connect them
+4. Conclude with Q.E.D. (quod erat demonstrandum)
+
+**Proof by Contradiction Structure:**
+1. Assume the opposite of what you want to prove
+2. Use logical reasoning to derive a contradiction
+3. Conclude that your assumption was false
+4. Therefore, the original statement must be true
+
+**Mathematical Induction Structure:**
+1. **Base Case**: Prove the statement for n = 1 (or starting value)
+2. **Inductive Hypothesis**: Assume the statement holds for n = k
+3. **Inductive Step**: Prove it holds for n = k + 1 using the hypothesis
+4. **Conclusion**: The statement holds for all natural numbers
+
+**Proof by Cases Structure:**
+1. Consider all possible cases
+2. Prove the statement for each case
+3. Conclude that the statement holds in all cases
+
+### 5. Number Theory Proofs
+
+**Example: Prove that the sum of two even numbers is even.**
+
+*Direct Proof:*  
+Let a and b be even numbers. By definition, a = 2m and b = 2n for some integers m, n.
+Then a + b = 2m + 2n = 2(m + n).  
+Since m + n is an integer, a + b is even.
+
+**Example: Prove that √2 is irrational.**
+
+*Proof by Contradiction:*  
+Assume √2 is rational. Then √2 = p/q where p, q are integers with no common factors (q is non-zero integer).  
+Squaring both sides: 2 = p²/q², so p² = 2q².
+This means p² is even, so p must be even. Let p = 2k.
+Then (2k)² = 2q², so 4k² = 2q², which means q² = 2k².
+Thus q² is even, so q must be even.  
+But if both p and q are even, they have a common factor of 2, contradicting our assumption.
+Therefore, √2 is irrational.
+
+**Example**: Prove that $\sum_{i=1}^n i = \frac{n(n+1)}{2}$
+
+*Proof by Induction:*  
+If $n=1$, then $\sum_{i=1}^1 i = \frac{1(1+1)}{2} = 1$.  
+Assume $\sum_{i=1}^k i = \frac{k(k+1)}{2}$ for some $k \in \mathbb{N}$. 
+Then $\sum_{i=1}^{k+1} i = \sum_{i=1}^k i + (k+1) = \frac{k(k+1)}{2} + (k+1) = \frac{(k+1)(k+2)}{2}$.  
+By the principle of mathematical induction, $\sum_{i=1}^n i = \frac{n(n+1)}{2}$ for all natural numbers $n$. $\quad \blacksquare$ 
+
+**Definition: Modular Arithmetic**  
+: $a \equiv b \pmod{m}$ if $a-b$ is divisible by $m$, more precisely, $a-b = km$ for some integer $k$. 
+
+**Example**: For every integer $n$, $n^2 \equiv 0$ or $1 \pmod{4}$. 
+
+*Proof by Cases*:  
+Every integer $n$ can be written as $n=4k$ or $n=4k+1$ or $n=4k+2$ or $n=4k+3$ for some integer $k$.  
+(i) if $n=4k$, then $n^2 = 16 k^2 = 4 * (4k^2) \equiv 0 \pmod{4}$.  
+(ii) if $n=4k+1$, then $n^2 = 16 k^2 + 8k + 1 = 4 * (4k^2 + 2k) + 1 \equiv 1 \pmod{4}$.  
+(iii) if $n=4k+2$, then $n^2 = 16 k^2 + 16k + 4 = 4 * (4k^2 + 4k + 1) \equiv 0 \pmod{4}$.  
+(iv) if $n=4k+3$, then $n^2 = 16 k^2 + 24k + 9 = 4 * (4k^2 + 6k + 2) + 1 \equiv 1 \pmod{4}$. $\quad \blacksquare$
+
+
+**Caution**: Case proof is logically a proof of a disjunction.
+If you miss even one possibility, the entire proof collapses.
+
+### 6. Number System
+
+**Natural Number**: $\mathbb{N}=\{1,2,\dots\}$ with addition and multiplication operations.
+
+**Integer**: $\mathbb{Z}=\{\dots,-2,-1,0,1,2,\dots\}$. Add additive identity $0$ and additive inverse $-a$ for every $a \in \mathbb{Z}$.
+
+**Rational Number**: $\mathbb{Q}=\{\frac{p}{q} \mid p \in \mathbb{Z}, q \in \mathbb{N} \}$ to satisfy the field axioms.
+
+**Real Number, Complex number** will be defined later.
+
+**Expansion of the Number Systems**: $\mathbb{N} \subset \mathbb{Z} \subset \mathbb{Q} \subset \mathbb{R}$  
+- First, the God generated natural number $\mathbb{N}$.
+- Second, Mathematicans thought about the ***identity and inverse w.r.t addition(+)***. This makes the integer number $\mathbb{Z}$ - zero and negative integer system.
+- Third, Mathematicans thought about the ***inverse w.r.t product$\left(\cdot\right)$***. This generated the rational number $\mathbb{Q} = \{\frac{p}{q}: p \in \mathbb{Z}, q \in \mathbb{N} \}$.
+- Fourth, Mathematicans found the real number $\mathbb{R}$ in the *Right-angled triangle*, well known theorem as ***Pythagorean Theorem***.
+- Note that the number system $\mathbb{Z}, \mathbb{Q}, \mathbb{R}$ were generated.
+- Indeed, $\mathbb{Q}, \mathbb{R}$ are field, although $\mathbb{N}, \mathbb{Z}$ are not field.
+
+## Exercises
+
+1. Negate the statement: "For every positive number ε, there exists a natural number N such that..."
+   - "There exists a positive number $\varepsilon$, for every natural number N such that [negation of the condition...]"
+
+2. Prove that the product of two odd numbers is odd.
+    - Set the two odd numbers as $2m+1, 2n+1$ for arbitrary $m,n \in \mathbb{Z}$. Then $\left(2m+1\right) \times \left(2n+1\right) = 4mn + 2m + 2n + 1 = 2* (2mn + m + n) + 1 \equiv 1 \pmod{2}$
+
+3. Prove by induction that $1^2 + 2^2 + \dots + n^2 = n(n+1)(2n+1)/6$ for all natural numbers n.
+    - $n=1$, $1^2 = 1*2*3/6$
+    - $n=k \in \mathbb{N}$, Suppose that $\sum_{i=1}^{k} i^2 = \frac{k(k+1)(k+2)}{6}$
+    - $n=k+1$, $\sum_{i=1}^{k+1} i^2 = \sum_{i=1}^k i^2 + (k+1)^2 = \frac{k(k+1)(2k+1)}{6} + (k+1)^2 = \frac{k+1}{6} * \left[k(2k+1) + 6(k+1)\right] = \frac{k+1}{6} * \left(2k^2 + 7k + 6\right) = \frac{(k+1)(k+2)(2k+3)}{6}$
+
+4. Prove that there are infinitely many prime numbers (proof by contradiction).
+    - Suppose that there are only a finite number of prime numbers. Let these primes be denoted by the set: $P = \{p_1, p_2, p_3, \dots, p_n\}$ where $p_n$ is the largest prime number in existence.
+    - Consider a new integer $Q$ constructed by multiplying all known primes and adding $1$: $Q = (p_1 \times p_2 \times \dots \times p_n) + 1$
+    - Case1: Suppose that Q is a prime number. Since $Q > p_n$, so that $Q \notin P$. (contradiction)
+    - Case2: Suppse that Q is not a prime number, that is a composite number (합성수). Note that $Q \neq 1$. Thus Q has a divisor $q \in P$. However, $Q \equiv 1 \pmod {p_i}$ for all $i = 1, 2, \dots, n$. This conclude that for all $i$, $p_i \neq q$. (contradiction) 
+
+
+5. Prove that a real number $a$ is zero if and only if $\forall \epsilon > 0$, $|a| < \epsilon$.
+    - $\left(\implies\right)$ If a=0, then $|a| =0 < \epsilon$ for every positive $\epsilon$.
+    - $\left(\impliedby\right)$ Suppose $a \neq 0$. Then, $|a|$ must be a strictly positive number. Since the statement $|a| < \epsilon$ holds for every $\epsilon > 0$, we can choose a specific value for $\epsilon$.  
+    Let $\epsilon_0 = \frac{|a|}{2}$. Since $|a| > 0$, it follows that $\epsilon_0 > 0$. According to our assumption, $|a| < \epsilon_0$ must hold. Substituting $\epsilon_0$:$\left| a \right| < \frac{\left| a \right|}{2}$ so that $1 < \frac{1}{2}$. (Contraditcion)  
+    Thus $a = 0$.
+
+6. Finish the proof of the example above: For every integer $n$, $n^2 \equiv 0$ or $1 \pmod{4}$.
+    - See above.
+
+## Connection to Calculus, Engineering, and Sciences
+
+### Calculus
+Every major theorem in this course is proved using exactly the techniques from this week:
+- **Direct proof**: the Algebraic Limit Theorem (Week 3) is proved by chaining inequalities from hypotheses to conclusion.
+- **Proof by contradiction**: irrationality of $\sqrt{2}$, infinitude of primes, and the Archimedean property all use this method.
+- **Induction**: estimates of the form $|a_n - L| \leq C/n$ are established inductively to control error at every stage.
+- **Proof by cases**: the Order Limit Theorem and absolute value arguments constantly split into cases $x \geq 0$ and $x < 0$.
+- **Quantifier negation**: writing the negation of "$\lim a_n = L$" (i.e., the definition of divergence) is a direct application of negating $\forall \varepsilon$, $\exists N$, $\forall n \geq N$.
+
+### Computer Science and Logic
+- **Boolean logic and circuit design**: the logical connectives AND, OR, NOT and their truth tables are exactly what digital circuits implement. De Morgan's laws ($\neg(A \land B) = \neg A \lor \neg B$) are used in circuit simplification and hardware description languages (VHDL, Verilog).
+- **Formal verification**: software correctness proofs (proving that a program meets its specification) use the same inference rules — modus ponens, hypothetical syllogism — that we listed. Tools like Coq and Isabelle are automated proof assistants built on these foundations.
+- **Databases**: set operations (union, intersection, difference, Cartesian product) are the mathematical basis of relational algebra, which underlies SQL. Every `JOIN`, `UNION`, and `WHERE` clause is a set-theoretic operation.
+- **Algorithm correctness**: proving that a loop terminates and produces the correct output uses induction on the number of iterations. The "loop invariant" technique is mathematical induction in disguise.
+
+### Engineering
+- **Reliability and fault-tree analysis**: in systems engineering, a fault tree is a logical diagram using AND/OR gates to model how component failures combine to cause system failure. The probability of system failure is computed using inclusion-exclusion, a direct consequence of De Morgan's laws applied to events.
+- **Control flow in embedded systems**: conditions in firmware (`if/else`, `while`, `assert`) implement logical propositions directly. Understanding when a compound condition is true or false — especially after negation — is essential for writing correct safety-critical code.
+
+### Sciences
+- **Mathematical modeling**: any scientific model is a collection of hypotheses (axioms) together with derived predictions (theorems). The logical structure — what follows from what — is what makes a model falsifiable. Proof by contradiction is what we do when we reject a null hypothesis.
+- **Statistical hypothesis testing**: rejecting a null hypothesis $H_0$ at significance level $\alpha$ is logically equivalent to: "Assuming $H_0$, the observed data has probability $< \alpha$ — a contradiction — therefore $H_0$ is rejected." This is modus tollens.
+
+### Road to Fourier Series (§8.5)
+The ultimate goal of this course is to understand **Fourier series**: the representation of a periodic function $f$ as an infinite series of sines and cosines,
+$$f(x) = \frac{a_0}{2} + \sum_{n=1}^\infty \left[a_n \cos(nx) + b_n \sin(nx)\right].$$
+This week's tools appear at every stage of that story:
+- **Quantifiers**: the central question of Fourier analysis — "does $S_N f(x) \to f(x)$?" — is a statement of the form $\forall \varepsilon > 0,\, \exists N,\, \forall n \geq N,\, |S_n f(x) - f(x)| < \varepsilon$. You cannot even state the question without quantifiers.
+- **Proof by contradiction**: the Riemann–Lebesgue lemma (Fourier coefficients $a_n, b_n \to 0$) and examples of divergent Fourier series are proved by contradiction.
+- **Proof by cases**: uniform convergence arguments for Fourier series split into cases based on whether $x$ is a point of continuity, a jump discontinuity, or an endpoint.
+- **Induction**: bounding partial sums $|S_N f(x)|$ by a uniform constant uses inductive estimates on trigonometric identities (Dirichlet kernel).

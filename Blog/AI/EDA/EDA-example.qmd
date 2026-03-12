@@ -202,4 +202,3 @@ print(
 print("Average salary by department:")
 print(employees_clean.groupby("department")["salary"].mean().round(2))
 ```
-

@@ -1,0 +1,7 @@
+# Python dependencies for rendering Quarto posts
+
+jupyter
+nbformat
+nbclient
+numpy
+pandas

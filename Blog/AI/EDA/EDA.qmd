@@ -1,0 +1,205 @@
+---
+title: "Data Wrangling (Pre-processing): Simple Employee Dataset"
+date: 2026-03-12
+description: "A full data wrangling pipeline built on a course assignment (DGIST BE202). Covers missing values, text cleaning, datetime parsing, and aggregation using pandas."
+toc: true
+number-sections: true
+jupyter: python3
+---
+
+Complete a full data wrangling workflow on this messy dataset:
+
+1. Explore the data and identify ALL problems
+2. Handle missing values appropriately
+3. Clean text inconsistencies in `department` and `status`
+4. Convert `hire_date` to datetime and extract year
+5. Filter to show only 'Active' employees from 'Engineering'
+6. Calculate the average salary by department
+
+```{python}
+import numpy as np
+import pandas as pd
+```
+
+```{python}
+# Create challenge dataset
+employees = pd.DataFrame({
+    'emp_id': [1, 2, 3, 4, 5, 6, 7, 8],
+    'name': ['Kim', 'Lee', 'Park', 'Choi', 'Jung', 'Kang', 'Yoon', 'Jang'],
+    'department': ['Engineering', 'ENGINEERING', ' Sales', 'engineering', np.nan, 'Sales', 'HR', 'hr '],
+    'salary': [75000, 80000, 55000, np.nan, 90000, 52000, 48000, np.nan],
+    'hire_date': ['2020-01-15', '2019-06-20', '2021-03-10', '2020-11-05',
+                  '2018-08-22', '2022-02-14', '2021-09-01', '2020-04-18'],
+    'status': ['Active', 'active', 'Active', 'ACTIVE', 'Inactive', ' active', 'Active', 'inactive']
+})
+print("Messy employee data:")
+print(employees)
+```
+
+---
+# EDA
+
+```{python}
+print("=== Data Exploration ===")
+print(f"Shape: {employees.shape}")
+print(f"\nHead:\n{employees.head()}")
+print(f"\nInfo: \n{employees.info()}")
+print(f"\nDescription: \n{employees.describe()}")
+```
+
+## Problems
+- NaN (missing values) - `department` and `salary` column (Non-Null Count)
+- Identity? (unique representation) - Need to check for the column `department` and `status`. The other columns are okay because of their property
+- Data type? (time-series should be pandas datetime) - `hire_date` is now "string"
+
+```{python}
+print("===Identity Problems ===")
+print(f"1. Missing values:\n{employees.isna().sum()}")
+
+print(f"\n2.1. Unique departments:\n{employees['department'].unique()}")
+print(f"\n2.2. Unique status:\n{employees['status'].unique()}")
+
+print(f"\n3. hire_data dtype: {employees['hire_date'].dtype}")
+```
+
+## Solution
+- NaN (missing values) - columns with NA are: `department`, `salary`
+- Identity? (unique representation) - `department`, `status` have to be identified.
+- Time-series (Not pandas datetime, just string)
+
+
+# Handling Missing Values
+
+```{python}
+# Count missing values per column
+print("Missing values per column:")
+print(employees.isna().sum())
+
+# Percentage of missing values
+print("\nMissing percentage per column:")
+print((employees.isna().sum() / len(employees) * 100).round(1))
+```
+
+- Since the Missing percentage are not large, so I will fill the NA.
+  - Categorical variable `department`: fill with "Unknown"
+  - Numerical variable `salary`: fill with the "mean" or "median", and it will be decided from the distribution
+
+```{python}
+print(employees['salary'].describe())
+print(f"\nskew: {employees['salary'].skew()}")
+```
+
+- Choose the "mean" to fill `salary` NA, since
+  - mean is similar to the median(50%), so that the distribution might be symmetry
+  - and the skew is not quite large.
+
+```{python}
+# Drop vs Fill examples
+print(f"Original rows: {len(employees)}")
+
+# Drop rows with any NaN
+employees_dropped = employees.dropna()
+print(f"After dropna(): {len(employees_dropped)} rows")
+
+# Fill in the "department"
+employees_filled = employees.copy()
+employees_filled['department'] = employees_filled['department'].fillna('Unknown')
+
+# Fill in the "salary"
+employees_filled['salary'] = employees_filled['salary'].fillna(employees_filled['salary'].mean())
+
+print(f"\n\rAfter filling: \n\r{employees_filled}")
+print(f"After filling: {employees_filled.isna().sum().sum()} missing values")
+```
+
+# Text Cleaning
+
+```{python}
+print("Unique departments:")
+print(employees_filled['department'].unique())
+
+print(f"\nValue counts (before cleaning):")
+print(employees_filled['department'].value_counts())
+```
+
+- `departments`
+  - The problems are: whitespace, lower or upper cases
+  - Remove the whitespace and using the title form
+
+```{python}
+employees_clean = employees_filled.copy()
+employees_clean['department'] = employees_clean['department'].str.strip().str.title()
+
+print("After cleaning:")
+print(employees_clean['department'].value_counts())
+```
+
+```{python}
+print("Unique status:")
+print(employees_filled['status'].unique())
+
+print(f"\nValue counts (before cleaning):")
+print(employees_filled['status'].value_counts())
+```
+
+- `status`
+  - The problems are: whitespace, lower or upper cases
+  - Remove the whitespace and using the lower form
+
+```{python}
+employees_clean['status'] = employees_clean['status'].str.strip().str.lower()
+
+print("After cleaning:")
+print(employees_clean['status'].value_counts())
+```
+
+# Datetime Handling
+
+```{python}
+# Check the hire_date column
+print("hire_date values:")
+print(employees_clean['hire_date'])
+print(f"\nData type: {employees_clean['hire_date'].dtype}")
+```
+
+- It's not the datetype for Pandas, but string
+  - Convert to datetype
+- Also, the format is unique. (YYYY-MM-DD)
+  - Use the default format, not 'mixed'
+- Lastly, create the `year`, `month` column (Not essential, I will create only `year`)
+
+```{python}
+employees_clean['hire_date'] = pd.to_datetime(employees_clean['hire_date'])
+employees_clean['year'] = employees_clean['hire_date'].dt.year
+
+print("Extracted components:")
+employees_clean[['name', 'department', 'hire_date', 'year']]
+```
+
+# Some Applications
+
+```{python}
+print("After cleaning, employee data:")
+print(employees_clean)
+```
+
+## Filter to show only 'Active' employees from 'Engineering'
+
+```{python}
+print("Active employees in the Engineering department:")
+print(
+    employees_clean[
+        (employees_clean["status"] == 'active') & (employees_clean["department"] == 'Engineering')
+    ]
+)
+```
+
+- In the "Engineering" department, all employees are "active".
+
+## Calculate the average salary by department
+
+```{python}
+print("Average salary by department:")
+print(employees_clean.groupby("department")["salary"].mean().round(2))
+```
+
